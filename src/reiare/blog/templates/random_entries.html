@@ -1,0 +1,9 @@
+{% load blog_extras %}
+<div id="pastRandomEntriesBox">
+	<h4>過去“にっき”らんだむ</h4>
+	<ul>
+		{% for entry in entries %}
+			<li><a href="{{ entry.get_absolute_url }}" title="{{ entry.title|escape }}">{{ entry.title|omit }}</a></li>
+		{% endfor %}
+	</ul>
+</div>

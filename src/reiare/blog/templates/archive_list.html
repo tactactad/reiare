@@ -1,0 +1,18 @@
+<div id="backnumberNavigation">
+	{% for archive in archives %}
+		{% ifchanged archive.year %}
+			{% if not forloop.first %}</p>{% endif%}
+			<p>{{ archive.year }}&nbsp;-
+		{% endifchanged %}
+		{% ifequal year archive.year %}
+			{% ifequal month archive.month %}
+				<span style="font-weight: bold">{{ archive.verbose_month }}</span>
+			{% else %}
+				<a href="{{ archive.get_absolute_url }}">{{ archive.verbose_month }}</a>
+			{% endifequal %}
+		{% else %}
+			<a href="{{ archive.get_absolute_url }}">{{ archive.verbose_month }}</a>
+		{% endifequal %}
+		{% if forloop.last %}</p>{% endif %}
+	{% endfor %}
+</div>

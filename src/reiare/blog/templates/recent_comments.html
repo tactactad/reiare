@@ -1,0 +1,11 @@
+<script type="text/javascript">
+<!--
+   function getRecentComments(page) {
+      getSidebarContent('recentCommentsBox', 'recentCommentsLoadingImageBox', '/blog/recent_comments/' + page + '/');
+   }
+// -->
+</script>
+<div id="recentCommentsBox">
+  {% include "recent_comments_box.html" %}
+</div>
+<div id="recentCommentsLoadingImageBox" style="display: none;"><img src="/site_media/icon/ajax-loader1.gif" width="13" height="13" /></div>

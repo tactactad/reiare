@@ -1,0 +1,6 @@
+<ul title="{{ tag }}">
+{% for entry in entries %}
+<li><a href="{{ entry.get_touch_url }}">{{ entry }}</a><span class="date">{{ entry.created|date:"Y/n/j (D) ah:i" }}</span</li>
+{% endfor %}
+<li><a href="/blog/touch/tag/{{ tag|urlencode }}/more_entries/2/" target="_replace">もう10件……。</a></li>
+</ul>

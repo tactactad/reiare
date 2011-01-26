@@ -1,0 +1,7 @@
+<h4><a href="javascript:void(0)" onclick="getLastfm('recent_tracks'); return false;" title="最近聴いた曲">&lt;</a>&nbsp;先週聴いた曲&nbsp;<a href="javascript:void(0)" onclick="getLastfm('top_tracks'); return false;" title="よく聴く曲TOP10">&gt;</a></h4>
+<ol>
+  {% for track in objects %}
+	<li><a href="{{ track.url }}">{{ track.name }} - {{ track.artist }}</a>（{{ track.play_count }}回）</li>
+  {% endfor %}
+</ol>
+{% include "lastfm_cc.html" %}

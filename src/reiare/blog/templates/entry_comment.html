@@ -1,0 +1,21 @@
+{% comment %}Ajax用のこめんとテンプレート{% endcomment %}
+<p class="toCommentLink marginBottom1">
+  <img src="/site_media/icon/ajax-loader.gif" width="10" height="10" id="commentBoxNowLoading{{ entry.id }}" style="display: none;" />
+  <a onclick="getEntryComment('{{ entry.id }}');return false;" href="javascript:void(0)">こめんと</a>（{{ entry.published_comment_count }}）
+</p>
+
+<div class="commentBox" id="commentBox{{ entry.id }}">
+{% for comment in entry.published_comment_list %}
+	<div class="comment">
+		{{ comment.body|escape|linebreaks }}
+		<p>{{ comment.created|date:"Y/n/j H:i" }} - {{ comment.author }} さん</p>
+	</div>
+{% endfor %}
+</div>
+
+<div class="commentForm">
+	<form method="post" action="{{ entry.get_absolute_url }}post_comment/" onsubmit="postEntryComment('{{ entry.id }}'); return false;" id="entryCommentForm{{ entry.id }}" accept-charset="utf-8"><fieldset>
+	    {{ form.as_p }}
+		<p><input type="submit" value="投稿" id="submitButton{{ entry.id }}" disabled  /></p>
+	</fieldset></form>
+</div>

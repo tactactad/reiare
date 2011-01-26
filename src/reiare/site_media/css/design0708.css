@@ -1,0 +1,600 @@
+@charset "utf-8";
+@import url("base.css");
+
+body {
+	background-color: #fdfef0;
+	color: #597d23;
+	font-family: "Trebuchet MS", sans-serif;
+}
+
+a:link {
+	text-decoration: none;
+	color: #597d23;
+	border-bottom: 1px solid #dbe6be;
+}
+
+a:visited {
+  color: #39581f;
+  text-decoration: none;
+  border-bottom: 1px solid #dbe6be;
+}
+
+a:hover {
+	color: #39581f;
+	background-color: #fcfded;
+	border-bottom: 1px solid #aecb6e;
+}
+
+div#border1 {
+	border-style: solid;
+	border-color: #e1efa2;
+	border-left-width: 5px;
+	border-top-width: 0px;
+	border-right-width: 5px;
+	border-bottom-width: 0px;
+}
+
+div#border2 {
+	border-style: solid;
+	border-color: #686923;
+	border-left-width: 1px;
+	border-top-width: 0px;
+	border-right-width: 1px;
+	border-bottom-width: 0px;
+	background-color: #fff;
+}
+
+div#hd {
+	color: #fff;
+	padding-top: 0.5em;
+	margin-bottom: 1em;
+	border-bottom: 1px solid #e1efa2;
+  /*border-bottom: 1px solid #686923;*/
+}
+
+div#hd h1 a {
+  font-size: 1.5em;
+  text-decoration: none;
+  font-weight: bold;
+  text-shadow : #e1efa2 0.2em 0.2em 0.2em;
+  margin-left: 0.5em;
+}
+
+div#hd h1 a:link, div#headerBox h1 a:hover,
+div#hd h1 a:visited, div#headerBox h1 a:active {
+	color: #72a12d;
+	border: none;
+}
+
+div#hd p {
+	color: #90ba11;
+	font-size: 0.8em;
+	margin-left: 3em;
+}
+
+/*div#yui-main div.yui-b {
+	border: 1px solid #000;
+}
+
+div.yui-b {
+	border: 1px solid #000;
+}*/
+
+div#navigationBarBox {
+  margin-top: 0.5em;
+  /*margin-bottom: 1em;*/
+  padding: 0.3em;
+  background-color: #e1efa2;
+  border-top: 1px solid #686923;
+  border-bottom: 1px solid #686923;
+  color: #597d23;
+}
+
+div#yui-main div.yui-b h2 {
+    width: 75%;
+    /*margin-left: 0.5em;*/
+    margin-bottom: 1em;
+    padding: 0.2em;
+    border-left: 5px solid #72a12d;
+    border-bottom: 1px solid #72a12d;
+}
+
+div#yui-main div.yui-b div.blogEntryBox {
+	margin-bottom: 4em;
+}
+
+div#yui-main div.yui-b div.blogEntryBox h3.blogEntryTitle
+{
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+	padding: 0.1em;
+	padding-left: 0.5em;
+	line-height: 1.5;
+	background-color: #72a12d;
+	color: #fff;
+	font-weight: bold; text-shadow : #686923 0.2em 0.2em 0.2em;
+  border: 1px solid #597d23;
+}
+
+div#yui-main div.yui-b div.blogEntryBox h3.blogEntryTitle .date,
+div#yui-main div.yui-b div.blogEntryBox .classesMark,
+div#yui-main div.yui-b dl#entryList dt .date
+{
+  font-size : 0.8em;
+}
+
+div#yui-main div.yui-b div.blogEntryBox div.blogEntryBody,
+div#yui-main div.yui-b dl#entryList dd div.entryBody
+{
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  padding: 0.5em;
+}
+
+div#yui-main div.yui-b div.blogEntryBox div.blogEntryBody p,
+div#yui-main div.yui-b dl#entryList dd div.entryBody p
+{
+  line-height: 1.8;
+  margin-bottom: 1em;
+}
+
+div#yui-main div.yui-b div.blogEntryBox div.blogEntryBody ul,
+div#yui-main div.yui-b dl#entryList dd div.entryBody ul
+{
+  margin-left: 2em;
+  margin-top: 1em;
+  list-style-type: disc;
+}
+
+div#yui-main div.yui-b div.blogEntryBox div.blogEntryBody ul li,
+div#yui-main div.yui-b dl#entryList dd div.entryBody ul li
+{
+  font-size: 0.8em;
+  line-height: 1.5;
+  list-style-type: disc;
+}
+
+div#yui-main div.yui-b div.blogEntryBox div.blogEntryBody p.entryTags,
+div#yui-main div.yui-b dl#entryList dd div.entryBody p.entryTags
+{
+  padding-left: 50%;
+  font-size: 0.8em;
+  line-height: 1.5;
+  text-align: right;
+  margin-right: 0.5em;
+  /*border: 1px solid #000;*/
+}
+
+div#yui-main div.yui-b div.blogEntryBox div.blogEntryBody img,
+div#yui-main div.yui-b div.blogEntryBox div.blogEntryBody embed,
+div#yui-main div.yui-b dl#entryList dd div.entryBody img,
+div#yui-main div.yui-b dl#entryList dd div.entryBody embed
+{
+  border: none;
+  margin: 0.5em;
+}
+
+/* reflection.js 対応の為追加 */
+div#yui-main div.yui-b div.blogEntryBox div.blogEntryBody p div,
+div#yui-main div.yui-b dl#entryList dd div.entryBody p div
+{
+  margin:0.5em;
+}
+
+div#yui-main div.yui-b div.blogEntryBox div.blogEntryBody p div img,
+div#yui-main div.yui-b div.blogEntryBox div.blogEntryBody canvas,
+div#yui-main div.yui-b dl#entryList dd div.entryBody p div img,
+div#yui-main div.yui-b dl#entryList dd div.entryBody canvas
+{
+  border: none;
+  margin: 0;
+}
+/* reflection.js 対応の為追加 */
+
+div#yui-main div.yui-b div.blogEntryBox div.blogEntryBody blockquote,
+div#yui-main div.yui-b dl#entryList dd div.entryBody blockquote
+{
+  border: 1px dotted #dbe6be;
+  background-color: #fdfef0;
+  margin-left: 2em;
+  margin-right: 2em;
+  margin-bottom: 1em;
+  padding: 0.5em;
+  line-height: 1.8;
+}
+
+div#yui-main div.yui-b div.blogEntryBox div.blogEntryBody blockquote p,
+div#yui-main div.yui-b dl#entryList dd div.entryBody blockquote p
+{
+  margin-bottom: 0
+}
+
+div#yui-main div.yui-b div.blogEntryBox div.blogEntryBody p q,
+div#yui-main div.yui-b dl#entryList dd div.entryBody p q
+{
+  border: 1px dotted #dbe6be;
+  background-color: #fdfef0;
+  padding: 0.2em;
+}
+
+div#yui-main div.yui-b div.blogEntryBox div.blogEntryBody .code,
+div#yui-main div.yui-b dl#entryList dd div.entryBody .code
+{
+    font-family : monospace;
+    margin-right : 2em;
+    margin-left : 2em;
+    padding : 5px;
+    color : #597d23;
+    border : 1px solid #72a12d;
+    text-align : left;
+    margin-bottom: 1em;
+}
+
+div#yui-main div.yui-b div.blogEntryBox h3.blogEntryTitle a:link,
+div#yui-main div.yui-b div.blogEntryBox h3.blogEntryTitle a:visited,
+div#yui-main div.yui-b div#diaryListBox table td p.pagingNavigationBox a:link,
+div#yui-main div.yui-b div#diaryListBox table td p.pagingNavigationBox a:visited,
+div#sidebarBox.yui-b div#associateBox h4 a:link,
+div#sidebarBox.yui-b div#associateBox h4 a:visited
+{
+  color: #fff;
+  border-bottom: none;
+}
+
+div#yui-main div.yui-b div.blogEntryBox h3.blogEntryTitle a:hover,
+div#yui-main div.yui-b div#diaryListBox table td p.pagingNavigationBox a:hover,
+div#sidebarBox.yui-b div#associateBox h4 a:hover {
+	background-color: #39581f;
+}
+
+div#yui-main div.yui-b div.blogEntryBox p.toCommentLink,
+div#yui-main div.yui-b dl#entryList dd div p.toCommentLink
+{
+  text-align: right;
+  font-size: 0.8em;
+  padding-right: 1em;
+}
+
+div#yui-main div.yui-b div.blogEntryBox div.commentBox,
+div#yui-main div.yui-b dl#entryList dd div div.commentBox
+{
+  width: 80%;
+  margin-left: auto;
+  text-align: right;
+  margin-right: 1em;
+}
+
+div#yui-main div.yui-b div.blogEntryBox div.commentForm,
+div#yui-main div.yui-b dl#entryList dd div div.commentForm
+{
+  text-align: right;
+  padding-right: 1em;
+}
+
+div#yui-main div.yui-b div.blogEntryBox div.commentBox div.comment,
+div#yui-main div.yui-b dl#entryList dd div div.commentBox div.comment
+{
+  border-bottom: 1px solid #72a12d;
+  margin-bottom: 1em;
+}
+
+div#yui-main div.yui-b div.blogEntryBox div.commentBox div.comment p,
+div#yui-main div.yui-b dl#entryList dd div div.commentBox div.comment p
+{
+  line-height: 1.5;
+  font-size: 0.8em;
+  margin-bottom: 1em;
+}
+
+div#yui-main div.yui-b div.blogEntryBox div.commentForm p,
+div#yui-main div.yui-b dl#entryList dd div div.commentForm p
+{
+  margin-bottom: 0.5em;
+}
+
+div#yui-main div.yui-b div.blogEntryBox div.commentForm input,
+div#yui-main div.yui-b div.blogEntryBox div.commentForm textarea,
+div#yui-main div.yui-b dl#entryList dd div div.commentForm input,
+div#yui-main div.yui-b dl#entryList dd div div.commentForm textarea
+{
+  border: 1px solid #72a12d;
+}
+
+div#yui-main div.yui-b div#moreEntriesBox {
+  margin-left: 1.5em;
+  margin-bottom: 1em;
+}
+
+div#yui-main div.yui-b div#backnumberNavigation {
+    margin-left: 0.2em;
+    margin-right: 0.2em;
+    font-size: 0.8em;
+    border-top: 1px solid #72a12d;
+    padding-top: 0.2em;
+    padding-left: 0.5em;
+  line-height: 1.2;
+    /*margin-bottom: 1em;*/
+}
+
+div#yui-main div.yui-b p.monthNavigation {
+	text-align: center;
+	margin-bottom: 1em;
+}
+
+div#yui-main div.yui-b div#listHeaderBox {
+  margin-left: 0.5em;
+}
+
+div#yui-main div.yui-b table#entryImageList
+{
+  /*margin-left: auto;
+  margin-right: auto;*/
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  margin-bottom: 1em;
+  border-collapse: collapse;
+  border-style: solid;
+  border-spacing: 1px;
+  border: 1px solid #72a12d;
+  text-align: left;
+}
+
+div#yui-main div.yui-b table#entryImageList tr td
+{
+  padding: 0.5em;
+  border: 1px solid #72a12d;
+}
+
+div#yui-main div.yui-b table#entryImageList tr td p
+{
+  font-size: 0.8em;
+  margin-left: 0.2em;
+}
+
+div#yui-main div.yui-b p#modeToggle
+{
+  text-align: center;
+  margin-bottom: 0.5em;
+}
+
+div#yui-main div.yui-b p#modeToggle img
+{
+  
+}
+
+div#yui-main div.yui-b dl#entryList
+{
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  margin-bottom: 1em;
+  border: 1px solid #72a12d;
+  border-width: 1px 1px 0px 1px;
+}
+
+div#yui-main div.yui-b dl#entryList dt
+{
+  line-height: 1.5;
+  padding: 0.2em 0.5em;
+}
+
+div#yui-main div.yui-b dl#entryList dt.row1
+{
+  background-color: #e1efa2;
+}
+
+div#yui-main div.yui-b dl#entryList dt.row2
+{
+  background-color: #fdfef0;
+}
+
+div#yui-main div.yui-b dl#entryList dd
+{
+  border-bottom: 1px solid #72a12d;
+}
+
+div#yui-main div.yui-b dl#entryList dd div.entryBody
+{
+  margin-bottom: 1em;
+}
+
+div#yui-main div.yui-b dl#entryList dt.activeEntryTitle
+{
+  font-weight: bold;
+  background-color: #72a12d;
+  color: #fff;
+}
+
+div#yui-main div.yui-b dl#entryList dt.activeEntryTitle a:link,
+div#yui-main div.yui-b dl#entryList dt.activeEntryTitle a:visited,
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u h4 a:link,
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u h4 a:visited
+{
+  color: #fff;
+}
+
+div#yui-main div.yui-b dl#entryList dt.activeEntryTitle a:hover,
+div#yui-main div.yui-b dl#entryList dt.activeEntryTitle a:active,
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u h4 a:hover,
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u div#lastFMRecentTracks h4 a:active
+{
+  color: #fff;
+  background-color: #486237;
+}
+
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u div#tagsBox,
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u div#recentEntriesBox,
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u div#pastRandomEntriesBox,
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u div#topicBox,
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u div#authorBox,
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u div#associateBox,
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u div#pastRandomEntriesBox,
+div#yui-main div.yui-b div#tagsBox,
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u div#googleSiteSearchBox,
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u div#lastfmContent,
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u div#recentCommentsBox {
+	font-size: 0.8em;
+    margin-right: 0.5em;
+	margin-bottom: 1em;
+	border: 1px solid #72a12d;
+	padding: 1px;
+}
+
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u div#tagsBox p,
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u div#recentEntriesBox li,
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u div#pastRandomEntriesBox li,
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u div#topicBox p,
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u div#authorBox p,
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u div#associateBox p,
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u div#pastRandomEntriesBox li,
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u div#lastfmContent li,
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u div#recentCommentsBox li,
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u div#topicBox li {
+  padding: 2px;
+  line-height: 1.5;
+}
+
+div#bd div.yui-b div#amazonAsamashiesBox {
+  font-size: 0.8em;
+  margin-right: 0.5em;
+  margin-bottom: 1em;
+  padding: 1px;
+  line-height: 1.5;
+}
+
+/*div#bd div.yui-b div#amazonAsamashiesBox img {
+  padding: 5px;
+}*/
+
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u div#googleSiteSearchBox table {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/*div#bd div#yui-main div.yui-b div.yui-ge div.yui-u p,
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u li,
+div#yui-main div.yui-b div#entryFooterBox li,
+div#yui-main div.yui-b div#entryFooterBox p {
+    padding: 0.2em;
+    line-height: 1.5;
+}*/
+
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u div#lastfmLoadingImageBox,
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u div#recentEntriesLoadingImageBox,
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u div#recentCommentsLoadingImageBox {
+  text-align: center;
+  margin-bottom: 0.5em;
+}
+
+div#bd div#yui-main div.yui-b div.yui-ge div.yui-u h4,
+div#yui-main div.yui-b div#entryFooterBox h4 {
+    text-align: left;
+	background-color: #72a12d;
+	padding: 0.2em;
+	color: #fff;
+}
+
+/*div#yui-main div.yui-b div#entryFooterBox {
+	width: 590px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+}*/
+
+/*div#yui-main div.yui-b div#recentEntriesBox,
+div#yui-main div.yui-b div#pastRandomEntriesBox,
+div#yui-main div.yui-b div#tagsBox {
+	float: left;
+	width: 180px;
+}*/
+
+div#yui-main div.yui-b div#bannerBox {
+	text-align: center;
+	margin-left: 1em;
+	margin-right: 1em;
+	margin-bottom: 4em;
+	border-top: 1px solid #72a12d;
+	border-bottom: 1px solid #72a12d;
+	padding: 1em;
+}
+
+div#yui-main div.yui-b div.googleBanner {
+	margin-bottom: 1em;
+}
+
+div#yui-main div.yui-b div.amazonBanner {
+	
+}
+
+div#yui-main div.yui-b div.rakutenBanner { text-align: center;  }
+div#yui-main div.yui-b div.rakutenBanner table { margin-left: auto; margin-right: auto;}
+div#yui-main div.yui-b div.rakutenBanner table th,
+div#yui-main div.yui-b div.rakutenBanner table td { padding: 0.3em; }
+
+div#yui-main div.yui-b div#trackWordBanner { margin-top: -3em; margin-bottom: 2em;
+                                             text-align: center; }
+
+/* CSS */
+.systemMessage {
+    color : orangered;
+    font-weight : bold;
+    border : 2px dotted orangered;
+    padding : 2px;
+    width : 95%;
+    text-align : center;
+    line-height : 1.5;
+    margin-bottom: 5px;
+}
+
+/*.errorlist { text-align: right; }*/
+.errorlist li { color: orangered; font-weight: bold; border: 2px dotted orangered; text-align: center;
+                width: 20em; padding: 0.2em; margin-left: auto; margin-bottom: 0.2em; }
+
+/*.code {
+    font-family : monospace;
+    margin-right : 2em;
+    margin-left : 2em;
+    width : 80%;
+    padding : 5px;
+    color : #597d23;
+    border : 1px solid #72a12d;
+    text-align : left;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}*/
+
+.bg1 {
+    background-color : #72a12d;
+}
+
+.bg2 {
+    background-color : #72a12d;
+	color : white;
+}
+
+.bg3 {
+	background-color: #fff;
+}
+
+.bg4 {
+    background-color : #ffffff;
+}
+
+.bg5 {
+    background-color : #fdfef0;
+}
+
+div#ft {
+	margin-top: 1em;
+	border-top: 1px solid #e1efa2;
+	font-size: 0.8em;
+    font-weight: bold;
+    text-align:center;
+}
+
+/* paginator用CSS */
+.paginator { padding: .25em .25em .6em .25em; text-align: center; }
+.paginate-pages { padding: 2px 3px; border: 1px solid #ddd; cursor: pointer; text-decoration: underline; }
+.paginate-first, .paginate-last { padding: 2px 6px; border: 1px solid #ddd; font-weight: bold; }
+.paginate-previous, .paginate-next { padding: 2px 3px; border: 1px solid #ddd; }
+.paginate-link { padding: 2px 4px; border: 1px solid #ddd; }
+.paginate-current { padding: 2px 4px; border: 1px solid #ddd; font-weight: bold; background:#72a12d; color:#f4f379; }

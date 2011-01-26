@@ -1,0 +1,4 @@
+{% for entry in entries %}
+  <li><a href="{{ entry.get_touch_url }}">{{ entry }}</a><span class="date">{{ entry.created|date:"Y/n/j (D) ah:i" }}</span</li>
+{% endfor %}
+<li><a href="/blog/touch/{% if tag %}tag/{{ tag|urlencode }}/{% endif %}more_entries/{{ page_num }}/" target="_replace">もう10件……</a></li>

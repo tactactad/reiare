@@ -1,0 +1,91 @@
+{% load blog_extras %}
+{% load markup %}
+<div class="blogEntryBox">
+  <h3 class="blogEntryTitle">
+    {{ object.title }}
+    <span class="date">- {{ object.created|date:"Y/n/j (D) ah:i" }} -</span> {% if object.id %}<a href="{{ object.get_absolute_url }}" title="perma link" class="fontSizeSmall">▼</a>{% endif %}
+  </h3>
+
+  <div class="blogEntryBody">
+	{% if not PREVIEW %}{% if not list_mode %}
+	  {% if forloop.first %}{% ifequal SHOW_BANNERS 'True' %}{{ "/blog/banner2/"|flat_page_content_by_url }}{% endifequal %}{% endif %}
+	  {% if not forloop.counter %}{% ifequal SHOW_BANNERS 'True' %}{{ "/blog/banner2/"|flat_page_content_by_url }}{% endifequal %}{% endif %}
+	{% endif %}{% endif %}
+
+    <p>{{ object.body|linebreaksbr }}</p>
+	{% comment %}{{ object.body|restructuredtext }}{% endcomment %}
+
+{% if not PREVIEW %}
+{% if forloop.first %}{% ifequal SHOW_BANNERS 'True' %}{{ "/blog/banner/"|flat_page_content_by_url }}{% endifequal %}{% endif %}
+{% if not forloop.counter %}{% ifequal SHOW_BANNERS 'True' %}{{ "/blog/banner/"|flat_page_content_by_url }}{% endifequal %}{% endif %}
+{% endif %}
+
+    {% if object.id %}
+      {% for rel_object in object.published_rel_entries %}
+        {% if forloop.first %}<ul>{% endif %}
+        <li><a href="{{ rel_object.get_absolute_url }}">{{ rel_object.title }}</a></li>
+	{% if forloop.last %}</ul>{% endif %}
+      {% endfor %}
+
+      {% for tag in object.tags.all %}
+        {% if forloop.first %}<p class="entryTags">たぐ - {% endif %}
+        <a href="/blog/tag/{{ tag.name|urlencode }}/">{{ tag.name }}</a>
+	{% if forloop.last %}</p>{% endif %}
+      {% endfor %}
+    {% endif %}
+  </div>
+
+  {% if object.id %}
+  <div id="entryComment{{ object.id }}" class="alignRight">
+    <p class="toCommentLink marginBottom1">
+	  {% if is_ajax %}
+	    <img src="/site_media/icon/ajax-loader.gif" width="10" height="10" id="commentBoxNowLoading{{ object.id }}" style="display: none;" />
+		<a href="javascript:void(0)" onclick="getEntryComment('{{ object.id }}');return false;">こめんと</a>
+	  {% else %}
+        <script type="text/javascript">
+        <!--
+	       generateEntryCommentLink({{ object.id }});
+        // -->
+        </script><noscript><a href="{{ object.get_absolute_url }}">こめんと</a></noscript>
+	  {% endif %}（{{ object.published_comment_count }}）</p>
+
+    {% if do_display_comments %}
+      {% for comment in object.published_comment_list %}
+        {% if forloop.first %}<div class="commentBox" id="commentBox{{ object.id }}">{% endif %}
+          <div class="comment">
+	    <p>{{ comment.body|escape|linebreaksbr }}</p>
+  	    <p>{{ comment.created|date:"Y/n/j H:i" }} - {{ comment.author }} さん</p>
+	  </div>
+	{% if forloop.last %}</div>{% endif %}
+      {% endfor %}
+    {% else %}
+      <div id="commentBox{{ object.id }}" style="display: none;"></div>
+    {% endif %}
+
+    {% if do_display_comment_form %}
+      {% if object.allow_comment %}
+        <div class="commentForm">
+	  <form method="post" action="{{ object.get_absolute_url }}post_comment/" accept-charset="utf-8" onsubmit="postEntryComment('{{ object.id }}'); return false;" id="entryCommentForm{{ object.id }}"><fieldset>
+	      {{ form.as_p }}
+	      <input type="submit" value="投稿" id="submitButton{{ object.id }}" />
+	  </fieldset></form>
+        </div>
+
+        <script type="text/javascript">
+        <!--
+	    $('submitButton{{ object.id }}').disabled = true;
+	    new Form.Observer('entryCommentForm{{ object.id }}', 0.5, function(element, value) {
+	       elements = value.toQueryParams();
+	       if (elements['author'] != null && elements['body'] != null) {
+	          $('submitButton{{ object.id }}').disabled = false;
+	       } else {
+	          $('submitButton{{ object.id }}').disabled = true;
+	       }
+	    });
+        // -->
+        </script>
+      {% endif %}
+    {% endif %}
+  </div>
+  {% endif %}
+</div>

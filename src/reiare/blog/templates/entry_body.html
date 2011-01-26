@@ -1,0 +1,16 @@
+{% comment %}Ajaxで渡す用のエントリー本文テンプレート{% endcomment %}
+<p>{{ entry.body|safe|linebreaksbr }}</p>
+{% for rel_object in entry.published_rel_entries %}
+  {% if forloop.first %}<ul>{% endif %}
+    <li><a href="{{ rel_object.get_absolute_url }}">{{ rel_object.title }}</a></li>
+  {% if forloop.last %}</ul>{% endif %}
+{% endfor %}
+
+{% for tag in entry.tags.all %}
+  {% if forloop.first %}<p class="entryTags">たぐ - {% endif %}
+  <a href="/blog/tag/{{ tag.name|urlencode }}/">{{ tag.name }}</a>
+  {% if forloop.last %}</p>{% endif %}
+{% endfor %}
+<div id="entryComment{{ entry.id }}" class="alignRight">
+{% include "entry_comment.html" %}
+</div>

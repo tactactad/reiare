@@ -1,0 +1,47 @@
+.alignCenter {
+	text-align: center;
+}
+
+.alignLeft {
+	text-align: left;
+}
+
+.alignRight {
+	text-align: right;
+}
+
+.marginBottom1 {
+	margin-bottom: 1em;
+}
+
+.floatLeft {
+	float: left;
+}
+
+.floatRight {
+	float: right;
+}
+
+.clearLeft {
+	clear: left;
+}
+
+.clearRight {
+	clear: right;
+}
+
+.clearBoth {
+	clear: both;
+}
+
+.fontSizeSmall {
+	font-size: 0.8em;
+}
+
+strong { font-weight: bold; }
+
+/* djangologging—pCSS */
+div#django_log
+{
+	text-align: left;
+}

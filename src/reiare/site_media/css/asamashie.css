@@ -1,0 +1,356 @@
+@charset "utf-8";
+@import url("base.css");
+
+body {
+  background-color: #fdfef0;
+  color: #597d23;
+  font-family: "Trebuchet MS", sans-serif;
+}
+
+a:link {
+  text-decoration: none;
+  color: #597d23;
+  /*color: #39581f;*/
+  border-bottom: 1px solid #dbe6be;
+}
+
+a:visited {
+  color: #39581f;
+  /*color: #597d23;*/
+  text-decoration: none;
+  border-bottom: 1px solid #dbe6be;
+}
+
+a:hover {
+  color: #39581f;
+  background-color: #fcfded;
+  border-bottom: 1px solid #aecb6e;
+}
+
+div#border1 {
+  border-style: solid;
+  border-color: #e1efa2;
+  border-left-width: 5px;
+  border-top-width: 0px;
+  border-right-width: 5px;
+  border-bottom-width: 0px;
+}
+
+div#border2 {
+  border-style: solid;
+  border-color: #686923;
+  border-left-width: 1px;
+  border-top-width: 0px;
+  border-right-width: 1px;
+  border-bottom-width: 0px;
+  background-color: #fff;
+}
+
+div#hd {
+  color: #fff;
+  padding-top: 0.5em;
+  margin-bottom: 1em;
+  border-bottom: 1px solid #e1efa2;
+}
+
+div#hd h1 a {
+  font-size: 1.5em;
+  text-decoration: none;
+  font-weight: bold;
+  text-shadow : #e1efa2 0.2em 0.2em 0.2em;
+  margin-left: 0.5em;
+}
+
+div#hd h1 a:link, div#headerBox h1 a:hover,
+div#hd h1 a:visited, div#headerBox h1 a:active {
+  color: #72a12d; border: none;
+}
+
+div#hd h2 {
+  color: #90ba11;
+  font-size: 0.8em;
+  margin-left: 3em;
+}
+
+div#hd p,
+div#hd h3 {
+  color: #597d23;
+  margin: 0.5em;
+  line-height: 1.5;
+}
+
+div#hd p.siteInformation {
+  border-top: 1px solid #e1efa2;
+  padding-top: 0.5em;
+}
+
+div#hd p.headerSiteNavigation {
+  margin-left: 0em;
+  margin-right: 0em;
+  background-color: #e1efa2;
+  padding: 0.2em;
+  border-top: 1px solid #686923;
+  border-bottom: 1px solid #686923;
+}
+
+div#hd p.pageInformation,
+h3.pageInformation {
+ margin-left: 1em;
+}
+
+div#hd p.pageInformation strong,
+div#hd h3.pageInformation strong {
+  font-weight: bold;
+}
+
+div#bd div#yui-main div.yui-b h3 {
+  margin-left: 0.5em;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+div#bd div#yui-main div.yui-b div#searchForm {
+  margin-left: 3em;
+  margin-right: 3em;
+  margin-bottom: 1em;
+  color: #fff;
+  text-align: center;
+  background-color: #597d23;
+  border: 1px solid #39581f;
+  padding: 0.5em;
+}
+
+div#bd div#yui-main div.yui-b div#searchForm p.keywordInput input#id_keyword {
+  /*border: 2px solid #72a12d;*/
+}
+
+div#bd div#yui-main div.yui-b div#searchForm p.keywordHelpText {
+  line-height: 1.5;
+  font-size: 0.8em;
+}
+
+div#bd div#yui-main div.yui-b div.yui-gb div.yui-u div#categoryBox,
+div#hd div.yui-gb div#categoryBox {
+  border: 1px solid #597d23;
+  margin-top: 1em;
+  margin-left: 0.5em;
+  margin-bottom: 1em;
+}
+
+div#hd div.yui-gb div#categoryBox {
+  margin-right: 0.5em;
+  color: #597d23;
+}
+
+div#bd div#yui-main div.yui-b div.yui-gb div.yui-u div#categoryBox h4,
+div#hd div.yui-gb div#categoryBox h3 {
+  background-color: #72a12d;
+  color: #fff;
+  padding: 0.3em;
+  font-weight: bold;
+}
+
+div#bd div#yui-main div.yui-b div.yui-gb div.yui-u div#categoryBox h4 {
+  border-bottom: 1px solid #597d23;
+}
+
+div#hd hr {
+  border-style: solid;
+  border-color: #72a12d;
+  border-width: 0px;
+  border-top-width: 1px;
+  margin-bottom: 1em;
+}
+
+div#bd div#yui-main div.yui-b ul.categories,
+div#hd div.yui-gb div.yui-u ul.categories {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.5;
+}
+
+div#bd div#yui-main div.yui-b dl.words {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  line-height: 1.5;
+}
+
+div#bd div#yui-main div.yui-b dl.words dt,
+div#bd div#yui-main div.yui-b ul.categories li,
+div#hd div.yui-gb div.yui-u ul.categories li {
+  line-height: 1.5;
+  margin-bottom: 0.5em;
+}
+
+div#bd div#yui-main div.yui-b dl.words dd {
+  margin-left: 2em;
+  /*margin-bottom: 0.5em;*/
+  line-height: 1.5;
+}
+
+div#bd div#yui-main div.yui-b div#counts {
+  text-align: center;
+  line-height: 1.5;
+  margin-bottom: 1em;
+}
+
+div#bd div#yui-main div.yui-b div#items {
+  margin-left: 0.5em; margin-right: 0.5em;
+}
+
+div#bd div#yui-main div.yui-b div#items div.itemBox,
+div#bd div#yui-main div.yui-b div#items div.itemBox2 {
+  margin-bottom: 1em;
+}
+
+div#bd div#yui-main div.yui-b div#items div.itemBox2 {
+  background-color: #fdfef0;
+}
+
+div#bd div#yui-main div.yui-b div#items div.itemBox p,
+div#bd div#yui-main div.yui-b div#items div.itemBox2 p {
+  line-height: 1.8;
+}
+
+div#bd div#yui-main div.yui-b div#items div.itemBox h4.itemTitle,
+div#bd div#yui-main div.yui-b div#items div.itemBox2 h4.itemTitle {
+  /*margin-left: 0.5em;
+  margin-right: 0.5em;*/
+  padding: 0.2em;
+  padding-left: 0.5em;
+  line-height: 1.8;
+  background-color: #72a12d;
+  color: #fff;
+  font-weight: bold; text-shadow : #686923 0.2em 0.2em 0.2em;
+}
+
+div#bd div#yui-main div.yui-b div#items div.itemBox h4.itemTitle a:link,
+div#bd div#yui-main div.yui-b div#items div.itemBox h4.itemTitle a:visited,
+div#bd div#yui-main div.yui-b div#items div.itemBox2 h4.itemTitle a:link,
+div#bd div#yui-main div.yui-b div#items div.itemBox2 h4.itemTitle a:visited {
+  color: #fff;
+  text-decoration: none;
+}
+
+div#bd div#yui-main div.yui-b div#items div.itemBox h4.itemTitle a:hover,
+div#bd div#yui-main div.yui-b div#items div.itemBox2 h4.itemTitle a:hover {
+  background-color: #39581f;
+}
+
+div#bd div#yui-main div.yui-b div#items div.itemBox div.itemBody,
+div#bd div#yui-main div.yui-b div#items div.itemBox2 div.itemBody {
+  margin: 0.5em;
+}
+
+div#bd div#yui-main div.yui-b div#items div.itemBox img,
+div#bd div#yui-main div.yui-b div#items div.itemBox2 img {
+  padding: 0px;
+  margin: 0.5em;
+  border: 1px solid #e1efa2;
+}
+
+div#bd div#yui-main div.yui-b div#items div.itemBox p.itemCaption,
+div#bd div#yui-main div.yui-b div#items div.itemBox2 p.itemCaption {
+  /*margin-top: 1em;*/
+  margin-bottom: 1em;
+}
+
+div#bd div#yui-main div.yui-b div#items div p.toGenreSearch {
+  text-align: right;
+}
+
+div#bd div#yui-main div.yui-b p.notFoundMessage {
+  text-align: center;
+  line-height: 1.5;
+  margin-left: 1em;
+  margin-right: 1em;
+  margin-bottom: 1em;
+}
+
+div#bd div#sidebar div#recentKeywords,
+div#bd div#sidebar div#relKeywords,
+div#bd div#sidebar div#priceZoneSelector,
+div#bd div#sidebar div#escapeClauseBox {
+  margin-right: 0.5em;
+  padding: 1px;
+  border: 1px solid #72a12d;
+  margin-bottom: 1em;
+  /*font-size: 0.8em;*/
+}
+
+div#bd div#sidebar div#recentKeywords h3,
+div#bd div#sidebar div#relKeywords h3,
+div#bd div#sidebar div#priceZoneSelector h3,
+div#bd div#sidebar div#escapeClauseBox h3 {
+  padding: 0.3em;
+  color: #fff;
+  background-color: #597d23;
+  /*background-color: #72a12d;*/
+  font-weight: bold;
+  line-height: 1.5;
+}
+
+div#bd div#sidebar div#recentKeywords ul,
+div#bd div#sidebar div#relKeywords ul,
+div#bd div#sidebar div#priceZoneSelector ul {
+  margin-top: 0.3em;
+  margin-right: 0.5em;
+  margin-left: 0.5em;
+}
+
+div#bd div#sidebar div#recentKeywords ul li,
+div#bd div#sidebar div#relKeywords ul li,
+div#bd div#sidebar div#priceZoneSelector ul li {
+  line-height: 1.5;
+  margin-bottom: 0.5em;
+}
+
+div#bd div#sidebar div#priceZoneSelector ul li .selected,
+div#hd p.sortOrder span.selected {
+  margin-left: -3px;
+  padding: 2px 4px;
+  border: 1px solid #ddd;
+  font-weight: bold;
+  color: #f4f379;
+  background-color: #72a12d;
+}
+
+div#bd div#sidebar div#escapeClauseBox p {
+  margin-top: 0.3em;
+  margin-right: 0.5em;
+  margin-left: 0.3em;
+  line-height: 1.5;
+}
+
+div#footerNavigation {
+  text-align:center;
+}
+
+div#ft {
+	margin-top: 1em;
+	border-top: 1px solid #e1efa2;
+	font-size: 0.8em;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* paginator CSS */
+.paginator { padding: .25em .25em .6em .25em; text-align: center; }
+.paginate-pages { padding: 2px 3px; border: 1px solid #ddd; cursor: pointer; text-decoration: underline; }
+.paginate-first, .paginate-last { padding: 2px 6px; border: 1px solid #ddd; font-weight: bold; }
+.paginate-previous, .paginate-next { padding: 2px 3px; border: 1px solid #ddd; }
+.paginate-link { padding: 2px 4px; border: 1px solid #ddd; }
+.paginate-current { padding: 2px 4px; border: 1px solid #ddd; font-weight: bold; background:#72a12d; color:#f4f379; }
+
+.paginator p {
+  line-height: 1.8;
+}
+
+div.googleBanner {
+  margin-left: 2em;
+  margin-bottom: 1em;
+}

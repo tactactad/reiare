@@ -1,0 +1,12 @@
+{% for tag in tags %}
+	{% if forloop.first %}
+		<div id="tagsBox">
+			<h4>たぐ</h4>
+			<p>
+	{% endif %}
+				<a href="{{ tag.get_absolute_url }}">{{ tag }}</a>&nbsp;
+	{% if forloop.last %}
+			</p>
+		</div>
+	{% endif %}
+{% endfor %}

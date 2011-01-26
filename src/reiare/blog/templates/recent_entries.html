@@ -1,0 +1,11 @@
+<script type="text/javascript">
+<!--
+	function getRecentEntries(page) {
+	   getSidebarContent('recentEntriesBox', 'recentEntriesLoadingImageBox', '/blog/recent_entries/' + page + '/');
+	}
+// -->
+</script>
+<div id="recentEntriesBox">
+  {% include "recent_entries_box.html" %}
+</div>
+<div id="recentEntriesLoadingImageBox" style="display: none;"><img src="/site_media/icon/ajax-loader1.gif" width="13" height="13" /></div>

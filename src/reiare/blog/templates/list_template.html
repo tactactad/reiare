@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load blog_extras %}
+
+{% block feed %}<link rel="alternate" type="application/rss+xml" title="RSS" href="{{ tag.get_feeds_url }}" />{% endblock %}
+{% block title %}・{{ tag }}{% endblock %}
+{% block layout %}yui-t4{% endblock %}
+
+{% block navigation_bar %}<div id="navigationBarBox"><a href="/blog/">とっぷ</a> &gt; tag &gt; <strong><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</strong></a></div>{% endblock %}
+
+{% block content %}
+{% block content_title %}{% endblock %}
+<script type="text/javascript">
+<!--
+	var Paginator =
+	{
+	    jumpToPage: function(pages)
+	    {
+	        var page = prompt("1 から " + pages + " までの数字を入力すると、そのページを表示します。", "");
+	        if (page != undefined)
+	        {
+	            page = parseInt(page, 10)
+	            if (!isNaN(page) && page > 0 && page <= pages)
+	            {
+	                window.location.href = "?page=" + page;
+	            }
+	        }
+	    }
+	};
+// -->
+</script>
+{% if is_paginated %}<div class="paginator">{% paginator 5 %}</div>{% endif %}
+
+{% block content_body %}{% endblock %}
+
+{% if is_paginated %}<div class="paginator">{% paginator 5 %}</div>{% endif %}
+{% endblock %}

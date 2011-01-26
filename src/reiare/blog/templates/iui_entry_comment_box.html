@@ -1,0 +1,12 @@
+{% load blog_extras %}
+<h3>こめんと（{{ entry.published_comment_count }}）</h3><img src="/site_media/icon/ajax-loading.gif" width="10" height="10" id="commentBoxNowLoading{{ entry.id }}" style="display: none;" />
+{% for comment in entry.published_comment_list %}
+<p class="commentBody">{{ comment.body|escape|linebreaksbr }}</p>
+<p class="commentAuthor">{{ comment.created|date:"Y/n/j H:i" }} - {{ comment.author }} さん</p>
+{% endfor %}
+<div class="commentFormBox">
+  <form method="post" action="" onsubmit="postEntryComment('{{ entry.id }}'); return false;" id="entryCommentForm{{ entry.id }}" accept-charset="utf-8"><fieldset>
+	  {{ form.as_p }}
+	  <p><input type="submit" value="投稿" id="submitButton{{ entry.id }}" disabled  /></p>
+  </fieldset></form>
+</div>

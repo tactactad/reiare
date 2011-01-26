@@ -1,0 +1,8 @@
+{% extends "2.0/base.html" %}
+{% load blog_extras %}
+
+{% block content %}
+{% for object in latest %}
+  {% include "2.0/entry.html" %}
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}・けんさく結果{% endblock %}
+
+{% block layout %}{% ifequal SHOW_TOP_SIDEBAR 'True' %}yui-t4{% else %}yui-t7{% endifequal %}{% endblock %}
+
+{% block content %}
+{{ search_form }}
+{% for result in results %}
+{{ result }}<br />
+{% endfor %}
+{% endblock %}

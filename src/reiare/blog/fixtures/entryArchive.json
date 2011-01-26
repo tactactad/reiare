@@ -1,0 +1,14 @@
+[
+ {"model": "blog.entryarchive",
+  "pk": 1,
+  "fields": {
+      "yearmonth": "200909"
+  }
+ },
+ {"model": "blog.entryarchive",
+  "pk": 2,
+  "fields": {
+      "yearmonth": "201001"
+  }
+ }
+]

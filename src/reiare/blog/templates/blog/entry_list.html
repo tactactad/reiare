@@ -1,0 +1,45 @@
+{% extends "list_template.html" %}
+{% load blog_extras %}
+
+{% block content_title %}
+<div id="listHeaderBox">
+  <h2>“{{ tag }}”な記事の一覧{% if tag.entry_images.count %}<span class="fontSizeSmall">（<a href="/blog/tag/{{ tag|urlencode }}/image/">画像一覧</a>）</span>{% endif %}</h2>
+  {% ifequal SHOW_BANNERS 'True' %}{{ "/blog/banner2/"|flat_page_content_by_url }}{% endifequal %}
+</div>
+{% endblock %}
+
+{% block content_body %}
+<p id="modeToggle">
+    {% ifequal list_mode "close" %}
+      <a href="/blog/tag/{{ tag }}/?page={{ page }}&mode=open" title="本文を表示"><img src="/site_media/icon/opened_green.gif" width="16" height="16" /></a>
+    {% else %}
+      <a href="/blog/tag/{{ tag }}/?page={{ page }}&mode=close" title="本文を隠す"><img src="/site_media/icon/closed_green.gif" width="16" height="16" /></a>
+    {% endifequal %}
+</p>
+{% if object_list %}
+  {% ifequal list_mode "close" %}
+    <script type="text/javascript" src="/site_media/js/closedEntryList.js"></script>
+    <dl id="entryList">
+      {% for object in object_list %}
+       <dt id="entryTitle{{ object.id }}" class="{% cycle row1,row2 %}">
+	 <script type="text/javascript">
+	   <!--
+	       generateGetEntryBodyLink({{ object.id }}, '{{ object.title|escape }}', '{{ object.created|date:"Y/n/j（D）ah:i" }}', '{{ object.get_absolute_url }}');
+	   // -->
+	 </script><noscript><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></noscript>
+	 <img src="/site_media/icon/ajax-loader{% cycle 1,2 %}.gif" id="nowLoading{{ object.id }}" style="display: none;" width="13" height="13" />
+       </dt>
+       <dd><div id="entryBody{{ object.id }}" style="display: none" class="entryBody {% cycle row1,row2 %}"></div></dd>
+      {% endfor %}
+    </dl>
+    {% ifequal SHOW_BANNERS 'True' %}<div style="margin-left: 0.5em;">{{ "/blog/banner/"|flat_page_content_by_url }}</div>{% endifequal %}
+  {% else %}
+    {% for object in object_list %}
+      {% include "entry.html" %}
+    {% endfor %}
+  {% endifequal %}
+{% else %}
+<p>該当する記事はありませんです。</p>{% if forloop.first %}{% include "banner.html" %}{% endif %}
+{% endif %}
+{% endblock %}
+

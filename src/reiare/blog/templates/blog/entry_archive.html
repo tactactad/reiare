@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load blog_extras %}
+{% block layout %}{% ifequal SHOW_TOP_SIDEBAR 'True' %}yui-t4{% else %}yui-t7{% endifequal %}{% endblock %}
+
+{% block content %}
+{% comment %}<form method="post" action="/blog/search/" accept-charset="utf-8">
+{{ search_form.keyword }}<input type="submit" value="けんさく" />
+</form>{% endcomment %}
+{% for object in latest %}
+  {% include "entry.html" %}
+{% endfor %}
+
+<script type="text/javascript">
+<!--
+    var moreEntriesPageNum = 1;
+
+    function getMoreEntries() {
+	   var loadingImage = $('moreEntriesLoading');
+	   loadingImage.show();
+       moreEntriesPageNum++;
+       new Ajax.Updater({success: $('moreEntriesBox')},
+          '/blog/more_entries/' + moreEntriesPageNum + '/',
+          {
+             method: 'get',
+             insertion: Insertion.Before,
+			 onComplete: function() {
+			    initLightbox();
+				setTimeout(function() {if(previousOnload) previousOnload(); addReflections();}, 500);
+				loadingImage.hide();
+			 },
+			 onFailure: function() {
+			    alert('ごめんなさい。“通信”のえらーがはっせいしました。');
+		     }
+          }
+       );
+    }
+// -->
+</script>
+<div id="moreEntriesBox"><a href="javascript:void(0)" onClick="getMoreEntries(moreEntriesPageNum); return false;">もう5件……</a><img src="/site_media/icon/ajax-loader.gif" width="10" height="10" id="moreEntriesLoading" style="display: none;" /></div>
+
+{% show_archives %}
+{% endblock %}

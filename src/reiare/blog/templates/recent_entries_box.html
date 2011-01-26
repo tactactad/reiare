@@ -1,0 +1,7 @@
+{% load blog_extras %}
+<h4>{% ifnotequal previous 0 %}{% ifnotequal previous 1 %}<a href="javascript:void(0);" onClick="getRecentEntries(1); return false;" title="最初のページへ">&laquo;</a>&nbsp;{% endifnotequal %}<a href="javascript:void(0)" onClick="getRecentEntries({{ previous }});return false;" title="{{ previous }}ページ目へ">&lt;</a>&nbsp;{% endifnotequal %}最近の“にっき”{% ifnotequal previous 0 %}&nbsp;{{ previous|add:1 }}ページ目{% endifnotequal %}&nbsp;<a href="javascript:void(0)" onClick="getRecentEntries({{ previous|add:2 }});return false;" title="{{ previous|add:2 }}ページ目へ">&gt;</a></h4>
+<ul>
+  {% for entry in entries %}
+    <li><a href="{{ entry.get_absolute_url }}" title="{{ entry.title|escape }}">{{ entry.title|omit }}</a></li>
+  {% endfor %}
+</ul>

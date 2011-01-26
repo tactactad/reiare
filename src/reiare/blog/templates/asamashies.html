@@ -1,0 +1,14 @@
+{% load blog_extras %}
+{% ifequal SHOW_ASAMASHIES 'True' %}
+<div id="amazonAsamashiesBox">
+	{% ifequal SHOW_SPOT_ASAMASHI 'True' %}{{ "/blog/spot_asamashi/"|flat_page_content_by_url }}{% endifequal %}
+	<ul>
+	{% for asamashi in asamashies|dictsortreversed:"priority" %}
+		<li><a href="{{ asamashi.url }}"><img src="{{ asamashi.imgsrc }}" />{{ asamashi.price }}
+		    {% if asamashi.point %}（{{ asamashi.point }}pt）{% endif %}<br />
+		    {{ asamashi.title }}</a>
+		{% if asamashi.comment %}<br />↑{{ asamashi.comment }}{% endif %}</li>
+	{% endfor %}
+	</ul>
+</div>
+{% endifequal %}

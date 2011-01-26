@@ -1,0 +1,142 @@
+{% load blog_extras %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>例のあれ（仮題）for touch</title>
+<meta name="viewport" content="width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
+<style type="text/css" media="screen">@import "/site_media/iui/iui.css";</style>
+<script type="application/x-javascript" src="/site_media/iui/iui.js"></script>
+<script type="text/javascript" src="/site_media/js/prototype.js"></script>
+<script type="text/javascript" src="/site_media/js/scriptaculous/effects.js"></script>
+<style type="text/css" media="screen">@import "/site_media/css/base.css";</style>
+<style type="text/css">
+  body > ul {
+    background: #FFFFFF;
+  }
+  body > .panel {
+    padding: 0;
+    padding-top: 0.5em;
+  }
+  .panel p {
+    line-height: 1.5;
+    padding: 0.5em;
+  }
+  .panel > div.entryBox {
+    background: #fff;
+    -webkit-border-radius: 1em;
+    border: 1px solid #999;
+    margin-right: 1em;
+    margin-left: 1em;
+    margin-bottom: 1em;
+  }
+  .panel p img {
+    margin-right: 0.5em;
+  }
+  .panel > div.entryBox > blockquote {
+    border: 1px dotted #000;
+    margin-left: 2em;
+    margin-right: 2em;
+    padding: 0.5em;
+    background-color: #eee;
+  }
+  .panel > div.entryBox > blockquote > p {
+    margin: 0;
+    padding: 0;
+  }
+  .panel > div.entryBox > div.commentBox {
+    margin-left: 1em;
+    margin-right: 1em;
+  }
+  .panel > div.entryBox > div.commentBox > h3 {
+    font-size: 0.8em;
+  }
+  .panel > div.entryBox > div.commentBox > p {
+    font-size: 0.8em;
+    line-height: 1.5;
+    margin-left: 1em;
+    marign-right: 1em;
+  }
+  .panel > div.entryBox > div.commentBox > p.commentAuthor {
+    border-bottom: 1px solid #000;
+  }
+  .date {
+    font-size: 0.6em;
+  }
+  .panel > div.entryBox > div.commentBox > div.commentFormBox {
+    margin-left: -1em;
+  }
+  .panel > div.entryBox > div.commentBox > div.commentFormBox > form > fieldset {
+    margin: 0;
+    border: none;
+    text-align: left;
+  }
+  .panel > div.entryBox > div.commentBox > div.commentFormBox input {
+    margin: 0;
+    padding: 0;
+  }
+  .panel > div.entryBox > div.commentBox > div.commentFormBox textarea {
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 16px;
+    font-weight: normal;
+  }
+</style>
+</head>
+<body>
+  <div class="toolbar">
+	<h1 id="pageTitle"></h1>
+	<a id="backButton" class="button" href="#"></a>
+	<!--<a class="button" href="#searchForm">Search</a>-->
+  </div>
+
+  <ul id="recents" title="Top." selected="true">
+	<li><a href="#tags">たぐ</a></li>
+	<li class="group">最近の“にっき”……</li>
+	{% for entry in recent_entries %}
+	  <li><a href="#{{ entry.id }}">{{ entry }}</a><span class="date">{{ entry.created|date:"Y/n/j (D) ah:i" }}</span></li>
+	{% endfor %}
+	<li><a href="/blog/touch/more_entries/2/" target="_replace">もう10件……</a></li>
+  </ul>
+
+  <script type="text/javascript">
+  <!--
+	  function postEntryComment(entryID) {
+	     var loadingImage = $('commentBoxNowLoading' + entryID);
+		 loadingImage.show();
+		 Effect.BlindUp($('entryCommentForm' + entryID));
+		 var url = '/blog/touch/post_comment/' + entryID + '/';
+		 var pars = Form.serialize('entryCommentForm' + entryID);
+		 new Ajax.Updater({success: $('entryComment' + entryID)},
+		    url,
+			{
+			   method: 'post',
+			   parameters: pars,
+			   onComplete: function() { Effect.BlindDown($('entryCommentForm' + entryID), {duration: 0.5});
+			      new Form.Observer('entryCommentForm' + entryID, 0.5, function(element, value) {
+				     elements = value.toQueryParams();
+					 if (elements['author'] != null && elements['body'] != null) {
+					    $('submitButton' + entryID).disabled = false;
+					 } else {
+					    $('submitButton' + entryID).disabled = true;
+					 }
+				  });},
+			   onFailure: function() { alert('ごめんなさい。“通信”のえらーがはっせいしてしまいました。'); getEntryComment(entryID);
+			}
+		});
+	}
+  // -->
+  </script>
+  {% for entry in recent_entries %}
+  <div id="{{ entry.id }}" title="{{ entry }}" class="panel">
+	{% include "iui_entry_box.html" %}
+  </div>
+  {% endfor %}
+
+  <ul id="tags" title="たぐ">
+	{% for tag in tags %}
+	<li><a href="{{ tag.get_touch_url }}">{{ tag }}</a></li>
+	{% endfor %}
+  </ul>
+</body>
+</html>

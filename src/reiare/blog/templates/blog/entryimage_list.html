@@ -1,0 +1,26 @@
+{% extends "list_template.html" %}
+{% load blog_extras %}
+
+{% block content_title %}
+<h2>“{{ tag }}”な画像の一覧<span class="fontSizeSmall">（<a href="{{ tag.get_absolute_url }}">記事一覧</a>）</span></h2>
+{% endblock %}
+
+{% block content_body %}
+<div class="alignCenter">
+<table id="entryImageList">
+  <tr>
+{% for object in object_list %}
+    <td valign="top">
+      <a href="/site_media/{{ object.medium_image }}" rel="lightbox" title="{{ object.description }}"><img src="/site_media/{{ object.thumb_image }}" width="{{ object.thumb_width }}" heigth="{{ object.thumb_height }}" alt="{{ object.description }}" id="image{{ object.id }}" /></a>
+      <p>
+	概要：{{ object.description }}<br />
+	投稿日：{{ object.created|date:"Y/n/j" }}<br />
+	オリジナル：<a href="/site_media/{{ object.image.url }}">{{ object.image.size|filesizeformat }}</a>
+      </p>
+    </td>{{ forloop.counter|list_table_tr:"4" }}
+{% endfor %}
+  </tr>
+</table>
+</div>
+{% ifequal SHOW_BANNERS 'True' %}<div style="margin-left: 0.5em;">{{ "/blog/banner/"|flat_page_content_by_url }}</div>{% endifequal %}
+{% endblock %}

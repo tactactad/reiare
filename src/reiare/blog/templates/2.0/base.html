@@ -1,0 +1,151 @@
+{% load reiare_extras %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <link rel="shortcut icon" href="/site_media/icon/favicon.ico" />
+  <meta http-equiv="X-UA-Compatible" content="IE=8">
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/latest/" />
+  <link rel="stylesheet" href="/site_media/css/2.0/defaults.css" />
+  <title>{{ BLOG_TITLE }}{% block title %}{% endblock %}</title>
+  <!--[if IE]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+<div class="container clearfix">
+
+<header>
+<hgroup id="header">
+  <h1><a href="/blog/" class="plain"><img src="/site_media/icon/2.0/logo.gif" width="323" height="78" title="{{ BLOG_TITLE }}" /></a></h1>
+  <h2>{{ BLOG_SUB_TITLE }}</h2>
+</hgroup>
+
+<nav id="menubar" class="grid8">
+  <ul>
+    <li class="bgBlue white"><a href="#!/blog/" class="plain" id="toHome">ほーむ</a></li>
+    <li class="bgGreen white"><a href="#!/blog/archives/" class="plain" id="toArchive">あーかいぶ</a></li>
+    <li class="bgOrange white" style="text-decoration: line-through;">ら　ぼ</li>
+    <li class="bgPink white" style="text-decoration: line-through;">あばうと</li>
+    <li class="bgPurple white" style="text-decoration: line-through;">こんたくと</li>
+  </ul>
+  <!--[if IE]>
+      <p style="margin-top: 2em;"><a href="/blog/1.0/">表示がおかしい方は旧版の方とかでどうでしょう。</a></p>
+  <![endif]-->
+</nav>
+</header>
+
+<div id="content" class="grid8 first">
+{% block content %}{% endblock %}
+</div>
+<div id="loadingImageBox">
+<img src="/site_media/icon/2.0/loading.gif" width="48" height="48" style="" id="loadingImage" />
+</div>
+
+<aside id="sidebar" class="grid4">
+  <nav id="adSearch">
+<form action="http://www.google.co.jp/cse" id="cse-search-box">
+  <div>
+    <input type="hidden" name="cx" value="partner-pub-7847148349465615:d97y0eudqmq" />
+    <input type="hidden" name="ie" value="UTF-8" />
+    <input type="text" name="q" size="31" />
+    <input type="submit" name="sa" value="&#x691c;&#x7d22;" />
+  </div>
+</form>
+<script type="text/javascript" src="http://www.google.co.jp/cse/brand?form=cse-search-box&amp;lang=ja"></script>
+  </nav>
+
+  <section id="adSence">
+<script type="text/javascript"><!--
+google_ad_client = "pub-7847148349465615";
+/* 300x250, 作成済み 10/10/26 */
+google_ad_slot = "6006113951";
+google_ad_width = 300;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+  </section>
+
+  <section id="twitter">
+    <script src="http://widgets.twimg.com/j/2/widget.js"></script>
+<script>
+new TWTR.Widget({
+  version: 2,
+  type: 'profile',
+  rpp: 5,
+  interval: 6000,
+  width: 300,
+  height: 300,
+  theme: {
+    shell: {
+      background: '#ffffff',
+      color: '#049dda'
+    },
+    tweets: {
+      background: '#ffffff',
+      color: '#535353',
+      links: '#535353'
+    }
+  },
+  features: {
+    scrollbar: false,
+    loop: false,
+    live: false,
+    hashtags: true,
+    timestamp: true,
+    avatars: false,
+    behavior: 'all'
+  }
+}).render().setUser('tactactad').start();
+</script>
+  </section>
+
+  <nav id="recents">
+    <h4 class="green" id="bindTest">さいきんのにっき</h4>
+    <ul id="recentEntries">
+    </ul>
+  </nav>
+  <nav id="ranking">
+  </nav>
+  <nav id="random">
+    <h4 class="green">かこにっきらんだむ</h4>
+    <ul id="randomEntries">
+      {% for entry in random_entries %}
+      <li><a href="#!{{ entry.get_absolute_url }}" title="{{ entry.title }}" class="withBorder">{{ entry.title|omit:23 }}</a></li>
+      {% endfor %}
+    </ul>
+  </nav>
+  <nav id="tags">
+    <h4 class="orange">たぐ</h4>
+    <ul id="tagNames">
+      {% for tag in tags %}
+      <li><a href="#!{{ tag.get_absolute_url }}" class="withBorder">{{ tag.name }}</a></li>
+      {% endfor %}
+    </ul>
+  </nav>
+  <section id="profile">
+    <h4 class="pink">ぷろふぃーるてきな</h4>
+    <p>Web系エンジニアだった様な気がするダメ人間。<br />
+    たぶんいろんなモノを tactactad でやっていると思う。</p>
+  </section>
+  <section id="powered">
+    <ul>
+      <li><a href="http://djangopony.com/" class="ponybadge plain" title="Magic! Ponies! Django! Whee!"><img src="http://media.djangopony.com/img/small/badge.png" width="210" height="65" alt="pony powered"></a></li>
+    </ul>
+  </section>
+</aside>
+
+<footer id="footer">
+  {% block footer %}<a href="/blog/" class="plain">ReiAre! since 1996</a>{% endblock %}
+  <time pubdate="{{ lastupdate }}"><time>
+</footer>
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></script>
+<script src="/site_media/js/2.0/libraries.js"></script>
+<script src="/site_media/js/2.0/loader.js"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+<p class="alignCenter monthNavigation">
+	{% if next_month %}
+		&lt;- <a href="/blog/{{ next_month|date:"Y/m" }}/">{{ next_month|date:"Y/n" }}</a>
+	{% endif %}
+	| {{ month|date:"Y/n" }} | <a href="/blog/{{ previous_month|date:"Y/m" }}/">{{ previous_month|date:"Y/n" }}</a> -&gt;
+</p>

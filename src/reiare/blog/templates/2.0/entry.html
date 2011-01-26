@@ -1,0 +1,10 @@
+{% load blog_extras %}
+<article class="entry">
+<header>
+  <h3 class="blue">{{ object.title }}</h3>
+</header>
+{{ object.linebreaks_body_without_pre|safe }}
+<footer>
+  <time datetime="{{ object.created|date:"Y-m-d\TH:i:sO" }}">{{ object.created|date:"Y/n/j (D) ah:i" }}</time>
+</footer>
+</article>

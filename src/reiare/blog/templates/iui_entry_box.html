@@ -1,0 +1,21 @@
+{% load blog_extras %}
+<h2>{{ entry.title }}</h2>
+<div class="entryBox">
+  <p>{{ entry.body|add_target_self|linebreaksbr }}</p>
+  <div class="commentBox" id="entryComment{{ entry.id }}">
+	{% include "iui_entry_comment_box.html" %}
+  </div>
+  <script type="text/javascript">
+  <!--
+	  $('submitButton{{ entry.id }}').disabled = true;
+	  new Form.Observer('entryCommentForm{{ entry.id }}', 0.5, function(element, value) {
+	     elements = value.toQueryParams();
+		 if (elements['author'] != null && elements['body'] != null) {
+		    $('submitButton{{ entry.id }}').disabled = false;
+		 } else {
+		    $('submitButton{{ entry.id }}').disabled = true;
+		 }
+	  });
+  // -->
+  </script>
+</div>

@@ -1,0 +1,7 @@
+{% load blog_extras %}
+<h4>{% ifnotequal previous 0 %}{% ifnotequal previous 1 %}<a href="javascript:void(0);" onClick="getRecentComments(1); return false;" title="最初のページへ">&laquo;</a>&nbsp;{% endifnotequal %}<a href="javascript:void(0)" onClick="getRecentComments({{ previous }});return false;" title="{{ previous }}ページ目へ">&lt;</a>&nbsp;{% endifnotequal %}最近の“こめんと”{% ifnotequal previous 0 %}&nbsp;{{ previous|add:1 }}ページ目{% endifnotequal %}&nbsp;<a href="javascript:void(0)" onClick="getRecentComments({{ previous|add:2 }});return false;" title="{{ previous|add:2 }}ページ目へ">&gt;</a></h4>
+<ul>
+  {% for comment in comments %}
+    <li><a href="{{ comment.entry.get_absolute_url }}" title="Re: {{ comment.entry.title|escape }}（{{ comment.author }}さん）">Re: {{ comment.entry.title|omit:12 }}</a></li>
+  {% endfor %}
+</ul>

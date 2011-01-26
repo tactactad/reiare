@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load blog_extras %}
+{% block title %}・{{ month|date:"Y" }}/{{ month|date:"m" }}{% endblock %}
+{% block layout %}yui-t4{% endblock %}
+
+{% block navigation_bar %}<div id="navigationBarBox"><a href="/blog/">とっぷ</a> &gt; monthly &gt; <strong>
+{{ month|date:"Y" }}/{{ month|date:"m" }}</strong></div>{% endblock %}
+
+{% block content %}
+{% include "month_navigation.html" %}
+
+{% if object_list %}
+{% for object  in object_list reversed %}
+	{% include "entry.html" %}
+{% endfor %}
+{% else %}
+	<p class="alignCenter marginBottom1">該当する記事はありませんです。</p>
+{% endif %}
+
+{% include "month_navigation.html" %}
+
+{% show_archives month %}
+{% endblock %}
