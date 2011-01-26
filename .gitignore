@@ -3,3 +3,4 @@
 *.lock
 src/reiare/site_media/images/*
 !src/reiare/site_media/images/lightbox
+src/reiare/reiare_settings.py
