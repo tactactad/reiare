@@ -330,6 +330,10 @@ a.withBorder {
       line-height: 1.8em;
   }
 
+  #powered li {
+      margin-bottom: 1em;
+  }
+
 #footer {
     clear: both;
     margin-top: 1em;
