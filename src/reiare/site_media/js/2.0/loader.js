@@ -110,14 +110,12 @@ var ReiAreLoader = function() {
                         var tmp = $('<div></div>');
                         $('#moreEntriesTemplate').tmpl(paginator, {
                             'previousUrl': function() {
-                                var s = new StringBuffer('#!/blog/recents/').
-                                    append(this.data.previous_page_number).append('/');
-                                return s.toString();
+                                return new StringBuffer('#!/blog/recents/').
+                                    append(this.data.previous_page_number).append('/').toString();
                             },
                             'nextUrl': function() {
-                                var s = new StringBuffer('#!/blog/recents/').
-                                    append(this.data.next_page_number).append('/');
-                                return s.toString();
+                                return new StringBuffer('#!/blog/recents/').
+                                    append(this.data.next_page_number).append('/').toString();
                             }
                         }).appendTo(tmp);
                         box.append(innerShiv(tmp.html(), false));
@@ -220,9 +218,9 @@ var ReiAreLoader = function() {
                         var tmp = $('<div></div>');
                         $('#moreEntriesTemplate').tmpl(paginator, {
                             'previousUrl': function() {
-                                var s = new StringBuffer('#!').
+                                return new StringBuffer('#!').
                                     append(currentArchive['url']).
-                                    append(this.data.previous_page_number).append('/');
+                                    append(this.data.previous_page_number).append('/').toString();
                                 return s.toString();
                             },
                             'nextUrl': function() {
