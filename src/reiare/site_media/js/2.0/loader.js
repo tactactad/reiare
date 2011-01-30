@@ -215,13 +215,12 @@ var ReiAreLoader = function() {
                 if (typeof json['paginator'] !== 'undefined') {
                     var paginator = json['paginator'];
                     if (String(paginator['has_other_pages']) == 'true') {
-                        var tmp = $('<div></div>');
+                        tmp = $('<div></div>');
                         $('#moreEntriesTemplate').tmpl(paginator, {
                             'previousUrl': function() {
                                 return new StringBuffer('#!').
                                     append(currentArchive['url']).
                                     append(this.data.previous_page_number).append('/').toString();
-                                return s.toString();
                             },
                             'nextUrl': function() {
                                 return new StringBuffer('#!').
