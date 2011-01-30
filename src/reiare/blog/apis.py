@@ -167,7 +167,8 @@ def paginator_from_objects_and_num_and_page(objects, num, page):
              'has_next': data.has_next(),
              'has_previous': data.has_previous(),
              'next_page_number': data.next_page_number(),
-             'previous_page_number': data.previous_page_number()},
+             'previous_page_number': data.previous_page_number(),
+             'per_page': num},
             data.object_list)
 
 # views

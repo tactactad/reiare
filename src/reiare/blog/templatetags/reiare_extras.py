@@ -19,6 +19,7 @@ def remove_linebreaks_using_regex(value, regex):
 
 
 @register.filter(name='omit')
+@stringfilter
 def omit(value, length=15):
     s = value
     if length < 10:
@@ -31,3 +32,8 @@ def omit(value, length=15):
 
         s = temp
     return s
+
+@register.filter(name='wrapped_jQuery_templatetag')
+@stringfilter
+def wrapped_jQuery_templatetag(value):
+    return '{{' + value + '}}'

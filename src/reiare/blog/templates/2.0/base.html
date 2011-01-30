@@ -146,8 +146,91 @@ new TWTR.Widget({
   <time pubdate="{{ lastupdate }}"><time>
 </footer>
 </div>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+
+<script id="entryTitleToSidebarTemplate" type="text/x-jquery-tmpl">
+  <li><a href="#!${url}" title="${title}" class="withBorder">${omitted_title}</a></li>
+</script>
+<script id="entryArticleTemplate" type="text/x-jquery-tmpl">
+  <article class="entry">
+    <header class="entryHeader"><h3 class="green">${title}</h3></header>
+    <time pubdate="${attr_created}" class="pubdate">${display_created}</time>
+    {{ "html body"|wrapped_jQuery_templatetag }}
+    {{ "if rel_entries.length"|wrapped_jQuery_templatetag }}
+      <nav class="entryFooter">
+        <ul>
+        {{ "each rel_entries"|wrapped_jQuery_templatetag }}
+          <li><a href="#!${url}">${title}</a></li>
+        {{ "/each"|wrapped_jQuery_templatetag }}
+        </ul>
+      </nav>
+    {{ "/if"|wrapped_jQuery_templatetag }}
+    {{ "if tags.length"|wrapped_jQuery_templatetag }}
+      <nav class="entryTags">
+        <ul>
+        {{ "each tags"|wrapped_jQuery_templatetag }}
+          <li><a href='#!${url}'>${name}</a></li>
+        {{ "/each"|wrapped_jQuery_templatetag }}
+        </ul>
+      </nav>
+    {{ "/if"|wrapped_jQuery_templatetag }}
+  </article>
+</script>
+<script id="moreEntriesTemplate" type="text/x-jquery-tmpl">
+  <nav id="moreEntries">
+    <ul>
+    {{ "if has_previous"|wrapped_jQuery_templatetag }}
+      <li><a href="${$item.previousUrl}">&lt;</a></li>
+    {{ "/if"|wrapped_jQuery_templatetag }}
+    {{ "if has_next"|wrapped_jQuery_templatetag }}
+      <li><a href="${$item.nextUrl}">&gt; つぎの${per_page}けん……</a></li>
+    {{ "/if"|wrapped_jQuery_templatetag }}
+    </ul>
+  </nav>
+</script>
+<script id="archivesTemplate" type="text/x-jquery-tmpl">
+  <nav class="archives">
+    {{ "each month"|wrapped_jQuery_templatetag }}
+      {{ "if $item.yearString($value)"|wrapped_jQuery_templatetag }}
+        <div class="year">${year} - <ul>
+      {{ "/if"|wrapped_jQuery_templatetag }}
+      {{ "if $item.updateYearString($value)"|wrapped_jQuery_templatetag }}
+        </ul></div>
+        <div class="year">${year} - <ul>
+      {{ "/if"|wrapped_jQuery_templatetag }}
+      <li><a href="#!${url}">${month}</a></li>
+    {{ "/each"|wrapped_jQuery_templatetag }}
+    </ul>
+  </nav>
+</script>
+<script id="entriesHeaderTemplate" type="text/x-jquery-tmpl">
+  <header id="entriesHeader" class="orange">“${currents}”な記事</header>
+</script>
+<script id="entriesNavTemplate" type="text/x-jquery-tmpl">
+  <nav class="entriesNav"><ul>
+  {{ "if nextArchive"|wrapped_jQuery_templatetag }}
+    <li><a href="#!${nextArchive.url}" class="withBorder">&lt;</a></li>
+  {{ "/if"|wrapped_jQuery_templatetag }}
+  <li>${currents}</li>
+  {{ "if previousArchive"|wrapped_jQuery_templatetag }}
+    <li><a href="#!${previousArchive.url}" class="withBorder">&gt;</a></li>
+  {{ "/if"|wrapped_jQuery_templatetag }}
+  </ul></nav>
+</script>
+<script id="entriesNavForTagsTemplate" type="text/x-jquery-tmpl">
+  <nav class="entriesNav"><ul>
+  {{ "if has_previous"|wrapped_jQuery_templatetag }}
+    <li><a href="#!${$item.tagUrl}${previous_page_number}/" class="withBorder">&lt;</a></li>
+  {{ "/if"|wrapped_jQuery_templatetag }}
+  <li class="pagePerPages">${num_page} / ${num_pages}</li>
+  {{ "if has_next"|wrapped_jQuery_templatetag }}
+    <li><a href="#!${$item.tagUrl}${next_page_number}/" class="withBorder">&gt;</a></li>
+  {{ "/if"|wrapped_jQuery_templatetag }}
+  </ul></nav>
+</script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></script>
+<script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
 <script src="/site_media/js/2.0/libraries.js"></script>
 <script src="/site_media/js/2.0/loader.js"></script>
 </body>

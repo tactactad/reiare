@@ -29,33 +29,12 @@ var ReiAreLoader = function() {
     this.entryTitleToSidebarFromURL = function(box, url) {
         var theThis = this;
         $.getJSON(url, function(json) {
-            var s = new StringBuffer();
-            $.each(json, function() {
-                s.append('<li><a href="#!').append(this['url']).append('" title="').
-                    append(this['title']).append('" class="withBorder">').
-                    append(this['omitted_title']).
-                    append('</a></li>\n');
-            });
-            box.append(s.toString());
+            $('#entryTitleToSidebarTemplate').tmpl(json).appendTo(box);
         });
     };
 
-/*    this.bindOnClickEventToLinkUsingBox = function(box, page, scroll) {
-        var theThis = this;
-        $.each(box.find('a[href^="#!"]'), function() {
-            var url = $(this).attr('href');
-            url = theThis.convertJsonURLFromPath(url.split('#!', 2)[1]);
-            // console.log(url);
-            $(this).click(function() {
-                theThis.entriesToContentFromURL(url, page, scroll);
-            });
-        });
-    };*/
-
     this.beforeActionToLoadContent = function(scroll) {
         if (scroll !== "no") {
-            // $(document).scrollTop(this.contentBox.prev().offset().top);
-            // $(document).scrollTop($('#menubar').offset().top);
             $('html, body').animate({scrollTop: $('#menubar').offset().top},
                                     {easing: 'easeInOutCirc',
                                      duration: 500});
@@ -83,25 +62,9 @@ var ReiAreLoader = function() {
     };
 
     this.articleContent = function(box, jsonLength, json) {
-        var s = new StringBuffer();
-        s.append('<article class="entry">').
-            append('<header class="entryHeader"><h3 class="green">').
-            append(json['title']).append('</h3></header>').
-            append('<time pubdate="').append(json['attr_created']).append('" class="pubdate">').
-            append(json['display_created']).append('</time>').
-            append(json['body']).
-            append('<nav class="entryFooter"></nav>');
-
-        if (json['tags'].length > 0) {
-            s.append('<nav class="entryTags"><ul>');
-            $.each(json['tags'], function() {
-                s.append('<li><a href="#!').append(this['url']).append('">').
-                    append(this['name']).append('</a></li>');
-            });
-            s.append('</ul></nav>');
-        }
-        s.append('</article>');
-        box.append(innerShiv(s.toString()));
+        var tmp = $('<div></div>');
+        $('#entryArticleTemplate').tmpl(json).appendTo(tmp);
+        box.append(innerShiv(tmp.html(), false));
 
         if (jsonLength > 1) {
             var url = json['url'];
@@ -112,18 +75,6 @@ var ReiAreLoader = function() {
                 title: title
             }).append('<span class="white permalink">link</span>');
         }
-        if (json['rel_entries'].length > 0) {
-            var tmp = box.find('nav.entryFooter:last').append('<ul></ul>').children('ul');
-            $.each(json['rel_entries'], function() {
-                var s = new StringBuffer();
-                s.append('<li>').
-                    append('<a href="#!').append(this['url']).append('">').
-                    append(this['title']).append('</a>').
-                    append('</li>');
-                tmp.append(innerShiv(s.toString()));
-            });
-        }
-        // box.find('article:last').show('drop');
     };
 
     this.entriesToContentFromURL = function(url, page, scroll) {
@@ -143,7 +94,6 @@ var ReiAreLoader = function() {
             },
             success: function(json) {
                 var jsonLength = json['entries'].length;
-                // box.empty();
                 $.each(json['entries'], function() {
                     theThis.articleContent(box, jsonLength, this);
                 });
@@ -157,18 +107,21 @@ var ReiAreLoader = function() {
 
                     var paginator = json['paginator'];
                     if (String(paginator['has_other_pages']) == 'true') {
-                        var s = new StringBuffer('<nav id="moreEntries"><ul>');
-                        if (String(paginator['has_previous']) == 'true') {
-                            s.append('<li><a href="#!/blog/recents/').
-                                append(paginator['previous_page_number']).append('/">&lt;').append('</a></li>');
-                        }
-                        if (String(paginator['has_next']) == 'true') {
-                            s.append('<li><a href="#!/blog/recents/').
-                                append(paginator['next_page_number']).append('/">&gt; つぎの5けん……').append('</a></li>');
-                        }
-                        box.append(innerShiv(s.append('</ul></nav>').toString()));
+                        var tmp = $('<div></div>');
+                        $('#moreEntriesTemplate').tmpl(paginator, {
+                            'previousUrl': function() {
+                                var s = new StringBuffer('#!/blog/recents/').
+                                    append(this.data.previous_page_number).append('/');
+                                return s.toString();
+                            },
+                            'nextUrl': function() {
+                                var s = new StringBuffer('#!/blog/recents/').
+                                    append(this.data.next_page_number).append('/');
+                                return s.toString();
+                            }
+                        }).appendTo(tmp);
+                        box.append(innerShiv(tmp.html(), false));
                     }
-                    // theThis.moreEntriesLink(page);
                 } else if (jsonLength > 1) {
                     box.find('h3 a').addClass('plain green');
                     box.find('.permalink').addClass('bgGreen');
@@ -183,20 +136,6 @@ var ReiAreLoader = function() {
             },
             url: url
         });
-    };
-
-    this.moreEntriesLink = function(page) {
-        if (!page) {
-            page = 1;
-        }
-        var tmpPage = page+1;
-        var box = this.contentBox;
-        var theThis = this;
-        var s = new StringBuffer();
-        s.append('<div id="moreEntries">').
-            append('<a href="#!/blog/recents/').append(tmpPage).append('/">つぎの5けん……</a>').
-            append('</div>');
-        box.append(s.toString());
     };
 
     this.archiveTitlesToContent = function(scroll) {
@@ -215,24 +154,26 @@ var ReiAreLoader = function() {
                 theThis.errorActionToLoadContent(xhr, status);
             },
             success: function(json) {
-                // box.empty();
-                var s = new StringBuffer('<nav class="archives">');
-                var currentYear = '';
-                $.each(json, function() {
-                    if (currentYear === '') {
-                        s.append('<div class="year">').append(this['year']).append(' - ').
-                            append('<ul>');
-                        currentYear = this['year'];
-                    } else if (currentYear !== this['year']) {
-                        s.append('</ul></div>\n').append('<div class="year">').
-                            append(this['year']).append(' - <ul>');
-                        currentYear = this['year'];
+                var tmp = $('<div></div>');
+                $('#archivesTemplate').tmpl({month: json}, {
+                    currentYear: '',
+                    yearString: function(month) {
+                        console.log(this);
+                        if (this.currentYear === '') {
+                            this.currentYear = month['year'];
+                            return true;
+                        }
+                        return false;
+                    },
+                    updateYearString: function(month) {
+                        if (this.currentYear !== month['year']) {
+                            this.currentYear = month['year'];
+                            return true;
+                        }
+                        return false;
                     }
-                    s.append('<li><a href="#!').append(this['url']).append('">').
-                        append(this['month']).append('</a></li>');
-                });
-                s.append('</ul></nav>');
-                box.append(innerShiv(s.toString()));
+                }).appendTo(tmp);
+                box.append(innerShiv(tmp.html(), false));
                 box.show('drop');
 
                 document.title = new StringBuffer(theThis.siteTitle).
@@ -262,26 +203,13 @@ var ReiAreLoader = function() {
                 var currentArchive = json['current_archive'][0];
                 var currents = new StringBuffer(currentArchive['year']).append('/').
                     append(currentArchive['month']).toString();
-                var previousArchive = json['previous_archive'][0];
-                var nextArchive = json['next_archive'][0];
-                // box.empty();
-                box.append(innerShiv(new StringBuffer('<header id="entriesHeader" class="orange">“').
-                                     append(currents).append('”な記事').
-                                     append('</header>').toString()));
-                var nav = new StringBuffer('<nav class="entriesNav"><ul>');
-                if (nextArchive) {
-                    nav.append('<li><a href="#!').append(nextArchive['url']).
-                        // append(nextArchive['year']).append('/').append(nextArchive['month']).
-                        append('" class="withBorder">').append('&lt;').append('</a></li>');
-                }
-                nav.append('<li>').append(currents).append('</li>');
-                if (previousArchive) {
-                    nav.append('<li><a href="#!').append(previousArchive['url']).
-                        append('" class="withBorder">').append('&gt;').append('</a></li>');
-                }
-                nav.append('</ul></nav>');
-                nav = nav.toString();
-                box.append(innerShiv(nav));
+                $('#entriesHeaderTemplate').tmpl({'currents': currents}).appendTo(box);
+                var tmp = $('<div></div>');
+                $('#entriesNavTemplate').tmpl({'currents': currents,
+                                               'previousArchive': json['previous_archive'][0],
+                                               'nextArchive': json['next_archive'][0]}).appendTo(tmp);
+                var nav = tmp.html();
+                box.append(innerShiv(nav, false));
                 $.each(json['entries'], function() {
                     theThis.articleContent(box, jsonLength, this);
                 });
@@ -289,19 +217,24 @@ var ReiAreLoader = function() {
                 if (typeof json['paginator'] !== 'undefined') {
                     var paginator = json['paginator'];
                     if (String(paginator['has_other_pages']) == 'true') {
-                        var s = new StringBuffer('<nav id="moreEntries"><ul>');
-                        if (String(paginator['has_previous']) == 'true') {
-                            s.append('<li><a href="#!').append(currentArchive['url']).
-                                append(paginator['previous_page_number']).append('/">&lt;').append('</a></li>');
-                        }
-                        if (String(paginator['has_next']) == 'true') {
-                            s.append('<li><a href="#!').append(currentArchive['url']).
-                                append(paginator['next_page_number']).append('/">&gt; つぎの10けん……').append('</a></li>');
-                        }
-                        box.append(innerShiv(s.append('</ul></nav>').toString()));
+                        var tmp = $('<div></div>');
+                        $('#moreEntriesTemplate').tmpl(paginator, {
+                            'previousUrl': function() {
+                                var s = new StringBuffer('#!').
+                                    append(currentArchive['url']).
+                                    append(this.data.previous_page_number).append('/');
+                                return s.toString();
+                            },
+                            'nextUrl': function() {
+                                return new StringBuffer('#!').
+                                    append(currentArchive['url']).
+                                    append(this.data.next_page_number).append('/').toString();
+                            }
+                        }).appendTo(tmp);
+                        box.append(innerShiv(tmp.html(), false));
                     }
                 }
-                box.append(innerShiv(nav));
+                box.append(innerShiv(nav, false));
                 box.show('drop');
                 theThis.randomRotateImage(box);
                 theThis.applyLazyload(box);
@@ -335,39 +268,19 @@ var ReiAreLoader = function() {
             success: function(json) {
                 var entries = json['entries'];
                 var jsonLength = entries.length;
-                // var titles = json['titles'];
                 var paginator = json['paginator'];
                 var tag = json['tag'][0];
-                box.empty();
-                box.append(innerShiv(new StringBuffer('<header id="entriesHeader" class="orange">“').
-                                     append(tag['name']).append('”な記事').
-                                     append('</header>').toString()));
-                var nav = new StringBuffer('<nav class="entriesNav"><ul>');
-                if (String(paginator['has_previous']) == 'true') {
-                    nav.append('<li><a href="#!').append(tag['url']).
-                        append(paginator['previous_page_number']).append('/').append('" class="withBorder">').
-                        append('&lt;').append('</a></li>');
-                }
-                nav.append('<li class="pagePerPages">').append(paginator['num_page']).append(' / ').
-                    append(paginator['num_pages']).append('</li>');
-                if (String(paginator['has_next']) == 'true') {
-                    nav.append('<li><a href="#!').append(tag['url']).
-                        append(paginator['next_page_number']).append('/').append('" class="withBorder">').
-                        append('&gt;').append('</a></li>');
-                }
-                nav.append('</ul></nav>');
-                nav = nav.toString();
-                box.append(innerShiv(nav));
-                // var s = new StringBuffer('<nav class="tagTitles"><ul>');
-                // $.each(titles, function() {
-                //     s.append('<li>').append(this['title']).append('</li>');
-                // });
-                // s.append('</ul></nav>');
-                // box.append(innerShiv(s.toString()));
+
+                $('#entriesHeaderTemplate').tmpl({'currents': tag['name']}).appendTo(box);
+                var tmp = $('<div></div>');
+                $('#entriesNavForTagsTemplate').tmpl(paginator, {
+                    'tagUrl': tag['url']}).appendTo(tmp);
+                var nav = tmp.html();
+                box.append(innerShiv(nav, false));
                 $.each(entries, function() {
                     theThis.articleContent(box, jsonLength, this);
                 });
-                box.append(innerShiv(nav));
+                box.append(innerShiv(nav, false));
                 box.show('drop');
                 theThis.randomRotateImage(box);
                 theThis.applyLazyload(box);
