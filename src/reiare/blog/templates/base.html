@@ -2,70 +2,81 @@
 {% autoescape off %}
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml/DTD/xthml1-transitional.dtd">
+    "http://www.w3.org/TR/xhtml/DTD/xthml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
 <head>
-	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-	<link rel="shortcut icon" href="/site_media/icon/favicon.ico" />
-	<link rel="icon" href="/site_media/icon/animated_favicon.gif" type="image/gif" />
-	<link rel="stylesheet" href="/site_media/css/reset-fonts-grids.css" type="text/css" />
-	<link rel="stylesheet" href="/site_media/css/design0708.css" type="text/css" />
-	{% block feed %}{% endblock %}
-	<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/latest/" />
-	<script type="text/javascript" src="/site_media/js/prototype.js"></script>
-	<script type="text/javascript" src="/site_media/js/entryComment.js"></script>
-	<script type="text/javascript" src="/site_media/js/scriptaculous/scriptaculous.js?load=effects"></script>
-	<script type="text/javascript" src="/site_media/js/lightbox/lightbox.js"></script>
-	<link rel="stylesheet" href="/site_media/css/lightbox/lightbox.css" type="text/css" media="screen" />
-	<!--script type="text/javascript" src="/site_media/js/reflection/reflection.js"></script-->
-	<script type="text/javascript" src="/site_media/js/sidebar_content_update.js"></script>
-	<title>{{ BLOG_TITLE }}{% block title %}{% endblock %}</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="/site_media/icon/favicon.ico" />
+    <link rel="icon" href="/site_media/icon/animated_favicon.gif" type="image/gif" />
+    <link rel="stylesheet" href="/site_media/css/reset-fonts-grids.css" type="text/css" />
+    <link rel="stylesheet" href="/site_media/css/design0708.css" type="text/css" />
+    {% block feed %}{% endblock %}
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/feeds/latest/" />
+    <script type="text/javascript" src="/site_media/js/prototype.js"></script>
+    <script type="text/javascript" src="/site_media/js/entryComment.js"></script>
+    <script type="text/javascript" src="/site_media/js/scriptaculous/scriptaculous.js?load=effects"></script>
+    <script type="text/javascript" src="/site_media/js/lightbox/lightbox.js"></script>
+    <link rel="stylesheet" href="/site_media/css/lightbox/lightbox.css" type="text/css" media="screen" />
+    <!--script type="text/javascript" src="/site_media/js/reflection/reflection.js"></script-->
+    <script type="text/javascript" src="/site_media/js/sidebar_content_update.js"></script>
+    <title>{{ BLOG_TITLE }}{% block title %}{% endblock %}*旧版</title>
 </head>
 
 <body><div id="doc4" class="{% block layout %}yui-t2{% endblock %}"><div id="border1"><div id="border2">
-	<div id="hd">
-	  {% block header %}
-	    <h1><a href="/blog/">{{ BLOG_TITLE }}</a></h1>
-	    <p>{{ BLOG_SUB_TITLE }}</p>
-	  {% endblock %}
-		{% block navigation_bar %}{% endblock %}
-	</div>
+    <div id="hd">
+      {% block header %}
+        <h1><a href="/blog/">{{ BLOG_TITLE }}*旧版</a></h1>
+        <p>{{ BLOG_SUB_TITLE }}</p>
+      {% endblock %}
+        {% block navigation_bar %}{% endblock %}
+    </div>
 
-	<div id="bd">
-		<div id="yui-main">
-		  <div class="yui-b"><div class="yui-ge">
-			  <div class="yui-u first">
-				<!-- google_ad_section_start -->
-				{% block content %}{% endblock %}
-				<!-- google_ad_section_end -->
-			  </div>
-			  <div class="yui-u">
-				{% if not PREVIEW %}
-				{% ifequal SHOW_TOPIC 'True' %}{{ "/blog/topic/"|flat_page_content_by_url }}{% endifequal %}
-				{% show_recent_entries SIDEBAR_ENTRIES_NUM RECENT_ENTRIES_PAGE %}
-				{% show_recent_comments SIDEBAR_ENTRIES_NUM RECENT_COMMENTS_PAGE %}
-				{% show_random_entries SIDEBAR_ENTRIES_NUM %}
-				{% show_tags %}
-				{% ifequal SHOW_GOOGLE_SEARCH 'True' %}{{ "/blog/google_search_form/"|flat_page_content_by_url }}{% endifequal %}
-				{% ifequal SHOW_PROFILE 'True' %}
-				  {% show_lastfm_recent_tracks LASTFM_ID LASTFM_MODE %}
-				  {{ "/blog/profile/"|flat_page_content_by_url }}
-				{% endifequal %}
-				{% ifequal SHOW_ASAMASHISITE_LINKS 'True' %}{{ "/blog/asamashi_site_links/"|flat_page_content_by_url }}{% endifequal %}
-				{% endif %}
-			  </div>
-		  </div></div>
-		</div>
+    <div id="bd">
+        <div id="yui-main">
+          <div class="yui-b"><div class="yui-ge">
+              <div class="yui-u first">
+                <h3 style="text-align: center; margin-bottom: 1em; font-weight: bold; font-size: 1.5em; color: red;">
+<script type="text/javascript">
+  var path = location.href.split('/blog/', 2)[1];
+  var url;
+  if (path.match(/^1.0/)) {
+      path = '';
+  }
+  url = '/blog/#!/blog/' + path;
+  document.write('<a href="' + url + '" style="color: red;">何気に新しくなりました！<br />新版の方へぜひ</a>');
+</script><noscript><a href="/blog/" style="color: red;">何気に新しくなりました！<br />新版の方へぜひ</a></noscript>
+                </h3>
+                <!-- google_ad_section_start -->
+                {% block content %}{% endblock %}
+                <!-- google_ad_section_end -->
+              </div>
+              <div class="yui-u">
+                {% if not PREVIEW %}
+                {% ifequal SHOW_TOPIC 'True' %}{{ "/blog/topic/"|flat_page_content_by_url }}{% endifequal %}
+                {% show_recent_entries SIDEBAR_ENTRIES_NUM RECENT_ENTRIES_PAGE %}
+                {% show_recent_comments SIDEBAR_ENTRIES_NUM RECENT_COMMENTS_PAGE %}
+                {% show_random_entries SIDEBAR_ENTRIES_NUM %}
+                {% show_tags %}
+                {% ifequal SHOW_GOOGLE_SEARCH 'True' %}{{ "/blog/google_search_form/"|flat_page_content_by_url }}{% endifequal %}
+                {% ifequal SHOW_PROFILE 'True' %}
+                  {% show_lastfm_recent_tracks LASTFM_ID LASTFM_MODE %}
+                  {{ "/blog/profile/"|flat_page_content_by_url }}
+                {% endifequal %}
+                {% ifequal SHOW_ASAMASHISITE_LINKS 'True' %}{{ "/blog/asamashi_site_links/"|flat_page_content_by_url }}{% endifequal %}
+                {% endif %}
+              </div>
+          </div></div>
+        </div>
 
-		<div class="yui-b">
-		  {% if not PREVIEW %}
-		  <div id="amazonAsamashiesBox">{{ "/blog/spot_asamashi/"|flat_page_content_by_url }}</div>
-		  <div id="trackWordBox">{{ "/blog/trackword/"|flat_page_content_by_url }}</div>
-		  {% endif %}
+        <div class="yui-b">
+          {% if not PREVIEW %}
+          <div id="amazonAsamashiesBox">{{ "/blog/spot_asamashi/"|flat_page_content_by_url }}</div>
+          <div id="trackWordBox">{{ "/blog/trackword/"|flat_page_content_by_url }}</div>
+          {% endif %}
 
-		</div>
+        </div>
 
-	<div id="ft">{% block footer %}<a href="/blog/" style="border: none;">ReiAre! since 1996</a>{% endblock %}</div>
+    <div id="ft">{% block footer %}<a href="/blog/" style="border: none;">ReiAre! since 1996</a>{% endblock %}</div>
 </div></div></div>
 <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
 <script type="text/javascript"> _uacct = "UA-538965-1"; urchinTracker();</script>
