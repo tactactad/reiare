@@ -64,8 +64,10 @@ urlpatterns += patterns('',
 )
 
 urlpatterns += patterns('blog.apis',
-                        (r'^api/(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>.*)/entry.json$', 'entry_json_from_slug'),
-                        (r'^api/(?P<year>\d{4})/(?P<month>\d{2})/(?P<page>\d+)/entry.json$', 'archives_entries_json'),
+                        (r'^api/(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>.*)/entry.json$',
+                         'entry_json_from_slug'),
+                        (r'^api/(?P<year>\d{4})/(?P<month>\d{2})/(?P<page>\d+)/entry.json$',
+                         'archives_entries_json'),
                         (r'^api/(?P<year>\d{4})/(?P<month>\d{2})/entry.json$', 'archives_entries_json'),
                         (r'^api/entry/(?P<object_id>\d+).json$', 'entry_json'),
                         (r'^api/recents/(?P<page>\d+)/entry.json$', 'recent_entries_json'),
