@@ -45,7 +45,7 @@ var ReiAreLoader = function() {
     };
 
     this.errorActionToLoadContent = function(xhr, status) {
-        alert('ajax error!');
+        alert('読み込みに失敗しました。\nリロードしてみてくださいませ。');
     };
 
     this.completeActionToLoadContent = function(scroll) {
