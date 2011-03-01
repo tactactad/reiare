@@ -122,3 +122,15 @@ jQuery.easing.jswing=jQuery.easing.swing;jQuery.extend(jQuery.easing,{def:"easeO
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
+
+/*
+ * @class FLAutoKerning
+ * @version 0.0.3 (2011/02/28)
+ *
+ * テキストに文字詰めを適用するUtilityクラス。
+ * インスタンス化せずに、スタティック関数として使用する。
+ *
+ * @author Takayuki Fukatsu, artandmobile.com, fladdict.net
+ * @requires jQuery
+ */
+var p={};p["*う"]=-0.03;p["う*"]=-0.02;p["*く"]=-0.075;p["く*"]=-0.075;p["*し"]=-0.075;p["し*"]=-0.075;p["*ぁ"]=-0.05;p["ぁ*"]=-0.075;p["*ぃ"]=-0.05;p["ぃ*"]=-0.075;p["*ぅ"]=-0.05;p["ぅ*"]=-0.075;p["*ぇ"]=-0.05;p["ぇ*"]=-0.075;p["*ぉ"]=-0.05;p["ぉ*"]=-0.075;p["*っ"]=-0.075;p["っ*"]=-0.075;p["*ゃ"]=-0.05;p["ゃ*"]=-0.075;p["*ゅ"]=-0.05;p["ゅ*"]=-0.075;p["*ょ"]=-0.075;p["ょ*"]=-0.075;p["*ト"]=-0.075;p["ト*"]=-0.075;p["*ド"]=-0.075;p["ド*"]=-0.075;p["*リ"]=-0.075;p["リ*"]=-0.075;p["*ッ"]=-0.05;p["ッ*"]=-0.075;p["ャ*"]=-0.05;p["*ャ"]=-0.05;p["ュ*"]=-0.05;p["*ュ"]=-0.05;p["ョ*"]=-0.08;p["*ョ"]=-0.08;p["*「"]=-0.25;p["」*"]=-0.25;p["*（"]=-0.25;p["）*"]=-0.25;p["、*"]=-0.25;p["。*"]=-0.25;p["・*"]=-0.25;p["*・"]=-0.25;p["*："]=-0.25;p["：*"]=-0.25;p["して"]=-0.12;p["す。"]=-0.15;p["タク"]=-0.12;p["タグ"]=-0.12;p["ット"]=-0.2;p["ラム"]=-0.1;p["プル"]=-0.1;p["ンプ"]=-0.15;p["ング"]=-0.05;p["ード"]=-0.15;p["」「"]=-0.75;p["」。"]=-0.25;p["」、"]=-0.25;p["、「"]=-0.75;p["。「"]=-0.75;p["、『"]=-0.75;p["。『"]=-0.75;p["、（"]=-0.75;p["。（"]=-0.75;p["「"]=-0.5;p["『"]=-0.5;p["（"]=-0.5;p["【"]=-0.5;p["“"]=-0.5;var FLAutoKerning={};FLAutoKerning.DEFAULT_KERNING_INFO=p;FLAutoKerning.process=function(a,b){if(b==undefined){b=FLAutoKerning.DEFAULT_KERNING_INFO}a.each(function(m,g){var j=$(g).html();var d="";var f=j.length;for(var h=0;h<f;h++){var l=j.substr(h,1);var k=l;var e=j.substr(h+1,1);var c=0;if(b[l+e]){c=b[l+e]}else{if(b[l+"*"]){c+=b[l+"*"]}if(b["*"+e]){c+=b["*"+e]}}if(c!==0){k="<span style='letter-spacing:"+c+"em'>"+l+"</span>"}if(h===0&&b[l]){k="<span style='margin-left:"+b[l]+"em'/>"+k}d+=k}$(g).html(d)})};delete p;
