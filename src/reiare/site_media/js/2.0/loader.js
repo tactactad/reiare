@@ -51,6 +51,7 @@ var ReiAreLoader = function() {
     this.completeActionToLoadContent = function(scroll) {
         this.loadingImage.hide();
         this.beautyOfCodeActionToLoadContent(scroll);
+        this.flAutoKerning();
     };
 
     this.beautyOfCodeActionToLoadContent = function(scroll) {
@@ -58,6 +59,14 @@ var ReiAreLoader = function() {
             $.beautyOfCode.beautifyAll();
         } else {
             $.beautyOfCode.init('clipboard.swf');
+        }
+    };
+
+    this.flAutoKerning = function() {
+        if ($('.entryHeader h3 a').length > 0) {
+            FLAutoKerning.process($('.entryHeader h3 a'));
+        } else {
+            FLAutoKerning.process($('.entryHeader h3'));
         }
     };
 
