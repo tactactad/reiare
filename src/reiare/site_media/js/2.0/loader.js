@@ -64,9 +64,9 @@ var ReiAreLoader = function() {
 
     this.flAutoKerning = function() {
         if ($('.entryHeader h3 a').length > 0) {
-            FLAutoKerning.process($('.entryHeader h3 a'));
+            $('.entryHeader h3 a').flAutoKerning();
         } else {
-            FLAutoKerning.process($('.entryHeader h3'));
+            $('.entryHeader h3').flAutoKerning();
         }
     };
 
