@@ -108,7 +108,6 @@ var ReiAreLoader = function() {
                 });
                 box.show('drop');
                 theThis.randomRotateImage(box);
-                theThis.applyLazyload(box);
 
                 if (typeof json['paginator'] !== 'undefined') {
                     box.find('h3 a').addClass('plain blue');
@@ -165,7 +164,6 @@ var ReiAreLoader = function() {
                 $('#archivesTemplate').tmpl({month: json}, {
                     currentYear: '',
                     yearString: function(month) {
-                        console.log(this);
                         if (this.currentYear === '') {
                             this.currentYear = month['year'];
                             return true;
@@ -243,8 +241,6 @@ var ReiAreLoader = function() {
                 box.append(innerShiv(nav, false));
                 box.show('drop');
                 theThis.randomRotateImage(box);
-                theThis.applyLazyload(box);
-
 
                 box.find('h3 a').addClass('plain green');
                 box.find('.permalink').addClass('bgGreen');
@@ -289,7 +285,6 @@ var ReiAreLoader = function() {
                 box.append(innerShiv(nav, false));
                 box.show('drop');
                 theThis.randomRotateImage(box);
-                theThis.applyLazyload(box);
 
                 box.find('h3 a').addClass('plain green');
                 box.find('.permalink').addClass('bgGreen');
@@ -300,18 +295,6 @@ var ReiAreLoader = function() {
             url: url
         });
 
-    };
-
-    this.applyLazyload = function(box) {
-        if (!this.isMobile) {
-            $.each(box.find('img'), function() {
-                $(this).lazyload({
-                    placeholder : "/site_media/js/2.0/lazyload/grey.gif",
-                    effect : "fadeIn",
-                    threshold : 200
-                });
-            });
-        }
     };
 
     this.convertJsonURLFromPath = function(path) {
