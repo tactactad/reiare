@@ -1,10 +1,22 @@
 {% load blog_extras %}
 <article class="entry">
-<header>
-  <h3 class="blue">{{ object.title }}</h3>
+<header class="entryHeader">
+  <h3><a href="#!{{ object.get_absolute_url }}" title="{{ object.title }}" class="plain blue">{{ object.title }}<span class="white permalink bgBlue">link</span></a></h3>
 </header>
+<time pubdate="{{ object.created|date:"Y-m-d\TH:i:sO" }}" class="pubdate">{{ object.created|date:"Y/n/j (D) ah:i" }}</time>
 {{ object.linebreaks_body_without_pre|safe }}
-<footer>
-  <time datetime="{{ object.created|date:"Y-m-d\TH:i:sO" }}">{{ object.created|date:"Y/n/j (D) ah:i" }}</time>
-</footer>
+{% if object.rel_entries.count %}
+<nav class="entryFooter"><ul>
+{% for rel_entry in object.rel_entries.all %}
+  <li><a href="#!{{ rel_entry.get_absolute_url }}">{{ rel_entry.title }}</a></li>
+{% endfor %}
+</ul></nav>
+{% endif %}
+{% if object.tags.count %}
+<nav class="entryTags"><ul>
+{% for tag in object.tags.all %}
+  <li><a href="#!{{ tag.get_absolute_url }}">{{ tag.name }}</a></li>
+{% endfor %}
+</ul></nav>
+{% endif %}
 </article>

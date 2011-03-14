@@ -136,19 +136,22 @@ def paginator_from_objects_and_num_and_page(objects, num, page):
 
 # views
 @cache_page(86400)
-def index(request):
+def index(request, page=1):
     if request.GET.__contains__('_escaped_fragment_'):
         if request.GET['_escaped_fragment_'] == '' or request.GET['_escaped_fragment_'] == '/blog/':
-            return redirect('/blog/1.0/')
+            return redirect('/blog/')
         else:
             return redirect(request.GET['_escaped_fragment_'])
 
-    latest = Entry.published_objects.all()[:1]
+    entries = Entry.published_objects.all()
+    dic, objects = paginator_from_objects_and_num_and_page(entries, 5, page)
+    dic['url'] = '/blog/recents/'
     return render_to_response('2.0/generic/entry_archive.html',
-                              {'latest': latest,
-                               'lastupdate': latest[0].attr_created(),
+                              {'latest': objects,
+                               'lastupdate': objects[0].attr_created(),
                                'random_entries': random_entries_from_num(10),
-                               'tags': EntryTag.objects.all()},
+                               'tags': EntryTag.objects.all(),
+                               'paginator': dic},
                               context_instance=RequestContext(request))
 
 

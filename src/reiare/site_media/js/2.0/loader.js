@@ -320,6 +320,12 @@ var ReiAreLoader = function() {
             });
         }
     };
+
+    this.showIncludeEntries = function(box) {
+        this.randomRotateImage(box);
+        this.completeActionToLoadContent('no');
+        box.show('drop');
+    };
 };
 
 $(function() {
@@ -342,7 +348,7 @@ $(function() {
             loader.entriesToContentFromURL(loader.convertJsonURLFromPath(path), null, 'no');
         }
     } else {
-        loader.entriesToContentFromURL('/blog/api/recents/1/entry.json', 1, 'no');
+        loader.showIncludeEntries($('#content'));
     }
 
     $(window).hashchange(function() {
