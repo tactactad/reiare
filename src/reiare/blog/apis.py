@@ -175,7 +175,7 @@ def paginator_from_objects_and_num_and_page(objects, num, page):
 @cache_page(86400)
 def index(request):
     if request.GET.__contains__('_escaped_fragment_'):
-        if request.GET['_escaped_fragment_'] == '/blog/':
+        if request.GET['_escaped_fragment_'] == '' or request.GET['_escaped_fragment_'] == '/blog/':
             return redirect('/blog/1.0/')
         else:
             return redirect(request.GET['_escaped_fragment_'])
