@@ -322,15 +322,19 @@ var ReiAreLoader = function() {
     };
 
     this.showIncludeEntries = function(box) {
+        // this.loadingImage.show();
         this.randomRotateImage(box);
         this.completeActionToLoadContent('no');
-        box.show('drop');
+        // box.show();
+        $('a[href^="/blog/"]').each(function() {
+            $(this).attr('href', '#!' + $(this).attr('href'));
+        });
     };
 };
 
 $(function() {
     var loader = new ReiAreLoader();
-    loader.entryTitleToSidebarFromURL($('#recentEntries'), '/blog/api/recents/title.json');
+    // loader.entryTitleToSidebarFromURL($('#recentEntries'), '/blog/api/recents/title.json');
 
     var url  = location.href;
     var path = url.split('#!', 2)[1];
@@ -352,7 +356,8 @@ $(function() {
     }
 
     $(window).hashchange(function() {
-        var path = '/blog/';
+        // var path = '/blog/';
+        var path = location.pathname;
         if (location.hash) {
             path = location.hash.split('#!', 2)[1];
         }

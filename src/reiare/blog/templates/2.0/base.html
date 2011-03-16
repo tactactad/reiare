@@ -24,8 +24,8 @@
 
 <nav id="menubar" class="grid8">
   <ul>
-    <li class="bgBlue white"><a href="#!/blog/" class="plain" id="toHome">ほーむ</a></li>
-    <li class="bgGreen white"><a href="#!/blog/archives/" class="plain" id="toArchive">あーかいぶ</a></li>
+    <li class="bgBlue white"><a href="/blog/" class="plain" id="toHome">ほーむ</a></li>
+    <li class="bgGreen white"><a href="/blog/archives/" class="plain" id="toArchive">あーかいぶ</a></li>
     <li class="bgOrange white" style="text-decoration: line-through;">ら　ぼ</li>
     <li class="bgPink white" style="text-decoration: line-through;">あばうと</li>
     <li class="bgPurple white" style="text-decoration: line-through;">こんたくと</li>
@@ -107,6 +107,9 @@ new TWTR.Widget({
   <nav id="recents">
     <h4 class="green" id="bindTest">さいきんのにっき</h4>
     <ul id="recentEntries">
+      {% for entry in recent_entries %}
+      <li><a href="{{ entry.get_absolute_url }}" title="{{ entry.title }}" class="withBorder">{{ entry.title|omit:23 }}</a></li>
+      {% endfor %}
     </ul>
   </nav>
   <nav id="ranking">
@@ -115,7 +118,7 @@ new TWTR.Widget({
     <h4 class="green">かこにっきらんだむ</h4>
     <ul id="randomEntries">
       {% for entry in random_entries %}
-      <li><a href="#!{{ entry.get_absolute_url }}" title="{{ entry.title }}" class="withBorder">{{ entry.title|omit:23 }}</a></li>
+      <li><a href="{{ entry.get_absolute_url }}" title="{{ entry.title }}" class="withBorder">{{ entry.title|omit:23 }}</a></li>
       {% endfor %}
     </ul>
   </nav>
@@ -123,7 +126,7 @@ new TWTR.Widget({
     <h4 class="orange">たぐ</h4>
     <ul id="tagNames">
       {% for tag in tags %}
-      <li><a href="#!{{ tag.get_absolute_url }}" class="withBorder">{{ tag.name }}</a></li>
+      <li><a href="{{ tag.get_absolute_url }}" class="withBorder">{{ tag.name }}</a></li>
       {% endfor %}
     </ul>
   </nav>
