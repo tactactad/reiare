@@ -77,5 +77,6 @@ urlpatterns += patterns('blog.apis',
                         (r'^api/tag/(?P<tag>.*)/(?P<page>\d+)/entry.json$', 'tag_entries_json'),
                         (r'^api/tag/(?P<tag>.*)/entry.json$', 'tag_entries_json'),
                         (r'^(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>.*)/$', 'detail'),
+                        (r'^recents/(?P<page>\d)/$', 'index'),
                         (r'^$', 'index'),
                         )
