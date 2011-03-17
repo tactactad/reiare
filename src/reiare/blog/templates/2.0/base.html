@@ -1,4 +1,6 @@
 {% load reiare_extras %}
+{% load blog_tag_extras %}
+{% load cache %}
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -107,9 +109,9 @@ new TWTR.Widget({
   <nav id="recents">
     <h4 class="green" id="bindTest">さいきんのにっき</h4>
     <ul id="recentEntries">
-      {% for entry in recent_entries %}
-      <li><a href="{{ entry.get_absolute_url }}" title="{{ entry.title }}" class="withBorder">{{ entry.title|omit:23 }}</a></li>
-      {% endfor %}
+      {% cache 21600 recent_entries %}
+        {% show_recent_entries %}
+      {% endcache %}
     </ul>
   </nav>
   <nav id="ranking">
@@ -117,17 +119,20 @@ new TWTR.Widget({
   <nav id="random">
     <h4 class="green">かこにっきらんだむ</h4>
     <ul id="randomEntries">
-      {% for entry in random_entries %}
-      <li><a href="{{ entry.get_absolute_url }}" title="{{ entry.title }}" class="withBorder">{{ entry.title|omit:23 }}</a></li>
-      {% endfor %}
+      {% cache 86400 random_entries %}
+        {% show_random_entries %}
+      {% endcache %}
     </ul>
   </nav>
   <nav id="tags">
     <h4 class="orange">たぐ</h4>
     <ul id="tagNames">
-      {% for tag in tags %}
+      {% cache 86400 tags %}
+      {% show_tags %}
+      {% endcache %}
+{% comment %}      {% for tag in tags %}
       <li><a href="{{ tag.get_absolute_url }}" class="withBorder">{{ tag.name }}</a></li>
-      {% endfor %}
+      {% endfor %}{% endcomment %}
     </ul>
   </nav>
   <section id="profile">

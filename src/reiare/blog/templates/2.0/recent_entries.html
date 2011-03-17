@@ -1,0 +1,4 @@
+{% load reiare_extras %}
+{% for entry in entries %}
+<li><a href="{{ entry.get_absolute_url }}" title="{{ entry.title }}" class="withBorder">{{ entry.title|omit:23 }}</a></li>
+{% endfor %}

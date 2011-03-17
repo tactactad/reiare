@@ -135,7 +135,8 @@ def paginator_from_objects_and_num_and_page(objects, num, page):
             data.object_list)
 
 # views
-@cache_page(86400)
+# @cache_page(86400)
+# @cache_page(21600)
 def index(request, page=1):
     if request.GET.__contains__('_escaped_fragment_'):
         if request.GET['_escaped_fragment_'] == '' or request.GET['_escaped_fragment_'] == '/blog/':
@@ -149,9 +150,22 @@ def index(request, page=1):
     return render_to_response('2.0/generic/entry_archive.html',
                               {'latest': objects,
                                'lastupdate': objects[0].attr_created(),
-                               'random_entries': random_entries_from_num(10),
-                               'tags': EntryTag.objects.all(),
+                               # 'recent_entries': entries[:10],
+                               # 'random_entries': random_entries_from_num(10),
+                               # 'tags': EntryTag.objects.all(),
                                'paginator': dic},
+                              context_instance=RequestContext(request))
+
+
+def detail(request, year, month, day, slug):
+    entrys = Entry.published_objects.filter(created__year=year). \
+        filter(created__month=month).filter(created__day=day). \
+        filter(**{'slug': slug})
+    return render_to_response('2.0/generic/entry_archive.html',
+                              {'latest': entrys,
+                               'lastupdate': entrys[0].attr_created(),},
+                               # 'random_entries': random_entries_from_num(10),
+                               # 'tags': EntryTag.objects.all()},
                               context_instance=RequestContext(request))
 
 

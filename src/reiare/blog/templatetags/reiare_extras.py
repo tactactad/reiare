@@ -4,6 +4,7 @@ import re
 from django import template
 from django.template.defaultfilters import stringfilter
 
+
 register = template.Library()
 
 
@@ -37,3 +38,6 @@ def omit(value, length=15):
 @stringfilter
 def wrapped_jQuery_templatetag(value):
     return '{{' + value + '}}'
+
+
+
