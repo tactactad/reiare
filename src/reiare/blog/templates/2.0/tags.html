@@ -1,0 +1,3 @@
+{% for tag in tags %}
+<li><a href="{{ tag.get_absolute_url }}" class="withBorder">{{ tag.name }}</a></li>
+{% endfor %}

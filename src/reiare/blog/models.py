@@ -198,7 +198,7 @@ class Entry(models.Model):
 
     @permalink
     def get_absolute_url(self):
-        return ('blog.views.detail', (), {'year': self.created.year,
+        return ('blog.apis.detail', (), {'year': self.created.year,
                                           'month': self.created.strftime('%m'),
                                           'day': self.created.strftime('%d'),
                                           'slug': self.slug})

@@ -36,12 +36,6 @@ def json_source_from_entries(entries):
                    'url': rel_entry.get_absolute_url()}
             rel_entries.append(dic)
 
-        # tags = []
-        # for tag in entry.tags.all():
-        #     dic = {'id': tag.id,
-        #            'name': tag.name,
-        #            'url': tag.get_absolute_url()}
-        #     tags.append(dic)
         tags = json_source_from_tags(entry.tags.all())
 
         dic = {'id': entry.id,
@@ -77,41 +71,10 @@ def json_source_from_archives(archives):
 
 
 def json_from_entries(entries):
-    # data = []
-    # for entry in entries:
-    #     rel_entries = []
-    #     for rel_entry in entry.published_rel_entries():
-    #         dic = {'id': rel_entry.id,
-    #                'title': rel_entry.title,
-    #                'url': rel_entry.get_absolute_url()}
-    #         rel_entries.append(dic)
-
-    #     tags = []
-    #     for tag in entry.tags.all():
-    #         dic = {'id': tag.id,
-    #                'name': tag.name,
-    #                'url': tag.get_absolute_url()}
-    #         tags.append(dic)
-
-    #     dic = {'id': entry.id,
-    #            'title': entry.title,
-    #            'body': entry.linebreaks_body_without_pre(),
-    #            'attr_created': entry.attr_created(),
-    #            'display_created': entry.display_created(),
-    #            'url': entry.get_absolute_url(),
-    #            'tags': tags,
-    #            'rel_entries': rel_entries}
-    #     data.append(dic)
     return simplejson.dumps(json_source_from_entries(entries))
 
 
 def json_from_tags(tags):
-    # data = []
-    # for tag in tags:
-    #     dic = {'id': tag.id,
-    #            'name': tag.name,
-    #            'url': tag.get_absolute_url()}
-    #     data.append(dic)
     return simplejson.dumps(json_source_from_tags(tags))
 
 
@@ -172,23 +135,34 @@ def paginator_from_objects_and_num_and_page(objects, num, page):
             data.object_list)
 
 # views
-@cache_page(86400)
-def index(request):
+# @cache_page(86400)
+# @cache_page(21600)
+def index(request, page=1):
     if request.GET.__contains__('_escaped_fragment_'):
         if request.GET['_escaped_fragment_'] == '' or request.GET['_escaped_fragment_'] == '/blog/':
-            return redirect('/blog/1.0/')
+            return redirect('/blog/')
         else:
             return redirect(request.GET['_escaped_fragment_'])
-    # latest_entries = Entry.published_objects.all()[:5]
-    # return render_to_response('2.0/generic/entry_archive.html',
-    #                           {'latest': latest_entries,},
-    #                           context_instance=RequestContext(request))
-    latest = Entry.published_objects.all()[:1]
+
+    entries = Entry.published_objects.all()
+    dic, objects = paginator_from_objects_and_num_and_page(entries, 5, page)
+    dic['url'] = '/blog/recents/'
     return render_to_response('2.0/generic/entry_archive.html',
-                              {'latest': latest,
-                               'lastupdate': latest[0].attr_created(),
-                               'random_entries': random_entries_from_num(10),
-                               'tags': EntryTag.objects.all()},
+                              {'latest': objects,
+                               'lastupdate': objects[0].attr_created(),
+                               'paginator': dic,
+                               'view_mode': 'index'},
+                              context_instance=RequestContext(request))
+
+
+def detail(request, year, month, day, slug):
+    entrys = Entry.published_objects.filter(created__year=year). \
+        filter(created__month=month).filter(created__day=day). \
+        filter(**{'slug': slug})
+    return render_to_response('2.0/generic/entry_archive.html',
+                              {'latest': entrys,
+                               'lastupdate': entrys[0].attr_created(),
+                               'view_mode': 'detail'},
                               context_instance=RequestContext(request))
 
 
@@ -215,9 +189,6 @@ def entry_json_from_slug(request, year, month, day, slug):
 
 @check_ajax_access
 def recent_entries_json(request, page='2'):
-    # start_num = (int(page) - 1) * 5
-    # end_num = start_num + 5
-    # entries = Entry.published_objects.all()[start_num:end_num]
     entries = Entry.published_objects.all()
     dic, objects = paginator_from_objects_and_num_and_page(entries, 5, page)
     json_source = {'entries': json_source_from_entries(objects),
