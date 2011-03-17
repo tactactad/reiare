@@ -325,7 +325,7 @@ var ReiAreLoader = function() {
         // this.loadingImage.show();
         this.randomRotateImage(box);
         this.completeActionToLoadContent('no');
-        // box.show();
+        // box.show('drop');
         $('a[href^="/blog/"]').each(function() {
             $(this).attr('href', '#!' + $(this).attr('href'));
         });

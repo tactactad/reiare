@@ -33,7 +33,7 @@
     <li class="bgPurple white" style="text-decoration: line-through;">こんたくと</li>
   </ul>
   <!--[if IE]>
-      <p style="margin-top: 2em;"><a href="/blog/1.0/">表示がおかしい方は旧版の方とかでどうでしょう。</a></p>
+      <p style="margin-top: 2em;"><a href="../blog/1.0/">表示がおかしい方は旧版の方とかでどうでしょう。</a></p>
   <![endif]-->
 </nav>
 </header>
@@ -128,11 +128,8 @@ new TWTR.Widget({
     <h4 class="orange">たぐ</h4>
     <ul id="tagNames">
       {% cache 86400 tags %}
-      {% show_tags %}
+        {% show_tags %}
       {% endcache %}
-{% comment %}      {% for tag in tags %}
-      <li><a href="{{ tag.get_absolute_url }}" class="withBorder">{{ tag.name }}</a></li>
-      {% endfor %}{% endcomment %}
     </ul>
   </nav>
   <section id="profile">

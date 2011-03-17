@@ -9,10 +9,10 @@
 <nav id="moreEntries">
 <ul>
 {% if paginator.has_previous %}
-  <li><a href="#!{{ paginator.url }}{{ paginator.previous_page_number }}">&lt;</a><li>
+  <li><a href="{{ paginator.url }}{{ paginator.previous_page_number }}">&lt;</a><li>
 {% endif %}
 {% if paginator.has_next %}
-  <li><a href="#!{{ paginator.url }}{{ paginator.next_page_number }}/">&gt; つぎの{{ paginator.per_page }}けん</a><li>
+  <li><a href="{{ paginator.url }}{{ paginator.next_page_number }}/">&gt; つぎの{{ paginator.per_page }}けん</a><li>
 {% endif %}
 </ul>
 </nav>
