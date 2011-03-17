@@ -150,10 +150,8 @@ def index(request, page=1):
     return render_to_response('2.0/generic/entry_archive.html',
                               {'latest': objects,
                                'lastupdate': objects[0].attr_created(),
-                               # 'recent_entries': entries[:10],
-                               # 'random_entries': random_entries_from_num(10),
-                               # 'tags': EntryTag.objects.all(),
-                               'paginator': dic},
+                               'paginator': dic,
+                               'view_mode': 'index'},
                               context_instance=RequestContext(request))
 
 
@@ -163,9 +161,8 @@ def detail(request, year, month, day, slug):
         filter(**{'slug': slug})
     return render_to_response('2.0/generic/entry_archive.html',
                               {'latest': entrys,
-                               'lastupdate': entrys[0].attr_created(),},
-                               # 'random_entries': random_entries_from_num(10),
-                               # 'tags': EntryTag.objects.all()},
+                               'lastupdate': entrys[0].attr_created(),
+                               'view_mode': 'detail'},
                               context_instance=RequestContext(request))
 
 
