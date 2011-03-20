@@ -110,7 +110,7 @@ a.withBorder {
 #content {
     margin-top: 1.5em;
     margin-bottom: 1em;
-    /* display: none; */
+    display: none;
 }
   .entry {
       line-height: 1.8em;

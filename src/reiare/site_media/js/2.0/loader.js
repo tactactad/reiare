@@ -322,10 +322,17 @@ var ReiAreLoader = function() {
     };
 
     this.showIncludeEntries = function(box) {
-        // this.loadingImage.show();
+        this.loadingImage.show();
         this.randomRotateImage(box);
         this.completeActionToLoadContent('no');
-        // box.show('drop');
+        box.show('drop');
+        // $('a[href^="/blog/"]').each(function() {
+        //     $(this).attr('href', '#!' + $(this).attr('href'));
+        // });
+        this.convertShebang();
+    };
+
+    this.convertShebang = function() {
         $('a[href^="/blog/"]').each(function() {
             $(this).attr('href', '#!' + $(this).attr('href'));
         });
@@ -338,8 +345,12 @@ $(function() {
 
     var url  = location.href;
     var path = url.split('#!', 2)[1];
-    if ((path) && (path.match(/^\/blog\/.+/))) {
-        if (path.indexOf('/recents/') > -1) {
+    console.log(path);
+    if ((path) && (path.match(/^\/blog\/+/))) {
+    // if ((path) && (path.match(/^\/blog\/.+/))) {
+        if (path.match(/^\/blog\/$/)) {
+            loader.entriesToContentFromURL('/blog/api/recents/1/entry.json', 1, 'no');
+        } else if (path.indexOf('/recents/') > -1) {
             var page = path.split('/').reverse()[1];
             loader.entriesToContentFromURL(loader.convertJsonURLFromPath(path), parseInt(page, 10), 'no');
         } else if (path.indexOf('/archives/') > -1) {
@@ -351,6 +362,12 @@ $(function() {
         } else {
             loader.entriesToContentFromURL(loader.convertJsonURLFromPath(path), null, 'no');
         }
+        if (url.split('#!', 2)[0]) {
+            loader.convertShebang();
+        }
+    // } else if(path.match(/^\/blog\//)) {
+    //     loader.entriesToContentFromURL('/blog/api/recents/1/entry.json', 1, 'no');
+    //     loader.convertShebamg();
     } else {
         loader.showIncludeEntries($('#content'));
     }
