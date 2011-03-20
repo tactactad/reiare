@@ -322,13 +322,14 @@ var ReiAreLoader = function() {
     };
 
     this.showIncludeEntries = function(box) {
-        // this.loadingImage.show();
+        this.loadingImage.show();
         this.randomRotateImage(box);
         this.completeActionToLoadContent('no');
         box.show('drop');
-        $('a[href^="/blog/"]').each(function() {
-            $(this).attr('href', '#!' + $(this).attr('href'));
-        });
+        // $('a[href^="/blog/"]').each(function() {
+        //     $(this).attr('href', '#!' + $(this).attr('href'));
+        // });
+        this.convertShebang();
     };
 
     this.convertShebang = function() {
