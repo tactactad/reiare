@@ -326,9 +326,6 @@ var ReiAreLoader = function() {
         this.randomRotateImage(box);
         this.completeActionToLoadContent('no');
         box.show('drop');
-        // $('a[href^="/blog/"]').each(function() {
-        //     $(this).attr('href', '#!' + $(this).attr('href'));
-        // });
         this.convertShebang();
     };
 
@@ -345,7 +342,7 @@ $(function() {
 
     var url  = location.href;
     var path = url.split('#!', 2)[1];
-    console.log(path);
+
     if ((path) && (path.match(/^\/blog\/+/))) {
     // if ((path) && (path.match(/^\/blog\/.+/))) {
         if (path.match(/^\/blog\/$/)) {
