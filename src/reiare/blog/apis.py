@@ -156,12 +156,13 @@ def index(request, page=1):
 
 
 def detail(request, year, month, day, slug):
-    entrys = Entry.published_objects.filter(created__year=year). \
+    entries = Entry.published_objects.filter(created__year=year). \
         filter(created__month=month).filter(created__day=day). \
         filter(**{'slug': slug})
     return render_to_response('2.0/generic/entry_archive.html',
-                              {'latest': entrys,
-                               'lastupdate': entrys[0].attr_created(),
+                              {'latest': entries,
+                               'lastupdate': entries[0].attr_created(),
+                               'title': entries[0].title,
                                'view_mode': 'detail'},
                               context_instance=RequestContext(request))
 
