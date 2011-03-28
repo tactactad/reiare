@@ -20,7 +20,7 @@ var ReiAreLoader = function() {
     this.isIE = /*@cc_on!@*/!1;
     this.contentBox = $('#content');
     this.loadingImage = $('#loadingImageBox');
-    this.siteTitle = document.title;
+    this.siteTitle = '例のあれ（仮題）';
 
     $.ajaxSetup({
         timeout: 60000
