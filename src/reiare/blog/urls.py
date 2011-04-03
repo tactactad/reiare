@@ -57,6 +57,9 @@ urlpatterns += patterns('django.views.generic.date_based',
 )
 
 urlpatterns += patterns('',
+                        (r'^feeds/latest/$',
+                         'blog.apis.feeds_latest_redirect',
+                         ),
                         url(r'^feeds/(?P<url>.*)/$',
                             'django.contrib.syndication.views.feed',
                             {'feed_dict': feeds},
