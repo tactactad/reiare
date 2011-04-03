@@ -61,6 +61,10 @@ urlpatterns += patterns('',
                             'django.contrib.syndication.views.feed',
                             {'feed_dict': feeds},
                             'blog_feeds'),
+                        url(r'^feeds_ad/(?P<url>.*)/$',
+                            'django.contrib.syndication.views.feed',
+                            {'feed_dict': feeds},
+                            'blog_feeds'),
 )
 
 urlpatterns += patterns('blog.apis',
