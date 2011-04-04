@@ -254,3 +254,7 @@ def tag_entries_json(request, tag, num=10, page=1):
                    'paginator': paginator}
 
     return json_response(simplejson.dumps(json_source))
+
+
+def feeds_latest_redirect(request):
+    return redirect('http://feeds.feedburner.com/reiare/cPIq', permanent=True)

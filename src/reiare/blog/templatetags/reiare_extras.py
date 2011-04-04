@@ -34,10 +34,26 @@ def omit(value, length=15):
         s = temp
     return s
 
+
 @register.filter(name='wrapped_jQuery_templatetag')
 @stringfilter
 def wrapped_jQuery_templatetag(value):
     return '{{' + value + '}}'
 
 
+@register.filter(name='rewrite_img_src')
+@stringfilter
+def rewrite_img_src(value):
+    for mo in re.finditer('<img src="/site_media/', value, re.S):
+        tmp = mo.group().replace('/site_media/', 'http://reiare.net/site_media/')
+        value = value.replace(mo.group(), tmp)
+    return value
 
+
+@register.filter(name='rewrite_a_href')
+@stringfilter
+def rewrite_a_href(value):
+    for mo in re.finditer('<a href="/blog/', value, re.S):
+        tmp = mo.group().replace('/blog/', 'http://reiare.net/blog/')
+        value = value.replace(mo.group(), tmp)
+    return value
