@@ -1,1 +1,2 @@
-{{ obj.body|safe|linebreaks }}
+{% load reiare_extras %}
+{{ obj.body|rewrite_img_src|rewrite_a_href|safe|linebreaks }}
