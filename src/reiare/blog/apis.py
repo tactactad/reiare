@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 import random
+import re
 
 from django.core import serializers
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
@@ -111,6 +112,10 @@ def check_ajax_access(func):
     def inner(*args, **kwargs):
         if args[0].is_ajax():
             return func(*args, **kwargs)
+        if re.match('^/blog/api/(recents|\d{4}).*/entry\\.json$', args[0].path):
+            url = args[0].path.replace('/blog/api/', '/blog/')
+            url = url.replace('entry.json', '')
+            return redirect(url)
         return HttpResponseBadRequest()
     return inner
 
