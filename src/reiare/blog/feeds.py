@@ -15,7 +15,7 @@ class LatestEntries(Feed):
     author_name = "tac"
 
     def items(self):
-	return Entry.published_objects.filter(created__lte=datetime.datetime.now())[:settings.RSS_NUM]
+        return Entry.published_objects.filter(created__lte=datetime.datetime.now())[:settings.RSS_NUM]
 
     def item_pubdate(self, item):
         return item.created
@@ -24,7 +24,8 @@ class LatestEntries(Feed):
         return [t.name for t in item.tags.all()]
 
     def item_link(self, obj):
-        return obj.ajax_url()
+        # return obj.ajax_url()
+        return obj.get_absolute_url()
 
 
 class LatestEntriesByTag(LatestEntries):
