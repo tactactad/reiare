@@ -52,6 +52,7 @@ var ReiAreLoader = function() {
         this.loadingImage.hide();
         this.beautyOfCodeActionToLoadContent(scroll);
         this.flAutoKerning();
+        this.convertShebang();
     };
 
     this.beautyOfCodeActionToLoadContent = function(scroll) {
@@ -359,9 +360,9 @@ $(function() {
         } else {
             loader.entriesToContentFromURL(loader.convertJsonURLFromPath(path), null, 'no');
         }
-        if (url.split('#!', 2)[0]) {
-            loader.convertShebang();
-        }
+        // if (url.split('#!', 2)[0]) {
+        //     loader.convertShebang();
+        // }
     // } else if(path.match(/^\/blog\//)) {
     //     loader.entriesToContentFromURL('/blog/api/recents/1/entry.json', 1, 'no');
     //     loader.convertShebamg();
