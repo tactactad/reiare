@@ -1,0 +1,11 @@
+<nav class="entriesNav">
+    <ul>
+{% if next_month %}
+        <li><a href="/blog/{{ next_month|date:"Y/m" }}/" class="withBorder">&lt;</a></li>
+{% endif %}
+        <li>{{ month|date:"Y/m" }}</li>
+{% if previous_month %}
+        <li><a href="/blog/{{ previous_month|date:"Y/m" }}/" class="withBorder">&gt;</a></li>
+{% endif %}
+    </ul>
+</nav>
