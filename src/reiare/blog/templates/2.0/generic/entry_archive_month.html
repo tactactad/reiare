@@ -1,0 +1,20 @@
+{% extends "2.0/base.html" %}
+{% load blog_extras %}
+
+{% block title %}- {{ month|date:"Y/m" }}{% endblock %}
+
+{% block content %}
+
+<header id="entriesHeader" class="orange">“{{ month|date:"Y/m" }}”な記事</header>
+
+{% if object_list %}
+{% include "2.0/generic/entry_archive_month_nav.html" %}
+{% for object in object_list reversed %}
+  {% include "2.0/entry.html" %}
+{% endfor %}
+{% include "2.0/generic/entry_archive_month_nav.html" %}
+{% else %}
+  <p>該当する記事は有りませんです。</p>
+{% endif %}
+
+{% endblock %}

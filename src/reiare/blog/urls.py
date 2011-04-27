@@ -53,7 +53,12 @@ urlpatterns += patterns('django.views.generic.date_based',
     # (r'^$', 'archive_index', dict(info_dict, num_latest=5,
     #                               template_name = '2.0/generic/entry_archive.html',
     #  )),
-    (r'^(?P<year>\d{4})/(?P<month>\d{2})/$', 'archive_month', dict(info_dict, month_format='%m', allow_empty=True,)),
+    (r'^(?P<year>\d{4})/(?P<month>\d{2})/$', 'archive_month',
+     dict(info_dict, month_format='%m', allow_empty=True,
+          template_name='2.0/generic/entry_archive_month.html',
+          extra_context = {
+                'view_mode': 'archives',
+                })),
 )
 
 urlpatterns += patterns('',
