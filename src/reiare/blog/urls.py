@@ -50,6 +50,8 @@ urlpatterns += patterns('django.views.generic.date_based',
                                   extra_context = {
                                       'search_form': SearchForm(),
                                   })),
+                        (r'^1.0/(?P<year>\d{4})/(?P<month>\d{2})/$', 'archive_month',
+                         dict(info_dict, month_format='%m', allow_empty=True,)),
     # (r'^$', 'archive_index', dict(info_dict, num_latest=5,
     #                               template_name = '2.0/generic/entry_archive.html',
     #  )),
