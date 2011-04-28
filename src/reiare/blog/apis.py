@@ -112,7 +112,7 @@ def check_ajax_access(func):
     def inner(*args, **kwargs):
         if args[0].is_ajax():
             return func(*args, **kwargs)
-        if re.match('^/blog/api/(recents|\d{4}).*/entry\\.json$', args[0].path):
+        if re.match('^/blog/api/(recents|\d{4}|tag).*/entry\\.json$', args[0].path):
             url = args[0].path.replace('/blog/api/', '/blog/')
             url = url.replace('entry.json', '')
             return redirect(url)
@@ -171,6 +171,24 @@ def detail(request, year, month, day, slug):
                                'view_mode': 'detail'},
                               context_instance=RequestContext(request))
 
+def tag_entries_index(request, tag, page=1):
+    tag, entries = tag_and_entries(tag)
+    paginator, entries = paginator_from_objects_and_num_and_page(entries, 10, page)
+    return render_to_response('2.0/generic/entry_archive_tag.html',
+                              {'object_list': entries,
+                               'tag': tag,
+                               'paginator': paginator,
+                               'view_mode': 'archives'},
+                              context_instance=RequestContext(request))
+
+def tag_and_entries(tag):
+    try:
+        tag = EntryTag.objects.get(name__iexact=tag)
+        entries = Entry.published_objects.filter(tags__name__iexact=tag).\
+            filter(created__lte=datetime.datetime.now()).select_related()
+    except:
+        raise Http404
+    return tag, entries
 
 @check_ajax_access
 def entry_json(request, object_id):
@@ -246,12 +264,7 @@ def tag_names_json(request):
 @check_ajax_access
 @cache_page(86400)
 def tag_entries_json(request, tag, num=10, page=1):
-    try:
-        tag = EntryTag.objects.get(name__iexact=tag)
-        entries = Entry.published_objects.filter(tags__name__iexact=tag).\
-            filter(created__lte=datetime.datetime.now()).select_related()
-    except:
-        raise Http404
+    tag, entries = tag_and_entries(tag)
 
     paginator, objects = paginator_from_objects_and_num_and_page(entries, num, page)
     json_source = {'entries': json_source_from_entries(objects),

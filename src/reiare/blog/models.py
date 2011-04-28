@@ -120,7 +120,7 @@ class EntryTag(models.Model):
 
     @permalink
     def get_absolute_url(self):
-        return ('blog.views.tag_list', (), {
+        return ('blog.apis.tag_entries_index', (), {
             'tag': defaultfilters.urlencode(self.name)})
 
     @permalink
