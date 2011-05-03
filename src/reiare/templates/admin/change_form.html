@@ -2,7 +2,8 @@
 {% load i18n admin_modify adminmedia %}
 
 {% block extrahead %}{{ block.super }}
-<script type="text/javascript" src="../../../jsi18n/"></script>
+{% url admin:jsi18n as jsi18nurl %}
+<script type="text/javascript" src="{{ jsi18nurl|default:"../../../jsi18n/" }}"></script>
 {{ media }}
 {% endblock %}
 
@@ -15,32 +16,51 @@
 {% block breadcrumbs %}{% if not is_popup %}
 <div class="breadcrumbs">
      <a href="../../../">{% trans "Home" %}</a> &rsaquo;
-     <a href="../../">{{ app_label|capfirst|escape }}</a> &rsaquo; 
-     {% if has_change_permission %}<a href="../">{{ opts.verbose_name_plural|capfirst }}</a>{% else %}{{ opts.verbose_name_plural|capfirst }}{% endif %} &rsaquo; 
+     <a href="../../">{{ app_label|capfirst|escape }}</a> &rsaquo;
+     {% if has_change_permission %}<a href="../">{{ opts.verbose_name_plural|capfirst }}</a>{% else %}{{ opts.verbose_name_plural|capfirst }}{% endif %} &rsaquo;
      {% if add %}{% trans "Add" %} {{ opts.verbose_name }}{% else %}{{ original|truncatewords:"18" }}{% endif %}
 </div>
 
+
 {% comment %} Preview機能の為追加 {% endcomment %}
 {% ifequal opts.module_name "entry" %}
+<div id="content" style="width: 620px">
+</div>
 <script type="text/javascript">
-<!--
-    function previewLink() {
-       if ('{{ opts.module_name }}' == 'entry') {
-          document.write('<input type="button" value="プレビュー" onClick="preview();return false;" />');
-       }
+var PreviewEntry = function() {
+  this.link = function(eventName) {
+    if ('{{ opts.module_name }}' === 'entry') {
+      document.write('<input type="button" value="プレビュー" onclick="' + eventName  + '"/>');
     }
-    
-    function preview() {
-       var form = document.getElementById('{{ opts.module_name }}_form');
-       form.action = '/{{ opts.app_label }}/{{ opts.module_name }}/preview/';
-       form.target = 'preview';
-       form.submit();
-       form.action = '';
-       form.target = '';
-    }
-// -->
+  };
+  this.preview = function() {
+    var body = $('#id_body').val();
+    body = body.split("\n\n");
+    var tmp = '';
+    $(body).each(function() {
+      tmp = tmp + '<p>' + this.replace("\n", "<br />") + '</p>';
+    });
+
+    var data = {"body": tmp,
+                "title": $('#id_title').val(),
+                "display_created": '2011/5/3 (火) p.m.09:18',
+                "rel_entries": [], "tags" : []};
+    var content = $('#content').empty();
+    $('#entryArticleTemplate').tmpl(data).appendTo(content);
+    $('html, body').animate({scrollTop: content.offset().top},
+                            {easing: 'swing',
+                             duration: 500});
+  };
+};
+var pe = new PreviewEntry();
 </script>
+{% include "2.0/entry_article_template.html" %}
+<link rel="stylesheet" href="/site_media/css/2.0/entry.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
 {% endifequal %}
+
+
 {% endif %}{% endblock %}
 
 {% block content %}<div id="content-main">
@@ -51,7 +71,7 @@
   </ul>
 {% endif %}{% endif %}
 {% endblock %}
-<form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">{% block form_top %}{% endblock %}
+<form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">{% csrf_token %}{% block form_top %}{% endblock %}
 <div>
 {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
 {% if save_on_top %}{% submit_row %}{% endif %}
@@ -59,7 +79,7 @@
     <p class="errornote">
     {% blocktrans count errors|length as counter %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktrans %}
     </p>
-    <ul class="errorlist">{% for error in adminform.form.non_field_errors %}<li>{{ error }}</li>{% endfor %}</ul>
+    {{ adminform.form.non_field_errors }}
 {% endif %}
 
 {% for fieldset in adminform %}
@@ -77,7 +97,7 @@
 {% submit_row %}
 
 {% if adminform and add %}
-   <script type="text/javascript">document.getElementById("{{ adminform.first_field.auto_id }}").focus();</script>
+   <script type="text/javascript">document.getElementById("{{ adminform.first_field.id_for_label }}").focus();</script>
 {% endif %}
 
 {# JavaScript for prepopulated fields #}
