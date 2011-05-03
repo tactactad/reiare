@@ -1,0 +1,26 @@
+{% load reiare_extras %}
+<script id="entryArticleTemplate" type="text/x-jquery-tmpl">
+  <article class="entry">
+    <header class="entryHeader"><h3 class="green">${title}</h3></header>
+    <time pubdate="${attr_created}" class="pubdate">${display_created}</time>
+    {{ "html body"|wrapped_jQuery_templatetag }}
+    {{ "if rel_entries.length"|wrapped_jQuery_templatetag }}
+      <nav class="entryFooter">
+        <ul>
+        {{ "each rel_entries"|wrapped_jQuery_templatetag }}
+          <li><a href="#!${url}">${title}</a></li>
+        {{ "/each"|wrapped_jQuery_templatetag }}
+        </ul>
+      </nav>
+    {{ "/if"|wrapped_jQuery_templatetag }}
+    {{ "if tags.length"|wrapped_jQuery_templatetag }}
+      <nav class="entryTags">
+        <ul>
+        {{ "each tags"|wrapped_jQuery_templatetag }}
+          <li><a href='#!${url}'>${name}</a></li>
+        {{ "/each"|wrapped_jQuery_templatetag }}
+        </ul>
+      </nav>
+    {{ "/if"|wrapped_jQuery_templatetag }}
+  </article>
+</script>
