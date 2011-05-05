@@ -25,8 +25,8 @@ def blog_context(request):
 
     return {
         'BLOG_TITLE': settings.BLOG_TITLE,
-	'BLOG_SUB_TITLE': settings.BLOG_SUB_TITLE,
-	'SHOW_BANNERS': settings.SHOW_BANNERS,
+        'BLOG_SUB_TITLE': settings.BLOG_SUB_TITLE,
+        'SHOW_BANNERS': settings.SHOW_BANNERS,
         'SHOW_TOP_SIDEBAR': settings.SHOW_TOP_SIDEBAR,
         'SHOW_ASAMASHIES': settings.SHOW_ASAMASHIES,
         'SHOW_GOOGLE_SEARCH': settings.SHOW_GOOGLE_SEARCH,
@@ -38,5 +38,7 @@ def blog_context(request):
         'LASTFM_MODE': lastfm_mode,
         'RECENT_ENTRIES_PAGE': recent_entries_page,
         'SIDEBAR_ENTRIES_NUM': settings.SIDEBAR_ENTRIES_NUM,
-        'RECENT_COMMENTS_PAGE': recent_comments_page
+        'RECENT_COMMENTS_PAGE': recent_comments_page,
+
+        'BLOG_HOST_URL': settings.BLOG_HOST_URL,
     }
