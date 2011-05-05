@@ -21,6 +21,7 @@ var ReiAreLoader = function() {
     this.contentBox = $('#content');
     this.loadingImage = $('#loadingImageBox');
     this.siteTitle = '例のあれ（仮題）';
+    this.permalinkURL = 'http://reiare.net';
 
     $.ajaxSetup({
         timeout: 60000
@@ -83,7 +84,9 @@ var ReiAreLoader = function() {
             box.find('h3:last').wrapInner('<a></a>').children().attr({
                 href: '#!' + url,
                 title: title
-            }).append('<span class="white permalink">link</span>');
+            }).parent().append(
+                new StringBuffer('<span class="white permalink"><a href="').
+                    append(this.permalinkURL).append(url).append('">link</a></span>').toString());
         }
     };
 
