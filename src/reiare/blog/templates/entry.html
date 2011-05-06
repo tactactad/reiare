@@ -8,16 +8,16 @@
 
   <div class="blogEntryBody">
 	{% if not PREVIEW %}{% if not list_mode %}
-	  {% if forloop.first %}{% ifequal SHOW_BANNERS 'True' %}{{ "/blog/banner2/"|flat_page_content_by_url }}{% endifequal %}{% endif %}
-	  {% if not forloop.counter %}{% ifequal SHOW_BANNERS 'True' %}{{ "/blog/banner2/"|flat_page_content_by_url }}{% endifequal %}{% endif %}
+	  {% if forloop.first %}{{ "/blog/banner2/"|flat_page_content_by_url }}{% endif %}
+	  {% if not forloop.counter %}{{ "/blog/banner2/"|flat_page_content_by_url }}{% endif %}
 	{% endif %}{% endif %}
 
     <p>{{ object.body|linebreaksbr }}</p>
 	{% comment %}{{ object.body|restructuredtext }}{% endcomment %}
 
 {% if not PREVIEW %}
-{% if forloop.first %}{% ifequal SHOW_BANNERS 'True' %}{{ "/blog/banner/"|flat_page_content_by_url }}{% endifequal %}{% endif %}
-{% if not forloop.counter %}{% ifequal SHOW_BANNERS 'True' %}{{ "/blog/banner/"|flat_page_content_by_url }}{% endifequal %}{% endif %}
+{% if forloop.first %}{{ "/blog/banner/"|flat_page_content_by_url }}{% endif %}
+{% if not forloop.counter %}{{ "/blog/banner/"|flat_page_content_by_url }}{% endif %}
 {% endif %}
 
     {% if object.id %}
@@ -35,7 +35,7 @@
     {% endif %}
   </div>
 
-  {% if object.id %}
+{% comment %}  {% if object.id %}
   <div id="entryComment{{ object.id }}" class="alignRight">
     <p class="toCommentLink marginBottom1">
 	  {% if is_ajax %}
@@ -87,5 +87,5 @@
       {% endif %}
     {% endif %}
   </div>
-  {% endif %}
+  {% endif %}{% endcomment %}
 </div>

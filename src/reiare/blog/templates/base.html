@@ -52,17 +52,13 @@
               </div>
               <div class="yui-u">
                 {% if not PREVIEW %}
-                {% ifequal SHOW_TOPIC 'True' %}{{ "/blog/topic/"|flat_page_content_by_url }}{% endifequal %}
-                {% show_recent_entries SIDEBAR_ENTRIES_NUM RECENT_ENTRIES_PAGE %}
-                {% show_recent_comments SIDEBAR_ENTRIES_NUM RECENT_COMMENTS_PAGE %}
-                {% show_random_entries SIDEBAR_ENTRIES_NUM %}
+                {{ "/blog/topic/"|flat_page_content_by_url }}
+                {% show_recent_entries 10 1 %}
+                {% show_random_entries 10 %}
                 {% show_tags %}
-                {% ifequal SHOW_GOOGLE_SEARCH 'True' %}{{ "/blog/google_search_form/"|flat_page_content_by_url }}{% endifequal %}
-                {% ifequal SHOW_PROFILE 'True' %}
-                  {% show_lastfm_recent_tracks LASTFM_ID LASTFM_MODE %}
-                  {{ "/blog/profile/"|flat_page_content_by_url }}
-                {% endifequal %}
-                {% ifequal SHOW_ASAMASHISITE_LINKS 'True' %}{{ "/blog/asamashi_site_links/"|flat_page_content_by_url }}{% endifequal %}
+                {{ "/blog/google_search_form/"|flat_page_content_by_url }}
+                {{ "/blog/profile/"|flat_page_content_by_url }}
+                {{ "/blog/asamashi_site_links/"|flat_page_content_by_url }}
                 {% endif %}
               </div>
           </div></div>

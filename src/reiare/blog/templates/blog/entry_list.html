@@ -4,7 +4,7 @@
 {% block content_title %}
 <div id="listHeaderBox">
   <h2>“{{ tag }}”な記事の一覧{% if tag.entry_images.count %}<span class="fontSizeSmall">（<a href="/blog/tag/{{ tag|urlencode }}/image/">画像一覧</a>）</span>{% endif %}</h2>
-  {% ifequal SHOW_BANNERS 'True' %}{{ "/blog/banner2/"|flat_page_content_by_url }}{% endifequal %}
+  {{ "/blog/banner2/"|flat_page_content_by_url }}
 </div>
 {% endblock %}
 
@@ -32,7 +32,7 @@
        <dd><div id="entryBody{{ object.id }}" style="display: none" class="entryBody {% cycle row1,row2 %}"></div></dd>
       {% endfor %}
     </dl>
-    {% ifequal SHOW_BANNERS 'True' %}<div style="margin-left: 0.5em;">{{ "/blog/banner/"|flat_page_content_by_url }}</div>{% endifequal %}
+    <div style="margin-left: 0.5em;">{{ "/blog/banner/"|flat_page_content_by_url }}</div>
   {% else %}
     {% for object in object_list %}
       {% include "entry.html" %}
