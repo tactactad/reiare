@@ -87,7 +87,6 @@ def detail(request, year, month, day, slug):
             'do_display_comments': True,
             'do_display_comment_form': True,
             'form': form,
-            'SHOW_BANNERS': settings.SHOW_BANNERS
         })
     return object_detail(request, year, month, day, **_dict)
 
