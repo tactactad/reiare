@@ -42,8 +42,13 @@ span.permalink {
 .entry > p {
     margin-top: 0.5em;
     margin-bottom: 1em;
-    text-indent: 1em;
+    /* text-indent: 1em; */
+    margin-left: 1.5em;
 }
+
+/* .entry > p:first-letter { */
+/*     font-size: 1.5em; */
+/* } */
 
 .entry > p > img {
     padding: 5px;
@@ -75,7 +80,7 @@ span.permalink {
 .entryFooter > ul {
     font-size: 0.8em;
     font-size: 0.6em\9;
-    margin-left: 3em;
+    margin-left: 4.5em;
     margin-bottom: 1em;
 }
 
