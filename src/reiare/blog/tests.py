@@ -41,7 +41,7 @@ class ResponseTestCase(TestCase):
 
     def testRecentJson(self):
         response = self.client.get('/blog/api/recents/1/entry.json')
-        self.assertEquals(response.status_code, 400)
+        self.assertEquals(response.status_code, 302)
         response = self.client.get('/blog/api/recents/1/entry.json', {},
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEquals(response.status_code, 200)

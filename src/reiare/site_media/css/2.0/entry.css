@@ -13,6 +13,10 @@
     font-weight: bold;
 }
 
+.entryHeader > h3:first-letter {
+    font-size: 2em;
+}
+
 span.permalink {
     font-size: 0.7em;
     vertical-align: middle;
@@ -38,6 +42,7 @@ span.permalink {
 .entry > p {
     margin-top: 0.5em;
     margin-bottom: 1em;
+    text-indent: 1em;
 }
 
 .entry > p > img {
