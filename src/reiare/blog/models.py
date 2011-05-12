@@ -100,7 +100,7 @@ class EntryTag(models.Model):
     >>> object.get_absolute_url()
     '/blog/tag/test/'
     >>> object.get_feeds_url()
-    '/blog/feeds/tag/test/'
+    '/blog/feeds_ad/tag/test/'
     >>> object.get_touch_url()
     '/blog/touch/tag/test/'
     """
@@ -142,7 +142,7 @@ class PublishedEntryManager(models.Manager):
 class Entry(models.Model):
     """
     >>> user, flag = User.objects.get_or_create(username='testuser')
-    >>> object, flag = Entry.objects.get_or_create(title=u'タイトル', body=u'本文', slug='slug',
+    >>> object, flag = Entry.objects.get_or_create(title=u'タイトル', body=u'\u3000本文', slug='slug',
     ... created=datetime.datetime(2010, 11, 5, 17, 7, 16), created_by=user, is_publish=True)
     >>> flag
     True
@@ -263,7 +263,7 @@ class Entry(models.Model):
         >>> Entry.published_objects.get(slug='slug').linebreaks_body() == unicode(u'<p>本文</p>')
         True
         """
-        return defaultfilters.linebreaks(self.body)
+        return defaultfilters.linebreaks(self.remove_indent_body())
 
     def linebreaks_body_without_pre(self):
         """
@@ -272,6 +272,14 @@ class Entry(models.Model):
         """
         return reiare_extras.remove_linebreaks_using_regex(self.linebreaks_body(),
                                                            '<pre.*?</pre>')
+
+    def remove_indent_body(self):
+        """
+        >>> Entry.published_objects.get(slug='slug').remove_indent_body() == unicode(u'本文')
+        True
+        """
+        pattern = re.compile(u'^　', re.M)
+        return re.sub(pattern, '', self.body)
 
 
 # class RelEntry(models.Model):
@@ -282,8 +290,8 @@ class Entry(models.Model):
 #         db_table = 'blog_entry_rel_entries'
 
 class PublishedCommentManager(models.Manager):
-	def get_query_set(self):
-		return super(PublishedCommentManager, self).get_query_set().filter(is_publish=True)
+    def get_query_set(self):
+        return super(PublishedCommentManager, self).get_query_set().filter(is_publish=True)
 
 
 class Comment(models.Model):
