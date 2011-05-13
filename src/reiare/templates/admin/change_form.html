@@ -38,7 +38,8 @@ var PreviewEntry = function() {
     body = body.split("\n\n");
     var tmp = '';
     $(body).each(function() {
-      tmp = tmp + '<p>' + this.replace(/\n/g, "<br />") + '</p>';
+      var val = this.replace(/^　/gm, "");
+      tmp = tmp + '<p>' + val.replace(/\n/g, "<br />") + '</p>';
     });
 
     var data = {"body": tmp,
