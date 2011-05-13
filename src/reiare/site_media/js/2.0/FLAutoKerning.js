@@ -146,8 +146,8 @@
                         char2 = "<span style='letter-spacing:" + space + "em'>" + char1 + "</span>";
 
                     //行頭約物の処理
-                    if(i === 0 && kerningInfo[char1])
-                        char2 =  "<span style='margin-left:" + kerningInfo[char1] + "em'/>" + char2;
+/*                    if(i === 0 && kerningInfo[char1])
+                        char2 =  "<span style='margin-left:" + kerningInfo[char1] + "em'/>" + char2;*/
 
                     newHtml += char2;
                 }
