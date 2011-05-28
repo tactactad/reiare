@@ -1,0 +1,8 @@
+{% extends "2.0/mobile/mobile_base.html" %}
+
+{% block content %}
+<div data-role="content">
+  <h3>{{ object.title }}</h3>
+  {{ object.linebreaks_body_for_mobile|safe }}
+</div>
+{% endblock %}

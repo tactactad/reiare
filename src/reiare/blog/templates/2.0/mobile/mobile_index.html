@@ -1,0 +1,15 @@
+{% extends "2.0/mobile/mobile_base.html" %}
+
+{% block content %}
+<ul data-role="listview" data-inset="true">
+  <li data-role="list-divider">さいきんの“にっき”</li>
+  {% for object in object_list %}
+  <li data-icon="check"><a href="{{ object.mobile_url }}" data-rel="dialog">{{ object }}</a></li>
+  {% endfor %}
+</ul>
+<ul data-role="listview" data-inset="true">
+  <li data-role="list-divider">けんさく</li>
+  <li><a href="tag/">たぐ</a></li>
+  <li><a href="">あーかいぶ</a></li>
+</ul>
+{% endblock %}
