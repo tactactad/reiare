@@ -276,3 +276,35 @@ def tag_entries_json(request, tag, num=10, page=1):
 
 def feeds_latest_redirect(request):
     return redirect('http://feeds.feedburner.com/reiare/cPIq', permanent=True)
+
+
+# mobile's views
+def mobile_index(request):
+    entries = Entry.published_objects.all()[:5]
+    tags = EntryTag.objects.all()
+    return render_to_response('2.0/mobile/mobile_index.html',
+                              {'object_list': entries,
+                               'tag_list': tags,
+                               'template_name': '2.0/mobile/mobile_top.html'},
+                              context_instance=RequestContext(request))
+
+
+def mobile_detail(request, object_id):
+    try:
+        entry = Entry.published_objects.get(pk=object_id)
+    except:
+        raise Http404
+    return render_to_response('2.0/mobile/mobile_detail.html',
+                              {'object': entry,
+                              'has_home_button': True,},
+                              context_instance=RequestContext(request))
+
+
+def mobile_tag_index(request):
+    return render_to_response('2.0/mobile/mobile_tags.html',
+                              {'tags': EntryTag.objects.all(),
+                               'has_home_button': True,},
+                              context_instance=RequestContext(request))
+
+def mobile_archive_index(request):
+    pass
