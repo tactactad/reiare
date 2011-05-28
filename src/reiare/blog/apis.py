@@ -308,3 +308,12 @@ def mobile_tag_index(request):
 
 def mobile_archive_index(request):
     pass
+
+
+def mobile_tag(request):
+    pass
+
+
+def mobile_month(request):
+    pass
+
