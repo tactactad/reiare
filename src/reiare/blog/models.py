@@ -222,6 +222,12 @@ class Entry(models.Model):
                                                self.created.strftime('%d'),
                                                self.slug)
 
+    @permalink
+    def mobile_url(self):
+        return('blog.apis.mobile_detail',(), {
+                'object_id': self.id
+                })
+
     def published_comment_list(self):
         return self.comments.filter(is_publish=True).order_by('created')
 
@@ -273,6 +279,13 @@ class Entry(models.Model):
         return reiare_extras.remove_linebreaks_using_regex(self.linebreaks_body(),
                                                            '<pre.*?</pre>')
 
+    def linebreaks_body_for_mobile(self):
+        value = self.linebreaks_body()
+        for mo in re.finditer('<img src="/site_media/images/.*?>', value):
+            tmp = mo.group().replace('_medium', '_small').replace('500', '240').replace('375', '180')
+            value = value.replace(mo.group(), tmp)
+        return value
+
     def remove_indent_body(self):
         """
         >>> Entry.published_objects.get(slug='slug').remove_indent_body() == unicode(u'本文')
@@ -280,6 +293,8 @@ class Entry(models.Model):
         """
         pattern = re.compile(u'^　', re.M)
         return re.sub(pattern, '', self.body)
+
+
 
 
 # class RelEntry(models.Model):
