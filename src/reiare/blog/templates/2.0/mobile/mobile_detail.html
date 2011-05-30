@@ -7,7 +7,7 @@
   {% if object.rel_entries.count %}
   <nav class="entryFooter"><ul>
       {% for rel_entry in object.rel_entries.all %}
-      <li><a href="{{ rel_entry.mobile_url }}" data-rel="dialog" data-transition="flip">{{ rel_entry.title }}</a></li>
+      <li><a href="{{ rel_entry.mobile_url }}" data-transition="slideup">{{ rel_entry.title }}</a></li>
       {% endfor %}
   </ul></nav>
   {% endif %}
