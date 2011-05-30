@@ -1,0 +1,26 @@
+{% extends "2.0/mobile/mobile_base.html" %}
+
+{% block content %}
+<ul data-role="listview" data-inset="true">
+  <li data-role="list-divider">さいきんの“にっき”{% ifnotequal paginator.num_page 1 %}（{{ paginator.num_page }}ページめ）{% endifnotequal %}</li>
+  {% for object in object_list %}
+  <li data-icon="check"><a href="{{ object.mobile_url }}" data-rel="dialog">{{ object }}</a></li>
+  {% endfor %}
+
+  <li data-role="list-divider"><div data-role="controlgroup" data-type="horizontal" style="margin-left: auto; margin-right: auto; text-align: center;">
+      {% if paginator.has_previous %}
+      <a href="/blog/mobile/recents/{{ paginator.previous_page_number }}/" data-role="button" data-icon="arrow-l" data-direction="reverse">{{ paginator.previous_page_number }}</a>
+      {% ifnotequal paginator.previous_page_number 1 %}
+      <a href="/blog/mobile/" data-role="button" data-icon="arrow-u" data-transition="slidedown">1</a>
+      {% endifnotequal %}
+      {% endif %}
+      <a href="/blog/mobile/recents/{{ paginator.next_page_number }}/" data-role="button" data-icon="arrow-r" data-iconpos="right">{{ paginator.next_page_number }}</a>
+  </div></li>
+</ul>
+
+<!--ul data-role="listview" data-inset="true">
+  <li data-role="list-divider">けんさく</li>
+  <li><a href="tag/">たぐ</a></li>
+  <li><a href="">あーかいぶ</a></li>
+</ul-->
+{% endblock %}

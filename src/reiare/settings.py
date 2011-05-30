@@ -128,3 +128,11 @@ CACHE_BACKEND = 'db://django_reiare_cache'
 
 # 個別設定を外部ファイルからインポート
 from reiare_settings import *
+
+if DEBUG:
+    import logging
+    logging.basicConfig(
+        level = logging.DEBUG,
+        format = '%(asctime)s %(levelname)s %(message)s',)
+        # filename = '/tmp/reiare.log',
+        # filemode = 'w')

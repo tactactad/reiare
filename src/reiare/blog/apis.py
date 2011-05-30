@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import logging
 import datetime
 import random
 import re
@@ -139,9 +140,17 @@ def paginator_from_objects_and_num_and_page(objects, num, page):
              'per_page': num},
             data.object_list)
 
+def redirect_smart_phone(func):
+    def inner(*args, **kwargs):
+        if re.search('iPod|iPhone|Android|BlackBerry|Windows Phone|Symbian',args[0].META['HTTP_USER_AGENT']):
+            return redirect(args[0].path.replace('/blog/', '/blog/mobile/'))
+        return func(*args, **kwargs)
+    return inner
+
 # views
 # @cache_page(86400)
 # @cache_page(21600)
+@redirect_smart_phone
 def index(request, page=1):
     if request.GET.__contains__('_escaped_fragment_'):
         if request.GET['_escaped_fragment_'] == '' or request.GET['_escaped_fragment_'] == '/blog/':
@@ -159,7 +168,7 @@ def index(request, page=1):
                                'view_mode': 'index'},
                               context_instance=RequestContext(request))
 
-
+@redirect_smart_phone
 def detail(request, year, month, day, slug):
     entries = Entry.published_objects.filter(created__year=year). \
         filter(created__month=month).filter(created__day=day). \
@@ -276,3 +285,48 @@ def tag_entries_json(request, tag, num=10, page=1):
 
 def feeds_latest_redirect(request):
     return redirect('http://feeds.feedburner.com/reiare/cPIq', permanent=True)
+
+
+# mobile's views
+
+def mobile_index(request, page=1):
+    entries = Entry.published_objects.all()
+    dic, objects = paginator_from_objects_and_num_and_page(entries, 10, page)
+    tags = EntryTag.objects.all()
+    return render_to_response('2.0/mobile/mobile_index.html',
+                              {'object_list': objects,
+                               'tag_list': tags,
+                               'paginator': dic},
+                              context_instance=RequestContext(request))
+
+
+def mobile_detail(request, year, month, day, slug):
+    try:
+        entries = Entry.published_objects.filter(created__year=year). \
+            filter(created__month=month).filter(created__day=day). \
+            filter(**{'slug': slug})
+    except:
+        raise Http404
+    return render_to_response('2.0/mobile/mobile_detail.html',
+                              {'object': entries[0],
+                              'has_home_button': True,},
+                              context_instance=RequestContext(request))
+
+
+def mobile_tag_index(request):
+    return render_to_response('2.0/mobile/mobile_tags.html',
+                              {'tags': EntryTag.objects.all(),
+                               'has_home_button': True,},
+                              context_instance=RequestContext(request))
+
+def mobile_archive_index(request):
+    pass
+
+
+def mobile_tag(request):
+    pass
+
+
+def mobile_month(request):
+    pass
+

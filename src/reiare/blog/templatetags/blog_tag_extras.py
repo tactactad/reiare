@@ -37,3 +37,31 @@ def show_random_entries(num=10):
 @register.inclusion_tag('2.0/tags.html')
 def show_tags():
     return {'tags': EntryTag.objects.all()}
+
+
+@register.tag(name='mobilepagerole')
+def wrapped_jQueryMobile_page_role(parser, token):
+    nodelist = parser.parse(('endmobilepagerole',))
+    parser.delete_first_token()
+    try:
+        tag_name, id_value = token.split_contents()
+    except ValueError:
+        id_value = ''
+    return WrappedJQueryMobilePageRoleNode(nodelist, id_value)
+
+class WrappedJQueryMobilePageRoleNode(template.Node):
+    def __init__(self, nodelist, id_value):
+        self.nodelist = nodelist
+        if id_value:
+            self.id_value = template.Variable(id_value)
+        else:
+            self.id_value = ''
+
+    def render(self, context):
+        t = template.loader.get_template('2.0/mobile/mobile_page.html')
+        context['content'] = self.nodelist.render(context)
+        try:
+            context['id_value'] = self.id_value.resolve(context)
+        except:
+            pass
+        return t.render(context)

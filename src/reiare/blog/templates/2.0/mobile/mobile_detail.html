@@ -1,0 +1,22 @@
+{% extends "2.0/mobile/mobile_base.html" %}
+
+{% block content %}
+<div data-role="content">
+  <h3>{{ object.title }}</h3>
+  {{ object.linebreaks_body_for_mobile|safe }}
+  {% if object.rel_entries.count %}
+  <nav class="entryFooter"><ul>
+      {% for rel_entry in object.rel_entries.all %}
+      <li><a href="{{ rel_entry.mobile_url }}" data-rel="dialog" data-transition="flip">{{ rel_entry.title }}</a></li>
+      {% endfor %}
+  </ul></nav>
+  {% endif %}
+  {% comment %}{% if object.tags.count %}
+  <nav class="entryTags"><ul>
+      {% for tag in object.tags.all %}
+      <li><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a></li>
+      {% endfor %}
+  </ul></nav>
+  {% endif %}{% endcomment %}
+</div>
+{% endblock %}
