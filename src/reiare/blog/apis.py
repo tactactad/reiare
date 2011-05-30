@@ -142,7 +142,9 @@ def paginator_from_objects_and_num_and_page(objects, num, page):
 
 def redirect_smart_phone(func):
     def inner(*args, **kwargs):
-        if re.search('iPod|iPhone|Android|BlackBerry|Windows Phone|Symbian',args[0].META['HTTP_USER_AGENT']):
+        if args[0].META.has_key('HTTP_USER_AGENT') and \
+                re.search('iPod|iPhone|Android|BlackBerry|Windows Phone|Symbian',
+                          args[0].META['HTTP_USER_AGENT']):
             return redirect(args[0].path.replace('/blog/', '/blog/mobile/'))
         return func(*args, **kwargs)
     return inner
