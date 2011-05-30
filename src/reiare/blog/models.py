@@ -5,6 +5,7 @@ import os
 import Image
 import re
 from xml.etree import ElementTree
+import logging
 
 from django.db import models
 from django.conf import settings
@@ -148,6 +149,16 @@ class Entry(models.Model):
     True
     >>> object.title == unicode(u'タイトル')
     True
+    >>> object, flag = Entry.objects.get_or_create(title=u'for mobile img test',
+    ... body=u'<img src="/site_media/images/a_medium.jpg" width="500" height="375" /> image',
+    ... slug='img', created=datetime.datetime(2011, 5, 30, 11, 32, 22), created_by=user, is_publish=True)
+    >>> flag
+    True
+    >>> object, flag = Entry.objects.get_or_create(title=u'for mobile url test',
+    ... body=u'<a href="/blog/spamhamegg/">link</a>',
+    ... slug='url', created=datetime.datetime(2011, 5, 30, 11, 33, 22), created_by=user, is_publish=True)
+    >>> flag
+    True
 
     >>> object = Entry.published_objects.get(slug='slug')
     >>> object.get_absolute_url()
@@ -224,9 +235,11 @@ class Entry(models.Model):
 
     @permalink
     def mobile_url(self):
-        return('blog.apis.mobile_detail',(), {
-                'object_id': self.id
-                })
+        return('blog.apis.mobile_detail',(), {'year': self.created.year,
+                                              'month' : self.created.strftime('%m'),
+                                              'day': self.created.strftime('%d'),
+                                              'slug': self.slug})
+
 
     def published_comment_list(self):
         return self.comments.filter(is_publish=True).order_by('created')
@@ -280,9 +293,18 @@ class Entry(models.Model):
                                                            '<pre.*?</pre>')
 
     def linebreaks_body_for_mobile(self):
+        """
+        >>> Entry.published_objects.get(slug='img').linebreaks_body_for_mobile()
+        u'<p><img src="/site_media/images/a_small.jpg" width="240" height="180" /> image</p>'
+        >>> Entry.published_objects.get(slug='url').linebreaks_body_for_mobile()
+        u'<p><a href="/blog/mobile/spamhamegg/" data-rel="dialog" data-transition="flip">link</a></p>'
+        """
         value = self.linebreaks_body()
         for mo in re.finditer('<img src="/site_media/images/.*?>', value):
             tmp = mo.group().replace('_medium', '_small').replace('500', '240').replace('375', '180')
+            value = value.replace(mo.group(), tmp)
+        for mo in re.finditer('<a href="/blog/.*?>', value):
+            tmp = mo.group().replace('="/blog/', '="/blog/mobile/').replace('>', ' data-rel="dialog" data-transition="flip">')
             value = value.replace(mo.group(), tmp)
         return value
 
