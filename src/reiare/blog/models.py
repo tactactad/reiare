@@ -139,6 +139,12 @@ class EntryTag(models.Model):
         return ('blog.apis.mobile_tag', (),
                 {'tag': defaultfilters.urlencode(self.name)})
 
+    def first_char(self):
+        if (re.match(u'[\wぁ-ゞ]', self.name)):
+            return self.name[:1]
+        else:
+            return '#'
+
 
 class PublishedEntryManager(models.Manager):
     def get_query_set(self):
@@ -302,14 +308,14 @@ class Entry(models.Model):
         >>> Entry.published_objects.get(slug='img').linebreaks_body_for_mobile()
         u'<p><img src="/site_media/images/a_small.jpg" width="240" height="180" /> image</p>'
         >>> Entry.published_objects.get(slug='url').linebreaks_body_for_mobile()
-        u'<p><a href="/blog/mobile/spamhamegg/" data-rel="dialog" data-transition="flip">link</a></p>'
+        u'<p><a href="/blog/mobile/spamhamegg/" data-transition="slideup">link</a></p>'
         """
         value = self.linebreaks_body()
         for mo in re.finditer('<img src="/site_media/images/.*?>', value):
             tmp = mo.group().replace('_medium', '_small').replace('500', '240').replace('375', '180')
             value = value.replace(mo.group(), tmp)
         for mo in re.finditer('<a href="/blog/.*?>', value):
-            tmp = mo.group().replace('="/blog/', '="/blog/mobile/').replace('>', ' data-rel="dialog" data-transition="flip">')
+            tmp = mo.group().replace('="/blog/', '="/blog/mobile/').replace('>', ' data-transition="slideup">')
             value = value.replace(mo.group(), tmp)
         return value
 
