@@ -21,7 +21,7 @@ var ReiAreLoader = function() {
     this.contentBox = $('#content');
     this.loadingImage = $('#loadingImageBox');
     this.siteTitle = '例のあれ（仮題）';
-    this.permalinkURL = 'http://reiare.net';
+    /*this.permalinkURL = 'http://reiare.net';*/
 
     $.ajaxSetup({
         timeout: 60000
@@ -86,7 +86,13 @@ var ReiAreLoader = function() {
                 title: title
             }).parent().append(
                 new StringBuffer('<span class="white permalink"><a href="').
-                    append(this.permalinkURL).append(url).append('">link</a></span>').toString());
+                    append(url).append('" data-ajax="false">link</a></span>').toString());
+        } else if (jsonLength == 1) {
+            var url = json['url'];
+            var json_url = json['json_url'];
+            var title = json['title'];
+            box.find('h3').append(new StringBuffer('<span class="white permalink bgGreen"><a href="').
+                                  append(url).append('" data-ajax="false" class="plain green">link</a></span>').toString());
         }
     };
 
@@ -334,7 +340,7 @@ var ReiAreLoader = function() {
     };
 
     this.convertShebang = function() {
-        $('a[href^="/blog/"]').each(function() {
+        $('a[href^="/blog/"][data-ajax!="false"]').each(function() {
             $(this).attr('href', '#!' + $(this).attr('href'));
         });
     };
