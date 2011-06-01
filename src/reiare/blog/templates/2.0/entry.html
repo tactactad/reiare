@@ -2,13 +2,13 @@
 <article class="entry">
 <header class="entryHeader">
   {% ifequal view_mode "index" %}
-    <h3><a href="{{ object.get_absolute_url }}" title="{{ object.title }}" class="plain blue">{{ object.title }}</a><span class="white permalink bgBlue"><a href="{{ BLOG_HOST_URL }}{{ object.get_absolute_url }}" class="plain blue">link</a></span></h3>
+    <h3><a href="{{ object.get_absolute_url }}" title="{{ object.title }}" class="plain blue">{{ object.title }}</a><span class="white permalink bgBlue"><a href="{{ object.get_absolute_url }}" data-ajax="false" class="plain blue">link</a></span></h3>
   {% endifequal %}
   {% ifequal view_mode "detail" %}
     <h3 class="green">{{ object.title }}</h3>
   {% endifequal %}
   {% ifequal view_mode "archives" %}
-    <h3><a href="{{ object.get_absolute_url }}" title="{{ object.title }}" class="plain green">{{ object.title }}</a><span class="white permalink bgGreen"><a href="{{ BLOG_HOST_URL }}{{ object.get_absolute_url }}" class="plain green">link</span></h3>
+    <h3><a href="{{ object.get_absolute_url }}" title="{{ object.title }}" class="plain green">{{ object.title }}</a><span class="white permalink bgGreen"><a href="{{ object.get_absolute_url }}" data-ajax="false" class="plain green">link</span></h3>
   {% endifequal %}
 </header>
 <time pubdate="{{ object.created|date:"Y-m-d\TH:i:sO" }}" class="pubdate">{{ object.created|date:"Y/n/j (D) ah:i" }}</time>

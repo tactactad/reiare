@@ -21,20 +21,20 @@
 
 <header>
 <hgroup id="header">
-  <h1><a href="/blog/" class="plain"><img src="/site_media/icon/2.0/logo.gif" width="323" height="78" title="{{ BLOG_TITLE }}" /></a></h1>
+  <h1><a href="/blog/" data-ajax="false" class="plain"><img src="/site_media/icon/2.0/logo.gif" width="323" height="78" title="{{ BLOG_TITLE }}" /></a></h1>
   <h2>{{ BLOG_SUB_TITLE }}</h2>
 </hgroup>
 
 <nav id="menubar" class="grid8">
   <ul>
-    <li class="bgBlue white"><a href="/blog/" class="plain" id="toHome">ほーむ</a></li>
+    <li class="bgBlue white"><a href="/blog/" class="plain" id="toHome" data-ajax="false">ほーむ</a></li>
     <li class="bgGreen white"><a href="/blog/archives/" class="plain" id="toArchive">あーかいぶ</a></li>
     <li class="bgOrange white" style="text-decoration: line-through;">ら　ぼ</li>
     <li class="bgPink white" style="text-decoration: line-through;">あばうと</li>
     <li class="bgPurple white" style="text-decoration: line-through;">こんたくと</li>
   </ul>
   <!--[if IE]>
-      <p style="margin-top: 2em;"><a href="http://reiare.net/blog/1.0/">表示がおかしい方は旧版の方とかでどうでしょう。</a></p>
+      <p style="margin-top: 2em;"><a href="/blog/1.0/" data-ajax="false">表示がおかしい方は旧版の方とかでどうでしょう。</a></p>
   <![endif]-->
 </nav>
 </header>
@@ -152,7 +152,7 @@ new TWTR.Widget({
 </aside>
 
 <footer id="footer">
-  {% block footer %}<a href="/blog/" class="plain">ReiAre! since 1996</a>{% endblock %}
+  {% block footer %}<a href="/blog/" class="plain" data-ajax="false">ReiAre! since 1996</a>{% endblock %}
   <time pubdate="{{ lastupdate }}"><time>
 </footer>
 </div>

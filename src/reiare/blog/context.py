@@ -5,5 +5,4 @@ def blog_context(request):
     return {
         'BLOG_TITLE': settings.BLOG_TITLE,
         'BLOG_SUB_TITLE': settings.BLOG_SUB_TITLE,
-        'BLOG_HOST_URL': settings.BLOG_HOST_URL,
     }
