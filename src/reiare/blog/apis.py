@@ -298,7 +298,8 @@ def mobile_index(request, page=1):
     return render_to_response('2.0/mobile/mobile_index.html',
                               {'object_list': objects,
                                'tag_list': tags,
-                               'paginator': dic},
+                               'paginator': dic,
+                               'unenable_home_button': True},
                               context_instance=RequestContext(request))
 
 
@@ -310,23 +311,27 @@ def mobile_detail(request, year, month, day, slug):
     except:
         raise Http404
     return render_to_response('2.0/mobile/mobile_detail.html',
-                              {'object': entries[0],
-                              'has_home_button': True,},
+                              {'object': entries[0],},
                               context_instance=RequestContext(request))
 
 
 def mobile_tag_index(request):
     return render_to_response('2.0/mobile/mobile_tags.html',
-                              {'tags': EntryTag.objects.all(),
-                               'has_home_button': True,},
+                              {'tags': EntryTag.objects.all(),},
                               context_instance=RequestContext(request))
 
 def mobile_archive_index(request):
     pass
 
 
-def mobile_tag(request):
-    pass
+def mobile_tag(request, tag, page=1):
+    tag, entries = tag_and_entries(tag)
+    paginator, entries = paginator_from_objects_and_num_and_page(entries, 10, page)
+    return render_to_response('2.0/mobile/mobile_tag.html',
+                              {'tag': tag,
+                               'object_list': entries,
+                               'paginator': paginator,},
+                              context_instance=RequestContext(request))
 
 
 def mobile_month(request):
