@@ -6,6 +6,7 @@
 {% block content %}
 <ul data-role="listview">
   {% for tag in tags %}
+  {% ifchanged tag.first_char %}<li data-role="list-divider">{{ tag.first_char }}</li>{% endifchanged %}
   <li><a href="{{ tag.mobile_url }}">{{ tag }}</a></li>
   {% endfor %}
 </ul>
