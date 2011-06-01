@@ -1,0 +1,25 @@
+{% extends "2.0/mobile/mobile_base.html" %}
+
+{% block title %}- たぐ{% endblock %}
+{% block header_title %}- たぐ{% endblock %}
+
+{% block content %}
+<ul data-role="listview" data-inset="false">
+  <li data-role="list-divider">“{{ tag }}”な記事{% ifnotequal paginator.num_pages 1 %}（{{ paginator.num_page }}/{{ paginator.num_pages }}ページめ）{% endifnotequal %}</li>
+  {% for object in object_list %}
+  <li data-icon="forward"><a href="{{ object.mobile_url }}" data-transition="slideup">{{ object }}</a></li>
+  {% endfor %}
+
+  <li><div data-role="controlgroup" data-type="horizontal" style="margin-left: auto; margin-right: auto; text-align: center;">
+      {% if paginator.has_previous %}
+      <a href="{{ tag.mobile_url }}{{ paginator.previous_page_number }}/" data-role="button" data-icon="arrow-l" data-direction="reverse">{{ paginator.previous_page_number }}</a>
+      {% ifnotequal paginator.previous_page_number 1 %}
+      <a href="{{ tag.mobile_url }}" data-role="button" data-icon="arrow-u" data-transition="slidedown">1</a>
+      {% endifnotequal %}
+      {% endif %}
+      {% if paginator.has_next %}
+      <a href="{{ tag.mobile_url }}{{ paginator.next_page_number }}/" data-role="button" data-icon="arrow-r" data-iconpos="right">{{ paginator.next_page_number }}</a>
+      {% endif %}
+  </div></li>
+</ul>
+{% endblock %}

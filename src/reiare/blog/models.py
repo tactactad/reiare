@@ -134,6 +134,17 @@ class EntryTag(models.Model):
         return ('blog.views.get_iui_entries_by_tag', (),
                 {'tag': defaultfilters.urlencode(self.name)})
 
+    @permalink
+    def mobile_url(self):
+        return ('blog.apis.mobile_tag', (),
+                {'tag': defaultfilters.urlencode(self.name)})
+
+    def first_char(self):
+        if (re.match(u'[\wぁ-ゞ]', self.name)):
+            return self.name[:1]
+        else:
+            return '#'
+
 
 class PublishedEntryManager(models.Manager):
     def get_query_set(self):
