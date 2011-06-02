@@ -299,7 +299,8 @@ def mobile_index(request, page=1):
                               {'object_list': objects,
                                'tag_list': tags,
                                'paginator': dic,
-                               'unenable_home_button': True},
+                               'unenable_home_button': True,
+                               'is_home': True,},
                               context_instance=RequestContext(request))
 
 
@@ -317,7 +318,8 @@ def mobile_detail(request, year, month, day, slug):
 
 def mobile_tag_index(request):
     return render_to_response('2.0/mobile/mobile_tags.html',
-                              {'tags': EntryTag.objects.all(),},
+                              {'tags': EntryTag.objects.all(),
+                               'is_tag': True,},
                               context_instance=RequestContext(request))
 
 def mobile_archive_index(request):
@@ -330,7 +332,8 @@ def mobile_tag(request, tag, page=1):
     return render_to_response('2.0/mobile/mobile_tag.html',
                               {'tag': tag,
                                'object_list': entries,
-                               'paginator': paginator,},
+                               'paginator': paginator,
+                               'is_tag': True,},
                               context_instance=RequestContext(request))
 
 

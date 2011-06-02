@@ -6,6 +6,12 @@
   <link rel="shortcut icon" href="/site_media/icon/favicon.ico" />
   <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.css" />
   <style>
+    .pubdate {
+      display: block;
+      text-align: right;
+      font-size: 0.8em;
+      margin-top: -1.5em;
+    }
     #footer {
       text-align: center;
     }
@@ -20,7 +26,15 @@
   <div data-role="content">
     {% block content %}{% endblock %}
   </div>
-  <div data-role="footer" id="footer">ReiAre! since 1996</div>
+  <div data-role="footer" data-position="fixed" id="footer">
+    <div data-role="navbar">
+      <ul>
+          <li><a href="/blog/mobile/" data-icon="home"{% if is_home %} class="ui-btn-active"{% endif %}>ほーむ</a></li>
+          <li><a href="/blog/mobile/tag/" data-icon="star"{% if is_tag %} class="ui-btn-active"{% endif %}>たぐ</a></li>
+          <li><a href="/blog/mobile/archives/" data-icon="grid"{% if is_archive %} class="ui-btn-active"{% endif %}>あーかいぶ</a></li>
+      </ul>
+    </div>
+  </div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
