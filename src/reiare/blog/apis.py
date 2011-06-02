@@ -322,8 +322,17 @@ def mobile_tag_index(request):
                                'is_tag': True,},
                               context_instance=RequestContext(request))
 
+
 def mobile_archive_index(request):
-    pass
+    return render_to_response('2.0/mobile/mobile_archives.html',
+                              {'archives': EntryArchive.managers.group_by_year(),},
+                              context_instance=RequestContext(request))
+
+
+def mobile_archive_year(request, year):
+    return render_to_response('2.0/mobile/mobile_archives_year.html',
+                              {'archives': EntryArchive.objects.filter(yearmonth__startswith=year),},
+                              context_instance=RequestContext(request))
 
 
 def mobile_tag(request, tag, page=1):
@@ -337,6 +346,7 @@ def mobile_tag(request, tag, page=1):
                               context_instance=RequestContext(request))
 
 
-def mobile_month(request):
+def mobile_month(request, year, month, page=1):
     pass
+
 
