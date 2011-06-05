@@ -169,7 +169,7 @@ def entries_from_year_and_month(year, month):
 # views
 # @cache_page(86400)
 # @cache_page(21600)
-@redirect_smart_phone
+# @redirect_smart_phone
 def index(request, page=1):
     if request.GET.__contains__('_escaped_fragment_'):
         if request.GET['_escaped_fragment_'] == '' or request.GET['_escaped_fragment_'] == '/blog/':
@@ -187,7 +187,7 @@ def index(request, page=1):
                                'view_mode': 'index'},
                               context_instance=RequestContext(request))
 
-@redirect_smart_phone
+# @redirect_smart_phone
 def detail(request, year, month, day, slug):
     entries = entries_from_slug(year, month, day, slug)
     return render_to_response('2.0/generic/entry_archive.html',
