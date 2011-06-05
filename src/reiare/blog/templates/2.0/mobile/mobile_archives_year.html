@@ -6,8 +6,8 @@
 {% block content %}
 <ul data-role="listview">
   {% for archive in archives %}
-  {% if forloop.first %}<li data-role="list-divider">{{ archive.year }}</li>{% endif %}
-  <li><a href="{{ archive.mobile_url }}">{{ archive.month }}</a></li>
+  {% if forloop.first %}<li data-role="list-divider">{{ archive.year }} ねん</li>{% endif %}
+  <li><a href="{{ archive.mobile_url }}">{{ archive.month }} がつ</a></li>
   {% endfor %}
 </ul>
 {% endblock %}
