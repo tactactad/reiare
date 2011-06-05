@@ -149,6 +149,23 @@ def redirect_smart_phone(func):
         return func(*args, **kwargs)
     return inner
 
+
+def entries_from_slug(year, month, day, slug):
+    entries = Entry.published_objects.filter(created__year=year). \
+        filter(created__month=month).filter(created__day=day). \
+        filter(**{'slug': slug})
+    if not len(entries):
+        raise Http404
+    return entries
+
+
+def entries_from_year_and_month(year, month):
+    entries = Entry.published_objects.filter(created__year=year). \
+        filter(created__month=month).order_by('created')
+    if not len(entries):
+        raise Http404
+    return entries
+
 # views
 # @cache_page(86400)
 # @cache_page(21600)
@@ -172,9 +189,7 @@ def index(request, page=1):
 
 @redirect_smart_phone
 def detail(request, year, month, day, slug):
-    entries = Entry.published_objects.filter(created__year=year). \
-        filter(created__month=month).filter(created__day=day). \
-        filter(**{'slug': slug})
+    entries = entries_from_slug(year, month, day, slug)
     return render_to_response('2.0/generic/entry_archive.html',
                               {'latest': entries,
                                'lastupdate': entries[0].attr_created(),
@@ -213,12 +228,7 @@ def entry_json(request, object_id):
 
 @check_ajax_access
 def entry_json_from_slug(request, year, month, day, slug):
-    try:
-        entries = Entry.published_objects.filter(created__year=year). \
-            filter(created__month=month).filter(created__day=day). \
-            filter(**{'slug': slug})
-    except:
-        raise Http404
+    entries = entries_from_slug(year, month, day, slug)
     return entry_json(request, entries[0].id)
 
 
@@ -254,8 +264,7 @@ def archives_title_json(request):
 @check_ajax_access
 @cache_page(86400)
 def archives_entries_json(request, year, month, page=1):
-    entries = Entry.published_objects.filter(created__year=year). \
-        filter(created__month=month).order_by('created')
+    entries = entries_from_year_and_month(year, month)
     paginator, objects = paginator_from_objects_and_num_and_page(entries, 10, page)
     current_archive = EntryArchive.objects.get(yearmonth=year + month);
     previous_archive = EntryArchive.objects.filter(yearmonth__lt=year + month).order_by('-yearmonth')[:1]
@@ -276,7 +285,6 @@ def tag_names_json(request):
 @cache_page(86400)
 def tag_entries_json(request, tag, num=10, page=1):
     tag, entries = tag_and_entries(tag)
-
     paginator, objects = paginator_from_objects_and_num_and_page(entries, num, page)
     json_source = {'entries': json_source_from_entries(objects),
                    'tag': json_source_from_tags([tag]),
@@ -305,12 +313,7 @@ def mobile_index(request, page=1):
 
 
 def mobile_detail(request, year, month, day, slug):
-    try:
-        entries = Entry.published_objects.filter(created__year=year). \
-            filter(created__month=month).filter(created__day=day). \
-            filter(**{'slug': slug})
-    except:
-        raise Http404
+    entries = entries_from_slug(year, month, day, slug)
     return render_to_response('2.0/mobile/mobile_detail.html',
                               {'object': entries[0],},
                               context_instance=RequestContext(request))
@@ -322,8 +325,19 @@ def mobile_tag_index(request):
                                'is_tag': True,},
                               context_instance=RequestContext(request))
 
+
 def mobile_archive_index(request):
-    pass
+    return render_to_response('2.0/mobile/mobile_archives.html',
+                              {'archives': EntryArchive.managers.group_by_year(),
+                               'is_archives': True},
+                              context_instance=RequestContext(request))
+
+
+def mobile_archive_year(request, year):
+    return render_to_response('2.0/mobile/mobile_archives_year.html',
+                              {'archives': EntryArchive.objects.filter(yearmonth__startswith=year),
+                               'is_archives': True},
+                              context_instance=RequestContext(request))
 
 
 def mobile_tag(request, tag, page=1):
@@ -337,6 +351,13 @@ def mobile_tag(request, tag, page=1):
                               context_instance=RequestContext(request))
 
 
-def mobile_month(request):
-    pass
-
+def mobile_month(request, year, month, page=1):
+    entries = entries_from_year_and_month(year, month)
+    paginator, entries = paginator_from_objects_and_num_and_page(entries, 10, page)
+    current_archive = EntryArchive.objects.get(yearmonth=year + month);
+    return render_to_response('2.0/mobile/mobile_archive.html',
+                              {'object_list': entries,
+                               'paginator': paginator,
+                               'archive': current_archive,
+                               'is_archives': True,},
+                              context_instance=RequestContext(request))

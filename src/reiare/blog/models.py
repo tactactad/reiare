@@ -19,6 +19,25 @@ from django.utils.encoding import smart_unicode
 from blog.templatetags import reiare_extras
 
 
+class EntryArchiveManager(models.Manager):
+    def group_by_year(self):
+        from django.db import connection
+        cursor = connection.cursor()
+        cursor.execute("""
+SELECT id, yearmonth, SUBSTRING(yearmonth, 1, 4) as grouped_year
+FROM blog_entryarchive
+GROUP BY SUBSTRING(yearmonth, 1, 4)
+ORDER BY grouped_year DESC
+""")
+        result_list = []
+        # return cursor.fetchall()
+        for row in cursor.fetchall():
+            p = self.model(id=row[0], yearmonth=row[1])
+            p.grouped_year = row[2]
+            result_list.append(p)
+        return result_list
+
+
 class EntryArchive(models.Model):
     """
     EntryArchiveのテスト
@@ -36,6 +55,9 @@ class EntryArchive(models.Model):
 
     yearmonth = models.CharField(max_length=6, blank=False)
 
+    objects = models.Manager()
+    managers = EntryArchiveManager()
+
     class Meta:
         ordering = ['-yearmonth']
 
@@ -44,6 +66,12 @@ class EntryArchive(models.Model):
         return ('django.views.generic.date_based.archive_month', (), {
             'year': self.year,
             'month': self.month})
+
+    @permalink
+    def mobile_url(self):
+        return ('blog.apis.mobile_month', (), {
+                'year': self.year,
+                'month': self.month,})
 
     def __unicode__(self):
         """

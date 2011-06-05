@@ -7,6 +7,7 @@
   <li data-icon="forward"><a href="{{ object.mobile_url }}" data-transition="slideup">{{ object }}</a></li>
   {% endfor %}
 
+  {% if paginator.has_previous or paginator.has_next %}
   <li><div data-role="controlgroup" data-type="horizontal" style="margin-left: auto; margin-right: auto; text-align: center;">
       {% if paginator.has_previous %}
       <a href="/blog/mobile/recents/{{ paginator.previous_page_number }}/" data-role="button" data-icon="arrow-l" data-direction="reverse">{{ paginator.previous_page_number }}</a>
@@ -18,6 +19,7 @@
       <a href="/blog/mobile/recents/{{ paginator.next_page_number }}/" data-role="button" data-icon="arrow-r" data-iconpos="right">{{ paginator.next_page_number }}</a>
       {% endif %}
   </div></li>
+  {% endif %}
 </ul>
 
 <!-- <ul data-role="listview" data-inset="false"> -->
