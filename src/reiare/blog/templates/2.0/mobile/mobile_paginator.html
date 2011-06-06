@@ -1,0 +1,13 @@
+{% if paginator.has_previous or paginator.has_next %}
+<li><div data-role="controlgroup" data-type="horizontal" style="margin-left: auto; margin-right: auto; text-align: center;">
+    {% if paginator.has_previous %}
+    <a href="{{ paginator.url }}{{ paginator.previous_page_number }}/" data-role="button" data-icon="arrow-l" data-direction="reverse">{{ paginator.previous_page_number }}</a>
+    {% ifnotequal paginator.previous_page_number 1 %}
+    <a href="{{ paginator.url }}1/" data-role="button" data-icon="arrow-u" data-transition="slidedown">1</a>
+    {% endifnotequal %}
+    {% endif %}
+    {% if paginator.has_next %}
+    <a href="{{ paginator.url }}{{ paginator.next_page_number }}/" data-role="button" data-icon="arrow-r" data-iconpos="right">{{ paginator.next_page_number }}</a>
+    {% endif %}
+</div></li>
+{% endif %}

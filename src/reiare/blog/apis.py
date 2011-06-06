@@ -301,12 +301,13 @@ def feeds_latest_redirect(request):
 
 def mobile_index(request, page=1):
     entries = Entry.published_objects.all()
-    dic, objects = paginator_from_objects_and_num_and_page(entries, 10, page)
+    paginator, objects = paginator_from_objects_and_num_and_page(entries, 10, page)
+    paginator['url'] = '/blog/mobile/recents/'
     tags = EntryTag.objects.all()
     return render_to_response('2.0/mobile/mobile_index.html',
                               {'object_list': objects,
                                'tag_list': tags,
-                               'paginator': dic,
+                               'paginator': paginator,
                                'unenable_home_button': True,
                                'is_home': True,},
                               context_instance=RequestContext(request))
@@ -343,6 +344,7 @@ def mobile_archive_year(request, year):
 def mobile_tag(request, tag, page=1):
     tag, entries = tag_and_entries(tag)
     paginator, entries = paginator_from_objects_and_num_and_page(entries, 10, page)
+    paginator['url'] = tag.mobile_url()
     return render_to_response('2.0/mobile/mobile_tag.html',
                               {'tag': tag,
                                'object_list': entries,
@@ -354,10 +356,11 @@ def mobile_tag(request, tag, page=1):
 def mobile_month(request, year, month, page=1):
     entries = entries_from_year_and_month(year, month)
     paginator, entries = paginator_from_objects_and_num_and_page(entries, 10, page)
-    current_archive = EntryArchive.objects.get(yearmonth=year + month);
+    archive = EntryArchive.objects.get(yearmonth=year + month);
+    paginator['url'] = archive.mobile_url()
     return render_to_response('2.0/mobile/mobile_archive.html',
                               {'object_list': entries,
                                'paginator': paginator,
-                               'archive': current_archive,
+                               'archive': archive,
                                'is_archives': True,},
                               context_instance=RequestContext(request))
