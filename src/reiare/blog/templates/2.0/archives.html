@@ -1,0 +1,18 @@
+{% extends "2.0/base.html" %}
+
+{% block title %}・あーかいぶ{% endblock %}
+
+{% block content %}
+<nav class="archives">
+  {% for object in object_list %}
+    {% ifchanged object.year %}
+    {% if not forloop.first %}</ul></div>{% endif %}
+    <div class="year">{{ object.year }} - <ul>{% endifchanged %}
+      <li><a href="{{ object.get_absolute_url }}">{{ object.month }}</a></li>
+    {% if forloop.last %}
+    </ul></div>
+    {% endif %}
+  {% endfor %}
+</nav>
+{% endblock %}
+

@@ -63,7 +63,7 @@ class EntryArchive(models.Model):
 
     @permalink
     def get_absolute_url(self):
-        return ('django.views.generic.date_based.archive_month', (), {
+        return ('archive_month_2', (), {
             'year': self.year,
             'month': self.month})
 
