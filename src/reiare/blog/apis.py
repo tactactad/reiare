@@ -69,6 +69,7 @@ def json_source_from_archives(archives):
                'month': archive.month,
                'url': archive.get_absolute_url()}
         data.append(dic)
+    logging.debug(data)
     return data
 
 
@@ -169,7 +170,6 @@ def entries_from_year_and_month(year, month):
 # views
 # @cache_page(86400)
 # @cache_page(21600)
-# @redirect_smart_phone
 def index(request, page=1):
     if request.GET.__contains__('_escaped_fragment_'):
         if request.GET['_escaped_fragment_'] == '' or request.GET['_escaped_fragment_'] == '/blog/':
@@ -187,7 +187,7 @@ def index(request, page=1):
                                'view_mode': 'index'},
                               context_instance=RequestContext(request))
 
-# @redirect_smart_phone
+
 def detail(request, year, month, day, slug):
     entries = entries_from_slug(year, month, day, slug)
     return render_to_response('2.0/generic/entry_archive.html',
@@ -215,6 +215,15 @@ def tag_and_entries(tag):
     except:
         raise Http404
     return tag, entries
+
+
+@cache_page(86400)
+def archives(request):
+    archives = EntryArchive.objects.all()
+    return render_to_response('2.0/archives.html',
+                              {'object_list': archives,},
+                              context_instance=RequestContext(request))
+
 
 @check_ajax_access
 def entry_json(request, object_id):
@@ -327,6 +336,7 @@ def mobile_tag_index(request):
                               context_instance=RequestContext(request))
 
 
+@cache_page(86400)
 def mobile_archive_index(request):
     return render_to_response('2.0/mobile/mobile_archives.html',
                               {'archives': EntryArchive.managers.group_by_year(),
@@ -334,6 +344,7 @@ def mobile_archive_index(request):
                               context_instance=RequestContext(request))
 
 
+@cache_page(86400)
 def mobile_archive_year(request, year):
     return render_to_response('2.0/mobile/mobile_archives_year.html',
                               {'archives': EntryArchive.objects.filter(yearmonth__startswith=year),
@@ -341,6 +352,7 @@ def mobile_archive_year(request, year):
                               context_instance=RequestContext(request))
 
 
+@cache_page(86400)
 def mobile_tag(request, tag, page=1):
     tag, entries = tag_and_entries(tag)
     paginator, entries = paginator_from_objects_and_num_and_page(entries, 10, page)
@@ -353,6 +365,7 @@ def mobile_tag(request, tag, page=1):
                               context_instance=RequestContext(request))
 
 
+@cache_page(86400)
 def mobile_month(request, year, month, page=1):
     entries = entries_from_year_and_month(year, month)
     paginator, entries = paginator_from_objects_and_num_and_page(entries, 10, page)
