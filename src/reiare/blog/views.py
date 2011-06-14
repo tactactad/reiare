@@ -17,11 +17,16 @@ from django.core.cache import cache
 from django.utils.encoding import smart_str, smart_unicode
 
 from blog.models import Entry, Comment, EntryTag, EntryImage
-from blog.urls import feeds, info_dict
+from blog.urls import feeds
 #from mail import send_mail
 from django.core.mail import send_mail
 from blog.forms import CommentForm, SearchForm
 from blog import lastfmaccess
+
+info_dict = {
+    'queryset': Entry.published_objects.all().select_related(),
+    'date_field': 'created'
+}
 
 def tag_list(request, tag, page=None):
     if request.GET.has_key('mode'):

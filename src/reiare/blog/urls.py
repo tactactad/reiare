@@ -1,17 +1,12 @@
 # -*- coding: utf-8 -*-
-from django.conf.urls.defaults import *
-from django.conf import settings
+from django.conf.urls.defaults import patterns, url
 from django.views.decorators.cache import cache_page
-from django.views.generic.date_based import archive_month
+from django.views.generic.dates import ArchiveIndexView
 
-from blog.models import Entry, EntryArchive, EntryTag
+from blog.apis import EntryMonthArchiveView, MonthArchiveView2
+from blog.models import Entry
 from blog.feeds import LatestEntries, LatestEntriesByTag
-from blog.forms import SearchForm
 
-info_dict = {
-    'queryset': Entry.published_objects.all().select_related(),
-    'date_field': 'created'
-}
 
 feeds = {
     'latest': LatestEntries,
@@ -36,23 +31,14 @@ urlpatterns = patterns('blog.views',
     (r'^touch/post_comment/(?P<object_id>\d+)/$', 'post_iui_entry_comment'),
 )
 
-urlpatterns += patterns('django.views.generic.date_based',
-    (r'^1.0/$', 'archive_index', dict(info_dict, num_latest=5,
-                                  extra_context = {
-                                      'search_form': SearchForm(),
-                                  })),
-                        (r'^1.0/(?P<year>\d{4})/(?P<month>\d{2})/$', 'archive_month',
-                         dict(info_dict, month_format='%m', allow_empty=True,)),
-    # (r'^$', 'archive_index', dict(info_dict, num_latest=5,
-    #                               template_name = '2.0/generic/entry_archive.html',
-    #  )),
-    url(r'^(?P<year>\d{4})/(?P<month>\d{2})/$', cache_page(archive_month, 86400),
-        dict(info_dict, month_format='%m', allow_empty=True,
-             template_name='2.0/generic/entry_archive_month.html',
-             extra_context = {
-                'view_mode': 'archives',
-                }),
-        name='archive_month_2'),
+urlpatterns += patterns('',
+    (r'^1.0/$', ArchiveIndexView.as_view(
+        queryset=Entry.published_objects.all().select_related(),
+        date_field='created',
+        paginate_by=5)),
+    (r'^1.0/(?P<year>\d{4})/(?P<month>\d{2})/$', EntryMonthArchiveView.as_view()),
+    url(r'^(?P<year>\d{4})/(?P<month>\d{2})/$', cache_page(MonthArchiveView2.as_view(), 86400),
+        name='archive_month'),
 )
 
 urlpatterns += patterns('',
