@@ -377,3 +377,21 @@ def mobile_month(request, year, month, page=1):
                                'archive': archive,
                                'is_archives': True,},
                               context_instance=RequestContext(request))
+
+
+
+from django.views.generic.dates import MonthArchiveView
+
+class EntryMonthArchiveView(MonthArchiveView):
+    queryset = Entry.published_objects.all().select_related()
+    date_field = 'created'
+    month_format = '%m'
+    allow_empty = True
+
+class MonthArchiveView2(EntryMonthArchiveView):
+    template_name='2.0/generic/entry_archive_month.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(MonthArchiveView2, self).get_context_data(**kwargs)
+        context['view_mode'] = 'archives'
+        return context
