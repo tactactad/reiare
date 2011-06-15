@@ -13,7 +13,6 @@ from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.template import defaultfilters
 from django.db.models import permalink
-from django.contrib import admin
 from django.utils.encoding import smart_unicode
 
 from blog.templatetags import reiare_extras
@@ -24,11 +23,11 @@ class EntryArchiveManager(models.Manager):
         from django.db import connection
         cursor = connection.cursor()
         cursor.execute("""
-SELECT id, yearmonth, SUBSTRING(yearmonth, 1, 4) as grouped_year
-FROM blog_entryarchive
-GROUP BY SUBSTRING(yearmonth, 1, 4)
-ORDER BY grouped_year DESC
-""")
+            SELECT id, yearmonth, SUBSTRING(yearmonth, 1, 4) as grouped_year
+            FROM blog_entryarchive
+            GROUP BY SUBSTRING(yearmonth, 1, 4)
+            ORDER BY grouped_year DESC
+        """)
         result_list = []
         # return cursor.fetchall()
         for row in cursor.fetchall():
@@ -63,7 +62,7 @@ class EntryArchive(models.Model):
 
     @permalink
     def get_absolute_url(self):
-        return ('archive_month_2', (), {
+        return ('archive_month', (), {
             'year': self.year,
             'month': self.month})
 
