@@ -12,6 +12,7 @@ from django.template import RequestContext
 from django.utils import simplejson
 from django.utils.simplejson import encoder
 from django.views.decorators.cache import cache_page
+from django.views.generic.dates import MonthArchiveView
 
 from blog.models import Entry, EntryArchive, EntryTag
 from blog.templatetags import blog_extras
@@ -141,9 +142,10 @@ def paginator_from_objects_and_num_and_page(objects, num, page):
              'per_page': num},
             data.object_list)
 
+
 def redirect_smart_phone(func):
     def inner(*args, **kwargs):
-        if args[0].META.has_key('HTTP_USER_AGENT') and \
+        if 'HTTP_USER_AGENT' in args[0].META and \
                 re.search('iPod|iPhone|Android|BlackBerry|Windows Phone|Symbian',
                           args[0].META['HTTP_USER_AGENT']):
             return redirect(args[0].path.replace('/blog/', '/blog/mobile/'))
@@ -166,6 +168,7 @@ def entries_from_year_and_month(year, month):
     if not len(entries):
         raise Http404
     return entries
+
 
 # views
 # @cache_page(86400)
@@ -197,6 +200,7 @@ def detail(request, year, month, day, slug):
                                'view_mode': 'detail'},
                               context_instance=RequestContext(request))
 
+
 def tag_entries_index(request, tag, page=1):
     tag, entries = tag_and_entries(tag)
     paginator, entries = paginator_from_objects_and_num_and_page(entries, 10, page)
@@ -206,6 +210,7 @@ def tag_entries_index(request, tag, page=1):
                                'paginator': paginator,
                                'view_mode': 'archives'},
                               context_instance=RequestContext(request))
+
 
 def tag_and_entries(tag):
     try:
@@ -221,7 +226,7 @@ def tag_and_entries(tag):
 def archives(request):
     archives = EntryArchive.objects.all()
     return render_to_response('2.0/archives.html',
-                              {'object_list': archives,},
+                              {'object_list': archives},
                               context_instance=RequestContext(request))
 
 
@@ -275,9 +280,9 @@ def archives_title_json(request):
 def archives_entries_json(request, year, month, page=1):
     entries = entries_from_year_and_month(year, month)
     paginator, objects = paginator_from_objects_and_num_and_page(entries, 10, page)
-    current_archive = EntryArchive.objects.get(yearmonth=year + month);
+    current_archive = EntryArchive.objects.get(yearmonth=year + month)
     previous_archive = EntryArchive.objects.filter(yearmonth__lt=year + month).order_by('-yearmonth')[:1]
-    next_archive = EntryArchive.objects.filter(yearmonth__gt=year+month).order_by('yearmonth')[:1]
+    next_archive = EntryArchive.objects.filter(yearmonth__gt=year + month).order_by('yearmonth')[:1]
     json_source = {'current_archive': json_source_from_archives([current_archive]),
                    'previous_archive': json_source_from_archives(previous_archive),
                    'next_archive': json_source_from_archives(next_archive),
@@ -318,21 +323,21 @@ def mobile_index(request, page=1):
                                'tag_list': tags,
                                'paginator': paginator,
                                'unenable_home_button': True,
-                               'is_home': True,},
+                               'is_home': True},
                               context_instance=RequestContext(request))
 
 
 def mobile_detail(request, year, month, day, slug):
     entries = entries_from_slug(year, month, day, slug)
     return render_to_response('2.0/mobile/mobile_detail.html',
-                              {'object': entries[0],},
+                              {'object': entries[0]},
                               context_instance=RequestContext(request))
 
 
 def mobile_tag_index(request):
     return render_to_response('2.0/mobile/mobile_tags.html',
                               {'tags': EntryTag.objects.all(),
-                               'is_tag': True,},
+                               'is_tag': True},
                               context_instance=RequestContext(request))
 
 
@@ -361,7 +366,7 @@ def mobile_tag(request, tag, page=1):
                               {'tag': tag,
                                'object_list': entries,
                                'paginator': paginator,
-                               'is_tag': True,},
+                               'is_tag': True},
                               context_instance=RequestContext(request))
 
 
@@ -369,27 +374,27 @@ def mobile_tag(request, tag, page=1):
 def mobile_month(request, year, month, page=1):
     entries = entries_from_year_and_month(year, month)
     paginator, entries = paginator_from_objects_and_num_and_page(entries, 10, page)
-    archive = EntryArchive.objects.get(yearmonth=year + month);
+    archive = EntryArchive.objects.get(yearmonth=year + month)
     paginator['url'] = archive.mobile_url()
     return render_to_response('2.0/mobile/mobile_archive.html',
                               {'object_list': entries,
                                'paginator': paginator,
                                'archive': archive,
-                               'is_archives': True,},
+                               'is_archives': True},
                               context_instance=RequestContext(request))
 
 
-
-from django.views.generic.dates import MonthArchiveView
-
 class EntryMonthArchiveView(MonthArchiveView):
+
     queryset = Entry.published_objects.all().select_related()
     date_field = 'created'
     month_format = '%m'
     allow_empty = True
 
+
 class MonthArchiveView2(EntryMonthArchiveView):
-    template_name='2.0/generic/entry_archive_month.html'
+
+    template_name = '2.0/generic/entry_archive_month.html'
 
     def get_context_data(self, **kwargs):
         context = super(MonthArchiveView2, self).get_context_data(**kwargs)
