@@ -320,7 +320,7 @@ class Entry(models.Model):
         >>> Entry.published_objects.get(slug='slug').linebreaks_body() == unicode(u'<p>本文</p>')
         True
         """
-        return defaultfilters.linebreaks(self.remove_indent_body())
+        return defaultfilters.linebreaks(self.body)
 
     def linebreaks_body_without_pre(self):
         """
