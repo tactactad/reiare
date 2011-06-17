@@ -339,7 +339,7 @@ class Entry(models.Model):
         """
         value = self.linebreaks_body()
         for mo in re.finditer('<img src="/site_media/images/.*?"', value):
-            tmp = mo.group().replace('_medium', '_small')#.replace('500', '240').replace('375', '180')
+            tmp = mo.group().replace('_medium', '_small')
             value = value.replace(mo.group(), tmp)
         for mo in re.finditer(r'width="(\d+)"', value):
             tmp = mo.group().replace(mo.group(1), str(int(int(mo.group(1)) * 0.48)))
