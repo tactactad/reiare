@@ -10,5 +10,6 @@ urlpatterns = patterns('',
 )
 
 if settings.DEBUG:
-    urlpatterns += patterns('',
-        (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': '/Users/tac/Dropbox/reiare/src/reiare/site_media'}),)
+    urlpatterns += patterns('django.views.static',
+        (r'^site_media/images/(?P<path>.*)$', 'serve', {'document_root': '/Users/tac/Dropbox/reiare_images/images'}),
+        (r'^site_media/(?P<path>.*)$', 'serve', {'document_root': '/Users/tac/Dropbox/reiare/src/reiare/site_media'}),)
