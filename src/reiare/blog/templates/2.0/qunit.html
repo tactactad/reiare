@@ -1,0 +1,87 @@
+{% load reiare_extras %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>reiare QUnit test.</title>
+  <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-git.css" type="text/css" media="screen" />
+</head>
+<body>
+  <h1 id="quit-header">Unit Testing - ReiAre! loader.js</h1>
+  <h2 id="qunit-banner"></h2>
+  <div id="qunit-testrunner-toolbar"></div>
+  <h2 id="qunit-userAgent"></h2>
+  <ol id="qunit-tests"></ol>
+  <div id="qunit-fixture">
+    <a href="/blog/spam/" id="shebangLink">spam</a>
+    <a href="/blog/ham/" data-ajax="false" id="staticLink">ham</a>
+    <div id="content"></div>
+
+    <script id="entryTitleToSidebarTemplate" type="text/x-jquery-tmpl">
+      <li><a href="#!${url}" title="${title}" class="withBorder">${omitted_title}</a></li>
+    </script>
+    {% include "2.0/entry_article_template.html" %}
+    <script id="moreEntriesTemplate" type="text/x-jquery-tmpl">
+      <nav id="moreEntries">
+        <ul>
+          {{ "if has_previous"|wrapped_jQuery_templatetag }}
+          <li><a href="${$item.previousUrl}">&lt;</a></li>
+          {{ "/if"|wrapped_jQuery_templatetag }}
+          {{ "if has_next"|wrapped_jQuery_templatetag }}
+          <li><a href="${$item.nextUrl}">&gt; つぎの${per_page}けん……</a></li>
+          {{ "/if"|wrapped_jQuery_templatetag }}
+        </ul>
+      </nav>
+    </script>
+    <script id="archivesTemplate" type="text/x-jquery-tmpl">
+      <nav class="archives">
+        {{ "each month"|wrapped_jQuery_templatetag }}
+        {{ "if $item.yearString($value)"|wrapped_jQuery_templatetag }}
+        <div class="year">${year} - <ul>
+            {{ "/if"|wrapped_jQuery_templatetag }}
+            {{ "if $item.updateYearString($value)"|wrapped_jQuery_templatetag }}
+        </ul></div>
+        <div class="year">${year} - <ul>
+            {{ "/if"|wrapped_jQuery_templatetag }}
+            <li><a href="#!${url}">${month}</a></li>
+            {{ "/each"|wrapped_jQuery_templatetag }}
+          </ul>
+      </nav>
+    </script>
+    <script id="entriesHeaderTemplate" type="text/x-jquery-tmpl">
+      <header id="entriesHeader" class="orange">“${currents}”な記事</header>
+    </script>
+    <script id="entriesNavTemplate" type="text/x-jquery-tmpl">
+      <nav class="entriesNav"><ul>
+          {{ "if nextArchive"|wrapped_jQuery_templatetag }}
+          <li><a href="#!${nextArchive.url}" class="withBorder">&lt;</a></li>
+          {{ "/if"|wrapped_jQuery_templatetag }}
+          <li>${currents}</li>
+          {{ "if previousArchive"|wrapped_jQuery_templatetag }}
+          <li><a href="#!${previousArchive.url}" class="withBorder">&gt;</a></li>
+          {{ "/if"|wrapped_jQuery_templatetag }}
+      </ul></nav>
+    </script>
+    <script id="entriesNavForTagsTemplate" type="text/x-jquery-tmpl">
+      <nav class="entriesNav"><ul>
+          {{ "if has_previous"|wrapped_jQuery_templatetag }}
+          <li><a href="#!${$item.tagUrl}${previous_page_number}/" class="withBorder">&lt;</a></li>
+          {{ "/if"|wrapped_jQuery_templatetag }}
+          <li class="pagePerPages">${num_page} / ${num_pages}</li>
+          {{ "if has_next"|wrapped_jQuery_templatetag }}
+          <li><a href="#!${$item.tagUrl}${next_page_number}/" class="withBorder">&gt;</a></li>
+          {{ "/if"|wrapped_jQuery_templatetag }}
+      </ul></nav>
+    </script>
+  </div>
+  <div id="imgBox"><img src="" id="rotateImage" /></div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js"></script>
+  <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+  <script src="/site_media/js/2.0/libraries.js"></script>
+  <script src="/site_media/js/2.0/loader.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/qunit/qunit-git.js"></script>
+  <script type="text/javascript" src="/site_media/js/2.0/test.js" </script>
+</body>
+</html>

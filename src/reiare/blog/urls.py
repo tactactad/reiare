@@ -83,5 +83,6 @@ urlpatterns += patterns('blog.apis',
                         (r'^mobile/tag/$', 'mobile_tag_index'),
                         (r'^mobile/recents/(?P<page>\d+)/$', 'mobile_index'),
                         (r'^mobile/$', 'mobile_index'),
+                        (r'^qunit/$', 'qunit'),
                         (r'^$', 'index'),
                         )

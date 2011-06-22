@@ -15,6 +15,7 @@ module('ReiAreLoader', {
     setup: function() {
         this.loader = new ReiAreLoader();
         this.loader.convertShebang();
+        this.loader.randomRotateImage($('#imgBox'));
     }
 });
 test('isMobile', function() {
@@ -29,6 +30,17 @@ test('siteTitle', function() {
 test('convertShebang', function() {
     deepEqual($('#shebangLink').attr('href'), '#!/blog/spam/');
     deepEqual($('#staticLink').attr('href'), '/blog/ham/');
+});
+test('randomRotateImage', function() {
+    ok($('#rotateImage').css('-webkit-transform'));
+});
+test('convertJsonURLFromPath', function() {
+    deepEqual(this.loader.convertJsonURLFromPath('/blog/'), '/blog/api/entry.json');
+    deepEqual(this.loader.convertJsonURLFromPath('/blog/recents/'), '/blog/api/recents/entry.json');
+    deepEqual(this.loader.convertJsonURLFromPath('/blog/recents/2/'), '/blog/api/recents/2/entry.json');
+    deepEqual(this.loader.convertJsonURLFromPath('/blog/archives/'), '/blog/api/archives/title.json');
+    deepEqual(this.loader.convertJsonURLFromPath('/blog/tag/'), '/blog/api/tag/entry.json');
+    deepEqual(this.loader.convertJsonURLFromPath('/blog/tag/django/'), '/blog/api/tag/django/entry.json');
 });
 
 // test("a basic test example", function() {
