@@ -5,34 +5,13 @@
   <meta name="viewport" content="width=device-width" />
   <link rel="shortcut icon" href="/site_media/icon/favicon.ico" />
   <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.css" />
-  <style>
-    .unenableWordwrap {
-      overflow: visible;
-      white-space: normal;
-    }
-    .pubdate {
-      display: block;
-      text-align: right;
-      font-size: 0.8em;
-      margin-top: -1.5em;
-    }
-    .entryTags {
-      text-align: right;
-    }
-    .entryTags > ul > li {
-      display: inline;
-      margin-left: 0.5em;
-    }
-    #footer {
-      text-align: center;
-    }
-  </style>
+  <link rel="stylesheet" href="/site_media/css/2.0/mobile.css" />
   <title>{{ BLOG_TITLE }}{% block title %}{% endblock %}</title>
 </head>
 <body>
-  <div data-role="page" data-theme="b" data-back-btn-text="ばっく">
+  <div data-role="page" data-back-btn-text="ばっく" data-theme="b">
   <div data-role="header"><h1>{{ BLOG_TITLE }}{% block header_title %}{% endblock %}</h1>
-    {% if not unenable_home_button %}<a href="/blog/mobile/" rel="external" data-icon="home" data-iconpos="notext" data-direction="reverse" class="ui-btn-right jqm-home">ほーむ</a>{% endif %}
+    {% if not unenable_home_button %}<a href="/blog/mobile/" rel="external" data-icon="home" data-iconpos="notext" data-direction="reverse" class="ui-btn-left jqm-home">ほーむ</a>{% endif %}
   </div>
   <div data-role="content">
     {% block content %}{% endblock %}
@@ -49,6 +28,7 @@
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+<script src="/site_media/js/2.0/mobile.js"></script>
 <script src="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.js"></script>
 </body>
 </html>
