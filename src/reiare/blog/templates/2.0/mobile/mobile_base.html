@@ -4,19 +4,19 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
   <link rel="shortcut icon" href="/site_media/icon/favicon.ico" />
-  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.css" />
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b2/jquery.mobile-1.0b2.min.css" />
   <link rel="stylesheet" href="/site_media/css/2.0/mobile.css" />
   <title>{{ BLOG_TITLE }}{% block title %}{% endblock %}</title>
 </head>
 <body>
   <div data-role="page" data-back-btn-text="ばっく" data-theme="b">
-  <div data-role="header"><h1>{{ BLOG_TITLE }}{% block header_title %}{% endblock %}</h1>
+  <div data-role="header" data-theme="b"><h1>{{ BLOG_TITLE }}{% block header_title %}{% endblock %}</h1>
     {% if not unenable_home_button %}<a href="/blog/mobile/" rel="external" data-icon="home" data-iconpos="notext" data-direction="reverse" class="ui-btn-left jqm-home">ほーむ</a>{% endif %}
   </div>
-  <div data-role="content">
+  <div data-role="content" data-theme="b">
     {% block content %}{% endblock %}
   </div>
-  <div data-role="footer" data-position="fixed" id="footer">
+  <div data-role="footer" data-position="fixed" id="footer" data-theme="b">
     <div data-role="navbar">
       <ul>
           <li><a href="/blog/mobile/" data-icon="home" data-transition="slidedown"{% if is_home %} class="ui-btn-active"{% endif %}>ほーむ</a></li>
@@ -27,8 +27,8 @@
   </div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script src="/site_media/js/2.0/mobile.js"></script>
-<script src="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.0b2/jquery.mobile-1.0b2.min.js"></script>
 </body>
 </html>
