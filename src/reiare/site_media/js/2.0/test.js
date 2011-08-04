@@ -42,6 +42,15 @@ test('convertJsonURLFromPath', function() {
     deepEqual(this.loader.convertJsonURLFromPath('/blog/tag/'), '/blog/api/tag/entry.json');
     deepEqual(this.loader.convertJsonURLFromPath('/blog/tag/django/'), '/blog/api/tag/django/entry.json');
 });
+asyncTest('entryTitleToSidebarFromURL', function() {
+    var theThis = this;
+    theThis.loader.entryTitleToSidebarFromURL($('#content'), '/blog/api/recents/title.json');
+   setTimeout(function() {
+       console.log($('#content').html());
+       ok((($('#content').html()).indexOf('<li><a href="#!/blog/') > -1));
+       start();
+   }, 100);
+});
 
 // test("a basic test example", function() {
 //          ok( true, "this test is fine" );
