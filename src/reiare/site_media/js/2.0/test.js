@@ -104,7 +104,7 @@ asyncTest('entriesToContentFromURL', function() {
     var theThis = this;
     theThis.loader.entriesToContentFromURL(theThis.loader.convertJsonURLFromPath('/blog/2011/08/24/django-offline-docs/'));
     setTimeout(function() {
-        console.log(theThis.contentBox.html());
+        // console.log(theThis.contentBox.html());
         deepEqual(theThis.contentBox.html(), '<article class="entry">     <header class="entryHeader"><h3 class="green">Django Offline Docs（非公式）。<span class="white permalink bgGreen"><a href="/blog/2011/08/24/django-offline-docs/" data-ajax="false" class="plain green">link</a></span></h3></header>     <time pubdate="2011-08-24T23:26:24+0900" class="pubdate">2011/8/24 (水) p.m.11:26</time>     <p>　<a href="http://sramana.in/dod/">Django Offline Docs</a></p>\n\n<p>　DjangoさんのDocumentはPython製のFrameworkらしくエゲツナイ程の充実度を放っておりますが、「オンライン版だけでオフライン版がないよ、ないんだよ」って事で作ってみてくれたみたいです。</p>\n\n<p>　最近の事情を鑑みますとオフラインである事はあまりないと思いますけども、PDF版などは違う使い方もできますし、ローカルに持っておいてサクサク参照するのもいいかもしれないですね。</p>                 <nav class="entryTags">         <ul>                    <li><a href="#!/blog/tag/django/">django</a></li>                    <li><a href="#!/blog/tag/document/">document</a></li>                    <li><a href="#!/blog/tag/python/">python</a></li>                  </ul>       </nav>        </article>');
         start();
     }, 500);
@@ -113,10 +113,19 @@ asyncTest('entriesToContentFromURL recents', function() {
     var theThis = this;
     theThis.loader.entriesToContentFromURL(theThis.loader.convertJsonURLFromPath('/blog/recents/1/'));
     setTimeout(function() {
-        console.log(theThis.contentBox.html());
+        // console.log(theThis.contentBox.html());
         var contentValue = theThis.contentBox.html();
         var result = contentValue.match(/<article class="entry">*/g);
         ok(result.length, 5);
+        start();
+    }, 500);
+});
+asyncTest('archiveTitlesToContent', function() {
+    var theThis = this;
+    theThis.loader.archiveTitlesToContent();
+    setTimeout(function() {
+        console.log(theThis.contentBox.html());
+        ok(theThis.contentBox.html().match(/^<nav class="archives">.|\n*<\/nav>$/));
         start();
     }, 500);
 });
