@@ -384,6 +384,11 @@ def mobile_month(request, year, month, page=1):
                               context_instance=RequestContext(request))
 
 
+def qunit(request):
+    return render_to_response('2.0/qunit.html', {},
+                              context_instance=RequestContext(request))
+
+
 class EntryMonthArchiveView(MonthArchiveView):
 
     queryset = Entry.published_objects.all().select_related()
