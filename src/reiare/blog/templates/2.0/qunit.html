@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-git.css" type="text/css" media="screen" />
 </head>
 <body>
-  <h1 id="quit-header">Unit Testing - ReiAre! loader.js</h1>
+  <h1 id="qunit-header">Unit Testing - ReiAre! loader.js</h1>
   <h2 id="qunit-banner"></h2>
   <div id="qunit-testrunner-toolbar"></div>
   <h2 id="qunit-userAgent"></h2>
@@ -15,10 +15,12 @@
   <div id="qunit-fixture">
     <a href="/blog/spam/" id="shebangLink">spam</a>
     <a href="/blog/ham/" data-ajax="false" id="staticLink">ham</a>
-    <div id="content"></div>
+    <div id="content">あああ</div>
     {% include "2.0/jquery_templates.html" %}
   </div>
   <div id="imgBox"><img src="" id="rotateImage" /></div>
+  <div id="loadingImageBox"><img src="/site_media/icon/2.0/loading.gif" width="48" height="48" style="" id="loadingImage" /></div>
+  <div id="menubar"></div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js"></script>
@@ -26,6 +28,6 @@
   <script src="/site_media/js/2.0/libraries.js"></script>
   <script src="/site_media/js/2.0/loader.js"></script>
   <script type="text/javascript" src="http://code.jquery.com/qunit/qunit-git.js"></script>
-  <script type="text/javascript" src="/site_media/js/2.0/test.js" </script>
+  <script type="text/javascript" src="/site_media/js/2.0/test.js"></script>
 </body>
 </html>
