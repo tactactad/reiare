@@ -116,7 +116,7 @@ asyncTest('entriesToContentFromURL recents', function() {
         // console.log(theThis.contentBox.html());
         var contentValue = theThis.contentBox.html();
         var result = contentValue.match(/<article class="entry">*/g);
-        ok(result.length, 5);
+        equal(result.length, 5);
         start();
     }, 500);
 });
@@ -124,8 +124,20 @@ asyncTest('archiveTitlesToContent', function() {
     var theThis = this;
     theThis.loader.archiveTitlesToContent();
     setTimeout(function() {
-        console.log(theThis.contentBox.html());
+        // console.log(theThis.contentBox.html());
         ok(theThis.contentBox.html().match(/^<nav class="archives">.|\n*<\/nav>$/));
+        start();
+    }, 500);
+});
+asyncTest('tagEntriesToContent', function() {
+    var theThis = this;
+    theThis.loader.tagEntriesToContent(theThis.loader.convertJsonURLFromPath('/blog/tag/apple/'));
+    setTimeout(function() {
+        console.log(theThis.contentBox.html());
+        var contentValue = theThis.contentBox.html();
+        ok(contentValue.match(/^<header id="entriesHeader" class="orange">“apple”な記事<\/header><nav class="entriesNav">.*/));
+        var result = contentValue.match(/<article class="entry">*/g);
+        equal(result.length, 10);
         start();
     }, 500);
 });
