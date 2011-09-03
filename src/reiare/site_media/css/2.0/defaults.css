@@ -1,5 +1,9 @@
 /* ReiAre original */
+/*.lessDummy {
+    ddisplay:none;
+}*/
 .bottomGrayBordered {
+  border-bottom: 1px solid #cccccc;
   border-bottom: 1px solid #cccccc;
 }
 body {
@@ -11,6 +15,7 @@ body {
 a {
   text-decoration: none;
   border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
   color: #535353;
   background-image: url(/site_media/css/2.0/images/link-bg.gif);
   padding: 0.2em;
@@ -18,6 +23,7 @@ a {
 
 }
 a:hover, a.withBorder:hover {
+  border-bottom: 1px solid #000000;
   border-bottom: 1px solid #000000;
   /* border-bottom: 1px solid #000000; */
 
@@ -27,6 +33,7 @@ a.plain {
   background-image: none;
 }
 a.withBorder {
+  border-bottom: 1px solid #cccccc;
   border-bottom: 1px solid #cccccc;
   background-image: none;
 }
