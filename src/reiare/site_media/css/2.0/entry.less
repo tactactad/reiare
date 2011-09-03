@@ -1,38 +1,4 @@
-@letterColor: #535353;
-@white: #ffffff;
-@blue: #049eda;
-@bgBlue: #04aeef;
-@green: #69b40f;
-@bgGreen: #73c510;
-@orange: #f8b101;
-@bgOrange: #f7b101;
-@pink: #d21674;
-@bgPink: #d31774;
-@purple: #95417c;
-@bgPurple: #97417a;
-
-@smallerSize: 0.8em;
-
-@gray: fadeout(#000000, 80%);
-@black: #000000;
-
-.borderRadius (@topLeft: 0, @topRight: 0, @bottomRight: 0, @bottomLeft: 0) {
-    -webkit-border-top-left-radius: @topLeft;
-    -webkit-border-top-right-radius: @topRight;
-    -webkit-border-bottom-right-radius: @bottomRight;
-    -webkit-border-bottom-left-radius: @bottomLeft;
-    -moz-border-radius-topleft: @topLeft;
-    -moz-border-raiuds-topright: @topRight;
-    -moz-border-radius-bottomright: @bottomRight;
-    -moz-border-radius-bottomleft: @bottomLeft;
-    border-radius: @topLeft @topRight @bottomRight @bottomLeft;
-}
-
-.borderRadiusAll (@value) {
-    -webkit-border-radius: @value;
-    -moz-border-radius: @value;
-    border-radius: @value;
-}
+@import "lib.less";
 
 .entry {
     line-height: 1.8em;
