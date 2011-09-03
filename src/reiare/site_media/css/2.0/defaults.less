@@ -1,38 +1,38 @@
 /* ReiAre original */
-@top-and-bottom-margin: 5em;
-@letter-color: #535353;
+@topAndBottomMargin: 5em;
 
+@letterColor: #535353;
 @white: #ffffff;
 @blue: #049eda;
-@bg-blue: #04aeef;
+@bgBlue: #04aeef;
 @green: #69b40f;
-@bg-green: #73c510;
+@bgGreen: #73c510;
 @orange: #f8b101;
-@bg-orange: #f7b101;
+@bgOrange: #f7b101;
 @pink: #d21674;
-@bg-pink: #d31774;
+@bgPink: #d31774;
 @purple: #95417c;
-@bg-purple: #97417a;
+@bgPurple: #97417a;
 
-.bottom-bordered (@color: @letter-color) {
+.bottomBordered (@color: @letterColor) {
     border-bottom: 1px solid @color;
 }
 
-.bottom-gray-bordered {
-    .bottom-bordered(#cccccc);
+.bottomGrayBordered {
+    .bottomBordered(#cccccc);
 }
 
 body {
-    margin-top: @top-and-bottom-margin;
-    margin-bottom: @top-and-bottom-margin;
+    margin-top: @topAndBottomMargin;
+    margin-bottom: @topAndBottomMargin;
     font-family: "Trebuchet MS", sans-serif;
-    color: @letter-color;
+    color: @letterColor;
 }
 
 a {
     text-decoration: none;
-    .bottom-gray-bordered;
-    color: @letter-color;
+    .bottomGrayBordered;
+    color: @letterColor;
     background-image: url(/site_media/css/2.0/images/link-bg.gif);
     padding: 0.2em;
     /* background-color: #E5EFF1; */
@@ -40,7 +40,7 @@ a {
 
 a:hover,
 a.withBorder:hover {
-    .bottom-bordered(#000000);
+    .bottomBordered(#000000);
     /* border-bottom: 1px solid #000000; */
 }
 
@@ -50,7 +50,7 @@ a.plain {
 }
 
 a.withBorder {
-    .bottom-gray-bordered;
+    .bottomGrayBordered;
     background-image: none;
 }
 
@@ -241,7 +241,7 @@ a.withBorder {
 }
 
   #footer > a {
-      color: @letter-color;
+      color: @letterColor;
   }
 
   #footer > a:hover {
@@ -249,50 +249,50 @@ a.withBorder {
   }
 
 .white {
-    color: #ffffff;
+    color: @white;
 }
 
  .white > a {
-      color: #ffffff;
+      color: @white;
       text-decoration: none;
   }
 
 .blue {
-    color: #049EDA;
+    color: @blue;
 }
 
 .bgBlue {
-    background-color: #04AEEF;
+    background-color: @bgBlue;
 }
 
 .green {
-    color: #69B40F;
+    color: @green;
 }
 
 .bgGreen {
-    background-color: #73C510;
+    background-color: @bgGreen;
 }
 
 .orange {
-    color: #F8B101;
+    color: @orange;
 }
 
 .bgOrange {
-    background-color: #F7B101;
+    background-color: @bgOrange;
 }
 
 .pink {
-    color: #D21674;
+    color: @pink;
 }
 
 .bgPink {
-    background-color: #D31774;
+    background-color: @bgPink;
 }
 
 .purple {
-    color: #95417C;
+    color: @purple;
 }
 
 .bgPurple {
-    background-color: #97417A;
+    background-color: @bgPurple;
 }

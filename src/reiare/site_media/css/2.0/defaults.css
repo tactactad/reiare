@@ -1,5 +1,5 @@
 /* ReiAre original */
-.bottom-gray-bordered {
+.bottomGrayBordered {
   border-bottom: 1px solid #cccccc;
 }
 body {
@@ -203,32 +203,32 @@ a.withBorder {
   text-decoration: none;
 }
 .blue {
-  color: #049EDA;
+  color: #049eda;
 }
 .bgBlue {
-  background-color: #04AEEF;
+  background-color: #04aeef;
 }
 .green {
-  color: #69B40F;
+  color: #69b40f;
 }
 .bgGreen {
-  background-color: #73C510;
+  background-color: #73c510;
 }
 .orange {
-  color: #F8B101;
+  color: #f8b101;
 }
 .bgOrange {
-  background-color: #F7B101;
+  background-color: #f7b101;
 }
 .pink {
-  color: #D21674;
+  color: #d21674;
 }
 .bgPink {
-  background-color: #D31774;
+  background-color: #d31774;
 }
 .purple {
-  color: #95417C;
+  color: #95417c;
 }
 .bgPurple {
-  background-color: #97417A;
+  background-color: #97417a;
 }
