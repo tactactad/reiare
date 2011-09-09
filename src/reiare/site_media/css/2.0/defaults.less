@@ -1,0 +1,281 @@
+@import "lib.less";
+
+.bottomGrayBordered {
+    .bottomBordered(#cccccc);
+}
+
+body {
+    margin-top: @topAndBottomMargin;
+    margin-bottom: @topAndBottomMargin;
+    font-family: "Trebuchet MS", sans-serif;
+    color: @letterColor;
+}
+
+a {
+    text-decoration: none;
+    .bottomGrayBordered;
+    color: @letterColor;
+    background-image: url(/site_media/css/2.0/images/link-bg.gif);
+    padding: 0.2em;
+}
+
+a:hover,
+a.withBorder:hover {
+    .bottomBordered(#000000);
+    /* border-bottom: 1px solid #000000; */
+}
+
+a.plain {
+    border: none;
+    background-image: none;
+}
+
+a.withBorder {
+    .bottomGrayBordered;
+    background-image: none;
+}
+
+  #header h1 a:hover {
+      border: none;
+  }
+
+  #header h2 {
+      font-size: @smallerSize;
+      font-weight: bold;
+      margin-left: 18em;
+      margin-top: -1.5em;
+      padding-bottom: 0.5em;
+  }
+
+#menubar {
+    width: 600px;
+}
+
+  #menubar > ul {
+      text-align: center;
+      margin-top: 1em;
+      margin-left: auto;
+      margin-right: auto;
+      /* -webkit-perspective: 1000; */
+  }
+
+    #menubar > ul > li {
+        display: inline;
+        padding: 0.5em 1em;
+        margin: 1em 0.5em;
+        font-weight: bold;
+        /* -webkit-transform-style: preserve-3d; */
+        /* -webkit-transition: 0.5s; */
+    }
+
+      #menubar > ul > li > a:hover {
+          text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+      }
+
+    /* #menubar ul li:hover { */
+    /*     -webkit-transform: rotateY(180deg); */
+    /* } */
+
+#content {
+    margin-top: 2.5em;
+    margin-bottom: 1em;
+    display: none;
+}
+
+   #moreEntries {
+       margin-left: 1em;
+   }
+
+     #moreEntries > ul > li {
+         display: inline;
+         margin: 0 0.25em;
+     }
+
+   .archives {
+       margin: 1em 3em;
+   }
+
+     .year {
+         line-height: 1.8em;
+     }
+
+     .year > ul {
+         display: inline;
+     }
+
+     .year > ul > li {
+         display: inline;
+         padding-right: 0.5em;
+         /* padding: 0.5em 1em; */
+         /* margin: 1em 0.5em; */
+         /* font-weight: bold; */
+     }
+
+   #entriesHeader {
+       font-weight: bold;
+       border-left: 5px solid;
+       border-bottom: 1px solid;
+       margin-bottom: 1em;
+       padding: 0.2em;
+       width: 75%;
+   }
+
+   .entriesNav {
+       text-align: center;
+       margin-bottom: 1em;
+   }
+
+     .entriesNav > ul > li {
+         display: inline;
+         margin: 0 0.25em;
+     }
+
+     /* nav.tagEntriesNav > ul > li.pagePerPages { */
+     /*     border-left: 1px solid; */
+     /*     border-right: 1px solid; */
+     /*     padding: 0 0.25em; */
+     /* } */
+
+#loadingImageBox {
+    position: fixed;
+    top: 300px;
+    left: 300px;
+    display: none;
+}
+
+#sidebar {
+    margin-top: 1.5em;
+}
+
+  #adSearch,
+  #adSence,
+  #twitter,
+  #recents,
+  #ranking,
+  #random,
+  #tags,
+  #profile,
+  #powered {
+      margin-bottom: 2em;
+  }
+
+  .twtr-hd {
+      .bottomDashedBordered;
+  }
+
+  .twtr-hd a,
+  .twtr-ft a {
+      background-image: none;
+      border: none;
+  }
+
+  .twtr-bd a {
+      border: none;
+  }
+
+  #recents > h4,
+  #ranking > h4,
+  #random > h4,
+  #tags > h4,
+  #profile > h4 {
+      font-weight: bold;
+      .bottomDashedBordered;
+      margin-bottom: 1em;
+      line-height: @baseLineHeight;
+  }
+
+  .sideBarBaseLayout {
+      margin-left: 0.5em;
+      margin-right: 0.5em;
+      font-size: 0.9em;
+  }
+
+  #recentEntries,
+  #randomEntries,
+  #tagNames {
+      .sideBarBaseLayout;
+      line-height: 2.2em;
+      font-size: 0.7em\9;
+      list-style:none;
+  }
+
+  #tagNames > li {
+      display: inline;
+  }
+
+  #profile > p {
+      .sideBarBaseLayout;
+      font-size: 0.8em\9;
+      line-height: 1.8em;
+  }
+
+  #powered li {
+      margin-bottom: 1em;
+  }
+
+#footer {
+    clear: both;
+    margin-top: 1em;
+    padding-top: 1em;
+    border-top: 1px dashed #E7E7E7;
+    font-size: @smallerSize;
+    font-weight: bold;
+    text-align: center;
+}
+
+  #footer > a {
+      color: @letterColor;
+  }
+
+  #footer > a:hover {
+      text-decoration: none;
+  }
+
+.white {
+    color: @white;
+}
+
+ .white > a {
+      color: @white;
+      text-decoration: none;
+  }
+
+.blue {
+    color: @blue;
+}
+
+.bgBlue {
+    background-color: @bgBlue;
+}
+
+.green {
+    color: @green;
+}
+
+.bgGreen {
+    background-color: @bgGreen;
+}
+
+.orange {
+    color: @orange;
+}
+
+.bgOrange {
+    background-color: @bgOrange;
+}
+
+.pink {
+    color: @pink;
+}
+
+.bgPink {
+    background-color: @bgPink;
+}
+
+.purple {
+    color: @purple;
+}
+
+.bgPurple {
+    background-color: @bgPurple;
+}

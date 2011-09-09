@@ -1,0 +1,59 @@
+@topAndBottomMargin: 5em;
+
+@letterColor: #535353;
+@white: #ffffff;
+@blue: #049eda;
+@bgBlue: #04aeef;
+@green: #69b40f;
+@bgGreen: #73c510;
+@orange: #f8b101;
+@bgOrange: #f7b101;
+@pink: #d21674;
+@bgPink: #d31774;
+@purple: #95417c;
+@bgPurple: #97417a;
+
+@smallerSize: 0.8em;
+@biggerSize: 1.2em;
+@baseLineHeight: 1.8em;
+
+.bottomBordered (@color: @letterColor) {
+    border-bottom: 1px solid @color;
+}
+
+.bottomDashedBordered (@color: #e7e7e7) {
+    border-bottom: 1px dashed @color;
+}
+
+.borderRadius (@topLeft: 0, @topRight: 0, @bottomRight: 0, @bottomLeft: 0) {
+    -webkit-border-top-left-radius: @topLeft;
+    -webkit-border-top-right-radius: @topRight;
+    -webkit-border-bottom-right-radius: @bottomRight;
+    -webkit-border-bottom-left-radius: @bottomLeft;
+    -moz-border-radius-topleft: @topLeft;
+    -moz-border-raiuds-topright: @topRight;
+    -moz-border-radius-bottomright: @bottomRight;
+    -moz-border-radius-bottomleft: @bottomLeft;
+    border-radius: @arguments;
+}
+
+.borderRadiusAll (@radius) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+    border-radius: @radius;
+}
+
+.boxShadow (@x: 1px, @y: 1px, @blur: 1px, @color: #000) {
+    -webkit-box-shadow: @arguments;
+    -moz-box-shadow: @arguments;
+    box-shadow: @arguments;
+}
+
+.pieBehavior {
+    behavior: url(/site_media/css/2.0/PIE.htc);
+}
+
+/*.lessDummy {
+    ddisplay:none;
+}*/
+
