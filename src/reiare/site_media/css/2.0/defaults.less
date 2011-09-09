@@ -1,9 +1,4 @@
-/* ReiAre original */
 @import "lib.less";
-
-.bottomBordered (@color: @letterColor) {
-    border-bottom: 1px solid @color;
-}
 
 .bottomGrayBordered {
     .bottomBordered(#cccccc);
@@ -22,7 +17,6 @@ a {
     color: @letterColor;
     background-image: url(/site_media/css/2.0/images/link-bg.gif);
     padding: 0.2em;
-    /* background-color: #E5EFF1; */
 }
 
 a:hover,
@@ -46,7 +40,7 @@ a.withBorder {
   }
 
   #header h2 {
-      font-size: 0.8em;
+      font-size: @smallerSize;
       font-weight: bold;
       margin-left: 18em;
       margin-top: -1.5em;
@@ -166,7 +160,7 @@ a.withBorder {
   }
 
   .twtr-hd {
-      border-bottom: 1px dashed #E7E7E7;
+      .bottomDashedBordered;
   }
 
   .twtr-hd a,
@@ -185,18 +179,22 @@ a.withBorder {
   #tags > h4,
   #profile > h4 {
       font-weight: bold;
-      border-bottom: 1px dashed #E7E7E7;
+      .bottomDashedBordered;
       margin-bottom: 1em;
-      line-height: 1.8em;
+      line-height: @baseLineHeight;
+  }
+
+  .sideBarBaseLayout {
+      margin-left: 0.5em;
+      margin-right: 0.5em;
+      font-size: 0.9em;
   }
 
   #recentEntries,
   #randomEntries,
   #tagNames {
-      margin-left: 0.5em;
-      margin-right: 0.5em;
+      .sideBarBaseLayout;
       line-height: 2.2em;
-      font-size: 0.9em;
       font-size: 0.7em\9;
       list-style:none;
   }
@@ -206,9 +204,7 @@ a.withBorder {
   }
 
   #profile > p {
-      margin-left: 0.5em;
-      margin-right: 0.5em;
-      font-size: 0.9em;
+      .sideBarBaseLayout;
       font-size: 0.8em\9;
       line-height: 1.8em;
   }
@@ -222,7 +218,7 @@ a.withBorder {
     margin-top: 1em;
     padding-top: 1em;
     border-top: 1px dashed #E7E7E7;
-    font-size: 0.8em;
+    font-size: @smallerSize;
     font-weight: bold;
     text-align: center;
 }

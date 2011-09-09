@@ -1,9 +1,10 @@
-/* ReiAre original */
+.pieBehavior {
+  behavior: url(/site_media/css/2.0/PIE.htc);
+}
 /*.lessDummy {
     ddisplay:none;
 }*/
 .bottomGrayBordered {
-  border-bottom: 1px solid #cccccc;
   border-bottom: 1px solid #cccccc;
 }
 body {
@@ -15,15 +16,11 @@ body {
 a {
   text-decoration: none;
   border-bottom: 1px solid #cccccc;
-  border-bottom: 1px solid #cccccc;
   color: #535353;
   background-image: url(/site_media/css/2.0/images/link-bg.gif);
   padding: 0.2em;
-  /* background-color: #E5EFF1; */
-
 }
 a:hover, a.withBorder:hover {
-  border-bottom: 1px solid #000000;
   border-bottom: 1px solid #000000;
   /* border-bottom: 1px solid #000000; */
 
@@ -33,7 +30,6 @@ a.plain {
   background-image: none;
 }
 a.withBorder {
-  border-bottom: 1px solid #cccccc;
   border-bottom: 1px solid #cccccc;
   background-image: none;
 }
@@ -147,7 +143,7 @@ a.withBorder {
   margin-bottom: 2em;
 }
 .twtr-hd {
-  border-bottom: 1px dashed #E7E7E7;
+  border-bottom: 1px dashed #e7e7e7;
 }
 .twtr-hd a, .twtr-ft a {
   background-image: none;
@@ -162,15 +158,20 @@ a.withBorder {
 #tags > h4,
 #profile > h4 {
   font-weight: bold;
-  border-bottom: 1px dashed #E7E7E7;
+  border-bottom: 1px dashed #e7e7e7;
   margin-bottom: 1em;
   line-height: 1.8em;
+}
+.sideBarBaseLayout {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  font-size: 0.9em;
 }
 #recentEntries, #randomEntries, #tagNames {
   margin-left: 0.5em;
   margin-right: 0.5em;
-  line-height: 2.2em;
   font-size: 0.9em;
+  line-height: 2.2em;
   font-size: 0.7em\9;
   list-style: none;
 }
