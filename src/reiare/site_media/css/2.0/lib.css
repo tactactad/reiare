@@ -1,6 +1,1 @@
-.pieBehavior {
-  behavior: url(/site_media/css/2.0/PIE.htc);
-}
-/*.lessDummy {
-    ddisplay:none;
-}*/
+.pieBehavior{behavior:url(/site_media/css/2.0/PIE.htc);}
