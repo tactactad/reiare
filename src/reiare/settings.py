@@ -136,3 +136,9 @@ if DEBUG:
         format = '%(asctime)s %(levelname)s %(message)s',)
         # filename = '/tmp/reiare.log',
         # filemode = 'w')
+
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+            }
+        }
