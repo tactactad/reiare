@@ -365,12 +365,11 @@ $(function() {
 
     $('a[data-pjax]').pjax();
     $('#content').bind('pjax:start', function () {
-        $(this).hide('drop');
+        $(this).hide();
+        $('#loadingImageBox').show();
         $('html, body').animate({scrollTop: $('#menubar').offset().top},
                                 {easing: 'easeInOutCirc',
                                  duration: 500});
-        $(this).empty();
-        $('#loadingImageBox').show();
     }).bind('pjax:end', function () {
         if ($(this).find('h3').length === 1) {
             document.title = new StringBuffer(loader.siteTitle).
