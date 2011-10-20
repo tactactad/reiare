@@ -170,6 +170,15 @@ def entries_from_year_and_month(year, month):
     return entries
 
 
+def pjax_access(func):
+    def inner(*args, **kwargs):
+        if not 'HTTP_X_PJAX' in args[0].META:
+            module = __import__(func.__module__, globals(), locals(), [func.__name__.replace('_pjax', '')])
+            function = getattr(module, (func.__name__).replace('_pjax', ''))
+            return function(*args, **kwargs)
+        return func(*args, **kwargs)
+    return inner
+
 # views
 # @cache_page(86400)
 # @cache_page(21600)
@@ -197,6 +206,14 @@ def detail(request, year, month, day, slug):
                               {'latest': entries,
                                'lastupdate': entries[0].attr_created(),
                                'title': entries[0].title,
+                               'view_mode': 'detail'},
+                              context_instance=RequestContext(request))
+
+@pjax_access
+def detail_pjax(request, year, month, day, slug):
+    entries = entries_from_slug(year, month, day, slug)
+    return render_to_response('2.0/entry.html',
+                              {'object': entries[0],
                                'view_mode': 'detail'},
                               context_instance=RequestContext(request))
 

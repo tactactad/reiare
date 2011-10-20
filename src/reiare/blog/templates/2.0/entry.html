@@ -2,13 +2,13 @@
 <article class="entry">
 <header class="entryHeader">
   {% ifequal view_mode "index" %}
-    <h3><a href="{{ object.get_absolute_url }}" title="{{ object.title }}" class="plain blue">{{ object.title }}</a><span class="white permalink bgBlue"><a href="{{ object.get_absolute_url }}" data-ajax="false" class="plain blue">link</a></span></h3>
+    <h3 data-title="{{ object.title }}"><a href="{{ object.get_absolute_url }}" title="{{ object.title }}" class="plain blue">{{ object.title }}</a><span class="white permalink bgBlue"><a href="{{ object.get_absolute_url }}" data-ajax="false" class="plain blue" data-pjax="#content">link</a></span></h3>
   {% endifequal %}
   {% ifequal view_mode "detail" %}
-    <h3 class="green">{{ object.title }}</h3>
+    <h3 class="green" data-title="{{ object.title }}">{{ object.title }}</h3>
   {% endifequal %}
   {% ifequal view_mode "archives" %}
-    <h3><a href="{{ object.get_absolute_url }}" title="{{ object.title }}" class="plain green">{{ object.title }}</a><span class="white permalink bgGreen"><a href="{{ object.get_absolute_url }}" data-ajax="false" class="plain green">link</a></span></h3>
+    <h3 data-title="{{ object.title }}"><a href="{{ object.get_absolute_url }}" title="{{ object.title }}" class="plain green">{{ object.title }}</a><span class="white permalink bgGreen"><a href="{{ object.get_absolute_url }}" data-ajax="false" class="plain green">link</a></span></h3>
   {% endifequal %}
 </header>
 <time pubdate="{{ object.created|date:"Y-m-d\TH:i:sO" }}" class="pubdate">{{ object.created|date:"Y/n/j (D) ah:i" }}</time>
@@ -16,7 +16,7 @@
 {% if object.rel_entries.count %}
 <nav class="entryFooter"><ul>
 {% for rel_entry in object.rel_entries.all %}
-  <li><a href="{{ rel_entry.get_absolute_url }}">{{ rel_entry.title }}</a></li>
+  <li><a href="{{ rel_entry.get_absolute_url }}" data-pjax="#content">{{ rel_entry.title }}</a></li>
 {% endfor %}
 </ul></nav>
 {% endif %}
