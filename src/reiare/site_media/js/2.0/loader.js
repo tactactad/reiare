@@ -365,19 +365,21 @@ $(function() {
 
     $('a[data-pjax]').pjax();
     $('#content').bind('pjax:start', function () {
-        $(this).hide();
-        $(this).empty();
+        $(this).hide('drop');
         $('html, body').animate({scrollTop: $('#menubar').offset().top},
                                 {easing: 'easeInOutCirc',
                                  duration: 500});
+        $(this).empty();
         $('#loadingImageBox').show();
     }).bind('pjax:end', function () {
-        loader.randomRotateImage($(this));
-        loader.completeActionToLoadContent('no');
         if ($(this).find('h3').length === 1) {
             document.title = new StringBuffer(loader.siteTitle).
                     append(' - ').append(($(this).find('h3')).data('title')).toString();
         }
+        loader.beautyOfCodeActionToLoadContent();
+        loader.flAutoKerning();
+        loader.randomRotateImage($(this));
+        loader.loadingImage.hide();
         $(this).show('drop');
     });
 });
