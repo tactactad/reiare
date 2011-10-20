@@ -21,7 +21,6 @@ var ReiAreLoader = function() {
     this.contentBox = $('#content');
     this.loadingImage = $('#loadingImageBox');
     this.siteTitle = '例のあれ（仮題）';
-    /*this.permalinkURL = 'http://reiare.net';*/
 
     $.ajaxSetup({
         timeout: 60000
@@ -53,7 +52,6 @@ var ReiAreLoader = function() {
         this.loadingImage.hide();
         this.beautyOfCodeActionToLoadContent(scroll);
         this.flAutoKerning();
-        this.convertShebang();
     };
 
     this.beautyOfCodeActionToLoadContent = function(scroll) {
@@ -336,19 +334,11 @@ var ReiAreLoader = function() {
         this.randomRotateImage(box);
         this.completeActionToLoadContent('no');
         box.show('drop');
-        this.convertShebang();
-    };
-
-    this.convertShebang = function() {
-        $('a[href^="/blog/"][data-ajax!="false"]').each(function() {
-            $(this).attr('href', '#!' + $(this).attr('href'));
-        });
     };
 };
 
 $(function() {
     var loader = new ReiAreLoader();
-    // loader.entryTitleToSidebarFromURL($('#recentEntries'), '/blog/api/recents/title.json');
 
     var url  = location.href;
     var path = url.split('#!', 2)[1];
@@ -369,35 +359,25 @@ $(function() {
         } else {
             loader.entriesToContentFromURL(loader.convertJsonURLFromPath(path), null, 'no');
         }
-        // if (url.split('#!', 2)[0]) {
-        //     loader.convertShebang();
-        // }
-    // } else if(path.match(/^\/blog\//)) {
-    //     loader.entriesToContentFromURL('/blog/api/recents/1/entry.json', 1, 'no');
-    //     loader.convertShebamg();
     } else {
-        loader.showIncludeEntries($('#content'));
+       loader.showIncludeEntries($('#content'));
     }
 
-    $(window).hashchange(function() {
-        // var path = '/blog/';
-        var path = location.pathname;
-        if (location.hash) {
-            path = location.hash.split('#!', 2)[1];
+    $('a[data-pjax]').pjax();
+    $('#content').bind('pjax:start', function () {
+        $(this).hide();
+        $(this).empty();
+        $('html, body').animate({scrollTop: $('#menubar').offset().top},
+                                {easing: 'easeInOutCirc',
+                                 duration: 500});
+        $('#loadingImageBox').show();
+    }).bind('pjax:end', function () {
+        loader.randomRotateImage($(this));
+        loader.completeActionToLoadContent('no');
+        if ($(this).find('h3').length === 1) {
+            document.title = new StringBuffer(loader.siteTitle).
+                    append(' - ').append(($(this).find('h3')).data('title')).toString();
         }
-        if (path.match(/^\/blog\/$/)) {
-            loader.entriesToContentFromURL('/blog/api/recents/1/entry.json', 1);
-        } else if (path.indexOf('/recents/') > -1) {
-            var page = path.split('/').reverse()[1];
-            loader.entriesToContentFromURL(loader.convertJsonURLFromPath(path), parseInt(page, 10));
-        } else if (path.indexOf('/archives/') > -1) {
-            loader.archiveTitlesToContent();
-        } else if (path.indexOf('/tag/') > -1) {
-            loader.tagEntriesToContent(loader.convertJsonURLFromPath(path));
-        } else if(path.match(/^\/blog\/\d{4}\/\d{2}\/(\d\/)?$/)) {
-            loader.archiveEntriesToContent(loader.convertJsonURLFromPath(path));
-        } else {
-            loader.entriesToContentFromURL(loader.convertJsonURLFromPath(path));
-        }
+        $(this).show('drop');
     });
 });
