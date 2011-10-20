@@ -368,8 +368,8 @@ $(function() {
         $(this).hide();
         $('#loadingImageBox').show();
         $('html, body').animate({scrollTop: $('#menubar').offset().top},
-                                {easing: 'easeInOutCirc',
-                                 duration: 500});
+                                {easing: 'easeInOutCirc'});
+//                                 duration: 300});
     }).bind('pjax:end', function () {
         if ($(this).find('h3').length === 1) {
             document.title = new StringBuffer(loader.siteTitle).
