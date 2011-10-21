@@ -272,6 +272,15 @@ def archives(request):
                               context_instance=RequestContext(request))
 
 
+@pjax_access
+@cache_page(86400)
+def archives_pjax(request):
+    archives = EntryArchive.objects.all()
+    return render_to_response('2.0/archive_partial.html',
+                              {'object_list': archives},
+                              context_instance=RequestContext(request))
+
+
 @check_ajax_access
 def entry_json(request, object_id):
     try:
