@@ -372,6 +372,8 @@ $(function() {
         if ($(this).find('h3').length === 1) {
             document.title = new StringBuffer(loader.siteTitle).
                     append('- ').append(($(this).find('h3')).data('title')).toString();
+        } else {
+            document.title = loader.siteTitle;
         }
         loader.beautyOfCodeActionToLoadContent();
         loader.flAutoKerning();
