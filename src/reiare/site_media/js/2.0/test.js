@@ -14,7 +14,6 @@ test('StringBuffer', function() {
 module('ReiAreLoader', {
     setup: function() {
         this.loader = new ReiAreLoader();
-        this.loader.convertShebang();
         this.loader.randomRotateImage($('#imgBox'));
         this.contentBox = $('#content');
         this.jsons = {"entries": [{"body": "<p>test body.</p>",
@@ -47,10 +46,6 @@ test('isIE', function() {
 });
 test('siteTitle', function() {
     deepEqual(this.loader.siteTitle, '例のあれ（仮題）');
-});
-test('convertShebang', function() {
-    deepEqual($('#shebangLink').attr('href'), '#!/blog/spam/');
-    deepEqual($('#staticLink').attr('href'), '/blog/ham/');
 });
 test('randomRotateImage', function() {
     ok($('#rotateImage').css('-webkit-transform'));
@@ -134,29 +129,11 @@ asyncTest('tagEntriesToContent', function() {
         start();
     }, 500);
 });
-
-// test("a basic test example", function() {
-//          ok( true, "this test is fine" );
-//          var value = "hello";
-//          equals( "hello", value, "We expect value to be hello" );
-//      });
-
-// module("Module A");
-
-// test("first test within module", function() {
-//          ok( true, "all pass" );
-//      });
-
-// test("second test within module", function() {
-//          ok( true, "all pass" );
-//      });
-
-// module("Module B");
-
-// test("some other test", function() {
-//          expect(2);
-//          equals( true, false, "failing test" );
-//          equals( true, true, "passing test" );
-//          //});
-
-//      });
+asyncTest('pjax', function () {
+    $('#pjaxLink').click();
+    setTimeout(function () {
+        var contentValue = $('#content').html();
+        deepEqual(contentValue, '\n<article class=\"entry\">\n<header class=\"entryHeader\">\n  \n  \n    <h3 class=\"green\" data-title=\"WebObjectsにGWTを統合するwogwt。\">WebObjectsにGWTを統合するwogwt<span style=\"letter-spacing:-0.25em\">。</span></h3>\n  \n  \n</header>\n<time pubdate=\"2011-10-14T17:40:52+0900\" class=\"pubdate\">2011/10/14 (金) p.m.05:40</time>\n<p>　<a href=\"http://code.google.com/p/wogwt/\">wogwt - WebObjects and GWT integration - Google Project Hosting</a></p>\n\n<p>　メモをひっくり返していたら目についた。例によって試してもいない。それだけ……。</p>\n\n\n<nav class=\"entryTags\"><ul>\n\n  <li><a href=\"/blog/tag/java/\">java</a></li>\n\n  <li><a href=\"/blog/tag/software/\">software</a></li>\n\n  <li><a href=\"/blog/tag/webobjects/\">webobjects</a></li>\n\n</ul></nav>\n\n</article>\n');
+        start();
+    }, 1000);
+});
