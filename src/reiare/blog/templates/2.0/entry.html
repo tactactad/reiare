@@ -2,7 +2,7 @@
 <article class="entry">
 <header class="entryHeader">
   {% ifequal view_mode "index" %}
-    <h3 data-title="{{ object.title }}"><a href="{{ object.get_absolute_url }}" title="{{ object.title }}" class="plain blue" data-pjax="#content">{{ object.title }}<span class="white permalink bgBlue">link</span></h3>
+    <h3 data-title="{{ object.title }}"><a href="{{ object.get_absolute_url }}" title="{{ object.title }}" class="plain blue" data-pjax="#content">{{ object.title }}<span class="white permalink bgBlue">link</span></a></h3>
   {% endifequal %}
   {% ifequal view_mode "detail" %}
     <h3 class="green" data-title="{{ object.title }}">{{ object.title }}</h3>
@@ -23,7 +23,7 @@
 {% if object.tags.count %}
 <nav class="entryTags"><ul>
 {% for tag in object.tags.all %}
-  <li><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a></li>
+  <li><a href="{{ tag.get_absolute_url }}" data-pjax="#content">{{ tag.name }}</a></li>
 {% endfor %}
 </ul></nav>
 {% endif %}

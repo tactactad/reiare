@@ -200,6 +200,19 @@ def index(request, page=1):
                               context_instance=RequestContext(request))
 
 
+@pjax_access
+def index_pjax(request, page=1):
+    entries = Entry.published_objects.all()
+    dic, objects = paginator_from_objects_and_num_and_page(entries, 5, page)
+    dic['url'] = '/blog/recents/'
+    return render_to_response('2.0/generic/entry_archive_partial.html',
+                              {'latest': objects,
+                               'lastupdate': objects[0].attr_created(),
+                               'paginator': dic,
+                               'view_mode': 'index'},
+                              context_instance=RequestContext(request))
+
+
 def detail(request, year, month, day, slug):
     entries = entries_from_slug(year, month, day, slug)
     return render_to_response('2.0/generic/entry_archive.html',
@@ -229,6 +242,18 @@ def tag_entries_index(request, tag, page=1):
                               context_instance=RequestContext(request))
 
 
+@pjax_access
+def tag_entries_index_pjax(request, tag, page=1):
+    tag, entries = tag_and_entries(tag)
+    paginator, entries = paginator_from_objects_and_num_and_page(entries, 10, page)
+    return render_to_response('2.0/generic/entry_archive_tag_partial.html',
+                              {'object_list': entries,
+                               'tag': tag,
+                               'paginator': paginator,
+                               'view_mode': 'archives'},
+                              context_instance=RequestContext(request))
+
+
 def tag_and_entries(tag):
     try:
         tag = EntryTag.objects.get(name__iexact=tag)
@@ -243,6 +268,15 @@ def tag_and_entries(tag):
 def archives(request):
     archives = EntryArchive.objects.all()
     return render_to_response('2.0/archives.html',
+                              {'object_list': archives},
+                              context_instance=RequestContext(request))
+
+
+@pjax_access
+@cache_page(86400)
+def archives_pjax(request):
+    archives = EntryArchive.objects.all()
+    return render_to_response('2.0/archive_partial.html',
                               {'object_list': archives},
                               context_instance=RequestContext(request))
 

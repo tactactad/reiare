@@ -148,7 +148,7 @@ class EntryTag(models.Model):
 
     @permalink
     def get_absolute_url(self):
-        return ('blog.apis.tag_entries_index', (), {
+        return ('blog.apis.tag_entries_index_pjax', (), {
             'tag': defaultfilters.urlencode(self.name)})
 
     @permalink
