@@ -371,7 +371,7 @@ $(function() {
     }).bind('pjax:end', function () {
         if ($(this).find('h3').length === 1) {
             document.title = new StringBuffer(loader.siteTitle).
-                    append(' - ').append(($(this).find('h3')).data('title')).toString();
+                    append('- ').append(($(this).find('h3')).data('title')).toString();
         }
         loader.beautyOfCodeActionToLoadContent();
         loader.flAutoKerning();
