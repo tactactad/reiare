@@ -1,9 +1,3 @@
-{% extends "2.0/base.html" %}
-
-{% block title %}- {{ tag }}{% endblock %}
-
-{% block content %}
-{% comment %}
 <header id="entriesHeader" class="orange">“{{ tag }}”な記事</header>
 
 {% if object_list %}
@@ -15,6 +9,3 @@
 {% else %}
   <p>該当する記事は有りませんです。</p>
 {% endif %}
-{% endcomment %}
-{% include "2.0/generic/entry_archive_tag_partial.html" %}
-{% endblock %}

@@ -1,11 +1,11 @@
 <nav class="entriesNav">
   <ul>
 {% if paginator.has_previous %}
-<li><a href="/blog/tag/{{ tag|urlencode }}/{{ paginator.previous_page_number }}/" class="withBorder">&lt;</a></li>
+<li><a href="/blog/tag/{{ tag|urlencode }}/{{ paginator.previous_page_number }}/" class="withBorder" data-pjax="#content">&lt;</a></li>
 {% endif %}
     <li class="pagePerPages">{{ paginator.num_page }} / {{ paginator.num_pages }}</li>
 {% if paginator.has_next %}
-<li><a href="/blog/tag/{{ tag|urlencode }}/{{ paginator.next_page_number }}/" class="withBorder">&gt;</a></li>
+<li><a href="/blog/tag/{{ tag|urlencode }}/{{ paginator.next_page_number }}/" class="withBorder" data-pjax="#content">&gt;</a></li>
 {% endif %}
   </ul>
 </nav>
