@@ -1,0 +1,17 @@
+{% load blog_extras %}
+
+{% for object in latest %}
+  {% include "2.0/entry.html" %}
+{% endfor %}
+{% if paginator %}
+<nav id="moreEntries">
+<ul>
+{% if paginator.has_previous %}
+  <li><a href="{{ paginator.url }}{{ paginator.previous_page_number }}" data-pjax="#content">&lt;</a><li>
+{% endif %}
+{% if paginator.has_next %}
+  <li><a href="{{ paginator.url }}{{ paginator.next_page_number }}/" data-pjax="#content">&gt; つぎの{{ paginator.per_page }}けん</a><li>
+{% endif %}
+</ul>
+</nav>
+{% endif %}
