@@ -344,7 +344,6 @@ $(function() {
     var path = url.split('#!', 2)[1];
 
     if ((path) && (path.match(/^\/blog\/+/))) {
-    // if ((path) && (path.match(/^\/blog\/.+/))) {
         if (path.match(/^\/blog\/$/)) {
             loader.entriesToContentFromURL('/blog/api/recents/1/entry.json', 1, 'no');
         } else if (path.indexOf('/recents/') > -1) {
@@ -369,11 +368,10 @@ $(function() {
         $('#loadingImageBox').show();
         $('html, body').animate({scrollTop: $('#menubar').offset().top},
                                 {easing: 'easeInOutCirc'});
-//                                 duration: 300});
     }).bind('pjax:end', function () {
         if ($(this).find('h3').length === 1) {
             document.title = new StringBuffer(loader.siteTitle).
-                    append(' - ').append(($(this).find('h3')).data('title')).toString();
+                    append('- ').append(($(this).find('h3')).data('title')).toString();
         }
         loader.beautyOfCodeActionToLoadContent();
         loader.flAutoKerning();
