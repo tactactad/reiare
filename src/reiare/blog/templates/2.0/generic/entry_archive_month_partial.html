@@ -1,4 +1,4 @@
-<header id="entriesHeader" class="orange">“{{ month.to_date|date:"Y/m" }}”な記事</header>
+<header id="entriesHeader" class="orange" data-title="{{ month.to_date|date:"Y/m" }}">“{{ month.to_date|date:"Y/m" }}”な記事</header>
 
 {% if latest %}
 {% include "2.0/generic/entry_archive_month_nav.html" %}
