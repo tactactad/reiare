@@ -280,6 +280,52 @@ def archives_pjax(request):
                               {'object_list': archives},
                               context_instance=RequestContext(request))
 
+def archive_month(request, year, month, page=1):
+    dict = archive_month_entries_dictionary(year, month, page)
+    return render_to_response('2.0/generic/entry_archive_month.html',
+                              {'month': dict['current_archive'],
+                               'next_month': dict['next_archive'],
+                               'previous_month': dict['previous_archive'],
+                               'latest': dict['objects'],
+                               'paginator': dict['paginator'],
+                               'view_mode': 'archives'},
+                              context_instance=RequestContext(request))
+
+@pjax_access
+@cache_page(86400)
+def archive_month_pjax(request, year, month, page=1):
+    dict = archive_month_entries_dictionary(year, month, page)
+    return render_to_response('2.0/generic/entry_archive_month_partial.html',
+                              {'month': dict['current_archive'],
+                               'next_month': dict['next_archive'],
+                               'previous_month': dict['previous_archive'],
+                               'latest': dict['objects'],
+                               'paginator': dict['paginator'],
+                               'view_mode': 'archives'},
+                              context_instance=RequestContext(request))
+
+
+def archive_month_entries_dictionary(year, month, page=1):
+    entries = entries_from_year_and_month(year, month)
+    paginator, objects = paginator_from_objects_and_num_and_page(entries, 10, page)
+    current_archive = EntryArchive.objects.get(yearmonth=year + month)
+    paginator['url'] = current_archive.get_absolute_url()
+    previous_archive = EntryArchive.objects.filter(yearmonth__lt=year + month).order_by('-yearmonth')[:1]
+    if previous_archive.exists():
+        previous_archive = previous_archive[0]
+    else:
+        previous_archive = None
+    next_archive = EntryArchive.objects.filter(yearmonth__gt=year + month).order_by('yearmonth')[:1]
+    if next_archive.exists():
+        next_archive = next_archive[0]
+    else:
+        next_archive = None
+    return {'paginator': paginator,
+            'objects': objects,
+            'current_archive': current_archive,
+            'previous_archive': previous_archive,
+            'next_archive': next_archive,
+            'paginator': paginator}
 
 @check_ajax_access
 def entry_json(request, object_id):
