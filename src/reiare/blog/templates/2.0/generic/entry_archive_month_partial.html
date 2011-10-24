@@ -1,0 +1,14 @@
+<header id="entriesHeader" class="orange">“{{ month.to_date|date:"Y/m" }}”な記事</header>
+
+{% if latest %}
+{% include "2.0/generic/entry_archive_month_nav.html" %}
+{% comment %}
+{% for object in object_list %}
+  {% include "2.0/entry.html" %}
+{% endfor %}
+{% endcomment %}
+{% include "2.0/generic/entry_archive_partial.html" %}
+{% include "2.0/generic/entry_archive_month_nav.html" %}
+{% else %}
+  <p>該当する記事は有りませんです。</p>
+{% endif %}

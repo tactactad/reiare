@@ -9,7 +9,7 @@
     {% ifchanged object.year %}
     {% if not forloop.first %}</ul></div>{% endif %}
     <div class="year">{{ object.year }} - <ul>{% endifchanged %}
-      <li><a href="{{ object.get_absolute_url }}">{{ object.month }}</a></li>
+      <li><a href="{{ object.get_absolute_url }}" data-pjax="#content">{{ object.month }}</a></li>
     {% if forloop.last %}
     </ul></div>
     {% endif %}
