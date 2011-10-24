@@ -62,7 +62,7 @@ class EntryArchive(models.Model):
 
     @permalink
     def get_absolute_url(self):
-        return ('archive_month', (), {
+        return ('blog.apis.archive_month_pjax', (), {
             'year': self.year,
             'month': self.month})
 
@@ -118,6 +118,12 @@ class EntryArchive(models.Model):
         True
         """
         return self.month == '01'
+
+    def to_date(self):
+        """
+        >>> EntryArchive.objects.get(yearmonth='201110').to_datetime()
+        """
+        return datetime.date(int(self._year()), int(self._month()), 1)
 
 
 class EntryTag(models.Model):
