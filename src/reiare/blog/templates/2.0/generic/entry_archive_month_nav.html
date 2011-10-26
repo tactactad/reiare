@@ -1,11 +1,11 @@
 <nav class="entriesNav">
     <ul>
-{% if previous_month %}
-        <li>&lt; <a href="{{ previous_month.get_absolute_url }}" class="withBorder" title="{{ previous_month.to_date|date:"Y/m" }}" data-pjax="#content">“まえ”の月</a></li>
+{% if next_month %}
+        <li>&lt; <a href="{{ next_month.get_absolute_url }}" class="withBorder" title="{{ next_month.to_date|date:"Y/m" }}" data-pjax="#content">“つぎ”の月</a></li>
 {% endif %}
         <li>| {{ month.to_date|date:"Y/m" }} |</li>
-{% if next_month %}
-        <li><a href="{{ next_month.get_absolute_url }}" class="withBorder" title="{{ next_month.to_date|date:"Y/m" }}" data-pjax="#content">“つぎ”の月</a> &gt;</li>
+{% if previous_month %}
+        <li><a href="{{ previous_month.get_absolute_url }}" class="withBorder" title="{{ previous_month.to_date|date:"Y/m" }}" data-pjax="#content">“まえ”の月</a> &gt;</li>
 {% endif %}
     </ul>
 </nav>
