@@ -170,14 +170,26 @@ def entries_from_year_and_month(year, month):
     return entries
 
 
+# def pjax_access(view_name):
+#     def _pjax_access(func):
+#         def __pjax_access(*args, **kwargs):
+#             if not 'HTTP_X_PJAX' in args[0].META:
+#                 module = __import__(func.__module__, globals(), locals(), [view_name])
+#                 function = getattr(module, view_name)
+#                 return function(*args, **kwargs)
+#             return func(*args, **kwargs)
+#         return __pjax_access
+#     return _pjax_access
+
+
 def pjax_access(func):
-    def inner(*args, **kwargs):
+    def _pjax_access(*args, **kwargs):
         if not 'HTTP_X_PJAX' in args[0].META:
             module = __import__(func.__module__, globals(), locals(), [func.__name__.replace('_pjax', '')])
             function = getattr(module, (func.__name__).replace('_pjax', ''))
             return function(*args, **kwargs)
         return func(*args, **kwargs)
-    return inner
+    return _pjax_access
 
 # views
 # @cache_page(86400)
