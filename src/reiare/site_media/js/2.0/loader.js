@@ -363,6 +363,7 @@ $(function() {
     }
 
     $('a[data-pjax]').pjax();
+    $('#content p > a[href^="/blog/"]').pjax('#content');
     $('#content').bind('pjax:start', function () {
         $(this).hide();
         $('#loadingImageBox').show();
