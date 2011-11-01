@@ -12,7 +12,7 @@ a.withBorder{border-bottom:1px solid #cccccc;background-image:none;}
 #menubar>ul>li{display:inline;padding:0.5em 1em;margin:1em 0.5em;font-weight:bold;}
 #menubar>ul>li>a:hover{text-shadow:0 0 5px rgba(255, 255, 255, 0.5);}
 #content{margin-top:2.5em;margin-bottom:1em;display:none;}
-#moreEntries{margin-left:1em;}
+#moreEntries{margin-left:1em;margin-bottom:1em;}
 #moreEntries>ul>li{display:inline;margin:0 0.25em;}
 .archives{margin:1em 3em;}
 .year{line-height:1.8em;}
@@ -21,7 +21,9 @@ a.withBorder{border-bottom:1px solid #cccccc;background-image:none;}
 #entriesHeader{font-weight:bold;border-left:5px solid;border-bottom:1px solid;margin-bottom:1em;padding:0.2em;width:75%;}
 .entriesNav{text-align:center;margin-bottom:1em;}
 .entriesNav>ul>li{display:inline;margin:0 0.25em;}
-#loadingImageBox{position:fixed;top:300px;left:300px;display:none;}
+#loadingImageBox{position:fixed;top:0;left:0;width:100%;height:100%;background-color:#ffffff;display:none;z-index:99;opacity:0.8;}
+#loadingImageBox img{position:fixed;top:300px;left:300px;}
+#asamashi{text-align:center;margin-left:auto;margin-right:auto;margin-top:1em;margin-bottom:1em;}
 #sidebar{margin-top:1.5em;}
 #adSearch,#adSence,#twitter,#recents,#ranking,#random,#tags,#profile,#powered{margin-bottom:2em;}
 .twtr-hd{border-bottom:1px dashed #e7e7e7;}
