@@ -64,6 +64,7 @@ a.withBorder {
         padding: 0.5em 1em;
         margin: 1em 0.5em;
         font-weight: bold;
+        .borderRadiusAll(3px);
         /* -webkit-transform-style: preserve-3d; */
         /* -webkit-transition: 0.5s; */
     }
@@ -298,4 +299,24 @@ a.withBorder {
 
 .bgPurple {
     background-color: @bgPurple;
+}
+
+.bgBlueButton {
+    .buttonGradient(@bgBlue);
+}
+
+.bgGreenButton {
+    .buttonGradient(@bgGreen);
+}
+
+.bgOrangeButton {
+    .buttonGradient(@bgOrange);
+}
+
+.bgPinkButton {
+    .buttonGradient(@bgPink);
+}
+
+.bgPurpleButton {
+    .buttonGradient(@bgPurple);
 }

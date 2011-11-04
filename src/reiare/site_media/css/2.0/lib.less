@@ -53,7 +53,22 @@
     behavior: url(/site_media/css/2.0/PIE.htc);
 }
 
+.buttonGradient (@color) {
+    @topColor: lighten(@color, 10%);
+    @bottomColor: darken(@color, 10%);
+    background-color: @color;
+    background: -webkit-gradient(linear, left top, left bottom,
+                                 color-stop(0, @topColor),
+                                 color-stop(1, @bottomColor));
+    background: -moz-linear-gradient(top,  @topColor 0%, @bottomColor 100%);
+    text-shadow: 1px 1px 3px darken(@color, 10%);
+    .pieBehavior;
+}
+
 /*.lessDummy {
     ddisplay:none;
 }*/
+
+
+
 

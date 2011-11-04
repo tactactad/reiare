@@ -9,7 +9,7 @@ a.withBorder{border-bottom:1px solid #cccccc;background-image:none;}
 #header h2{font-size:0.8em;font-weight:bold;margin-left:18em;margin-top:-1.5em;padding-bottom:0.5em;}
 #menubar{width:600px;}
 #menubar>ul{text-align:center;margin-top:1em;margin-left:auto;margin-right:auto;}
-#menubar>ul>li{display:inline;padding:0.5em 1em;margin:1em 0.5em;font-weight:bold;}
+#menubar>ul>li{display:inline;padding:0.5em 1em;margin:1em 0.5em;font-weight:bold;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;}
 #menubar>ul>li>a:hover{text-shadow:0 0 5px rgba(255, 255, 255, 0.5);}
 #content{margin-top:2.5em;margin-bottom:1em;display:none;}
 #moreEntries{margin-left:1em;margin-bottom:1em;}
@@ -50,3 +50,8 @@ a.withBorder{border-bottom:1px solid #cccccc;background-image:none;}
 .bgPink{background-color:#d31774;}
 .purple{color:#95417c;}
 .bgPurple{background-color:#97417a;}
+.bgBlueButton{background-color:#04aeef;background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #2bc2fb), color-stop(1, #0389bd));background:-moz-linear-gradient(top, #2bc2fb 0%, #0389bd 100%);text-shadow:1px 1px 3px #0389bd;behavior:url(/site_media/css/2.0/PIE.htc);}
+.bgGreenButton{background-color:#73c510;background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #8eed1b), color-stop(1, #57960c));background:-moz-linear-gradient(top, #8eed1b 0%, #57960c 100%);text-shadow:1px 1px 3px #57960c;behavior:url(/site_media/css/2.0/PIE.htc);}
+.bgOrangeButton{background-color:#f7b101;background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #fec32d), color-stop(1, #c48d01));background:-moz-linear-gradient(top, #fec32d 0%, #c48d01 100%);text-shadow:1px 1px 3px #c48d01;behavior:url(/site_media/css/2.0/PIE.htc);}
+.bgPinkButton{background-color:#d31774;background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #e9348e), color-stop(1, #a5125b));background:-moz-linear-gradient(top, #e9348e 0%, #a5125b 100%);text-shadow:1px 1px 3px #a5125b;behavior:url(/site_media/css/2.0/PIE.htc);}
+.bgPurpleButton{background-color:#97417a;background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #b65595), color-stop(1, #73325d));background:-moz-linear-gradient(top, #b65595 0%, #73325d 100%);text-shadow:1px 1px 3px #73325d;behavior:url(/site_media/css/2.0/PIE.htc);}
