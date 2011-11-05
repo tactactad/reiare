@@ -26,10 +26,10 @@ a.withBorder{border-bottom:1px solid #cccccc;background-image:none;}
 #asamashi{text-align:center;margin-left:auto;margin-right:auto;margin-top:1em;margin-bottom:1em;}
 #sidebar{margin-top:1.5em;}
 #adSearch,#adSence,#twitter,#recents,#ranking,#random,#tags,#profile,#powered{margin-bottom:2em;}
-.twtr-hd{border-bottom:1px dashed #e7e7e7;}
+.twtr-hd{border-bottom:1px dashed #e7e7e7;text-shadow:2px 2px 0 rgba(83, 83, 83, 0.09999999999999998);}
 .twtr-hd a,.twtr-ft a{background-image:none;border:none;}
 .twtr-bd a{border:none;}
-#recents>h4,#ranking>h4,#random>h4,#tags>h4,#profile>h4{font-weight:bold;border-bottom:1px dashed #e7e7e7;margin-bottom:1em;line-height:1.8em;}
+#recents>h4,#ranking>h4,#random>h4,#tags>h4,#profile>h4{font-weight:bold;border-bottom:1px dashed #e7e7e7;margin-bottom:1em;line-height:1.8em;text-shadow:2px 2px 0 rgba(83, 83, 83, 0.09999999999999998);}
 .sideBarBaseLayout{margin-left:0.5em;margin-right:0.5em;font-size:0.9em;}
 #recentEntries,#randomEntries,#tagNames{margin-left:0.5em;margin-right:0.5em;font-size:0.9em;line-height:2.2em;font-size:0.7em\9;list-style:none;}
 #tagNames>li{display:inline;}
