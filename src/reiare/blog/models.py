@@ -121,7 +121,8 @@ class EntryArchive(models.Model):
 
     def to_date(self):
         """
-        >>> EntryArchive.objects.get(yearmonth='201110').to_datetime()
+        >>> EntryArchive.objects.get(yearmonth='201009').to_date()
+        datetime.date(2010, 9, 1)
         """
         return datetime.date(int(self._year()), int(self._month()), 1)
 
@@ -323,14 +324,14 @@ class Entry(models.Model):
 
     def linebreaks_body(self):
         """
-        >>> Entry.published_objects.get(slug='slug').linebreaks_body() == unicode(u'<p>本文</p>')
+        >>> Entry.published_objects.get(slug='slug').linebreaks_body() == unicode(u'<p>\u3000本文</p>')
         True
         """
         return defaultfilters.linebreaks(self.body)
 
     def linebreaks_body_without_pre(self):
         """
-        >>> Entry.published_objects.get(slug='slug').linebreaks_body_without_pre() == unicode(u'<p>本文</p>')
+        >>> Entry.published_objects.get(slug='slug').linebreaks_body_without_pre() == unicode(u'<p>\u3000本文</p>')
         True
         """
         return reiare_extras.remove_linebreaks_using_regex(self.linebreaks_body(),

@@ -37,6 +37,8 @@ class ResponseTestCase(TestCase):
         self.assertEquals(response.template[1].name,
                           '2.0/base.html')
         self.assertEquals(response.template[2].name,
+                          '2.0/generic/entry_archive_partial.html')
+        self.assertEquals(response.template[3].name,
                           '2.0/entry.html')
 
     def testRecentJson(self):
