@@ -20,6 +20,10 @@ from blog.templatetags import reiare_extras
 
 class EntryArchiveManager(models.Manager):
     def group_by_year(self):
+        """
+        >>> EntryArchive.managers.group_by_year()
+        [<EntryArchive: 201105>, <EntryArchive: 201011>]
+        """
         from django.db import connection
         cursor = connection.cursor()
         cursor.execute("""
@@ -50,6 +54,9 @@ class EntryArchive(models.Model):
 
     >>> object.get_absolute_url()
     '/blog/2010/09/'
+
+    >>> object.mobile_url()
+    '/blog/mobile/2010/09/'
     """
 
     yearmonth = models.CharField(max_length=6, blank=False)
@@ -62,6 +69,10 @@ class EntryArchive(models.Model):
 
     @permalink
     def get_absolute_url(self):
+        """
+        >>> EntryArchive.objects.get(yearmonth='201009').get_absolute_url()
+        u'/blog/2010/09/'
+        """
         return ('blog.apis.archive_month_pjax', (), {
             'year': self.year,
             'month': self.month})
@@ -138,6 +149,9 @@ class EntryTag(models.Model):
     '/blog/feeds_ad/tag/test/'
     >>> object.get_touch_url()
     '/blog/touch/tag/test/'
+
+    >>> object.mobile_url()
+    '/blog/mobile/tag/test/'
     """
     name = models.CharField('名称', max_length=100, blank=False, unique=True, help_text='重複不可')
 
@@ -174,6 +188,15 @@ class EntryTag(models.Model):
                 {'tag': defaultfilters.urlencode(self.name)})
 
     def first_char(self):
+        """
+        >>> EntryTag.objects.get(name='test').first_char()
+        u't'
+        >>> object, flag = EntryTag.objects.get_or_create(name=u'にほんご')
+        >>> flag
+        True
+        >>> EntryTag.objects.get(name=u'にほんご').first_char()
+        '#'
+        """
         if (re.match(u'[\wぁ-ゞ]', self.name)):
             return self.name[:1]
         else:
