@@ -20,34 +20,68 @@ class ReiareExtrasTestCase(TestCase):
                           '<p>' + self.body + '</p>')
 
 
-class ResponseTestCase(TestCase):
+class BaseResponseTestCase(TestCase):
+
+    def responseFromClientAndURL(self, client, url, status_code=200):
+        response = client.get(url)
+        self.statusCodeTest(response, status_code)
+        return response
+
+    def statusCodeTest(self, response, status_code=200):
+        self.assertEqual(response.status_code, status_code)
+
+    def templatesTest(self, names, response):
+        for i in range(len(names)):
+            self.assertEqual(response.templates[i].name, names[i])
+
+
+class ResponseTestCase(BaseResponseTestCase):
 
     def setUp(self):
         self.user, flag = User.objects.get_or_create(username='testuser')
+        self.user.set_password('testpass')
+        self.user.save()
         self.entry, flag = Entry.objects.get_or_create(title=u'タイトル', body=u'本文', slug='slug',
                                                   created=datetime.datetime(2010, 11, 5, 17, 7, 16),
                                                   created_by=self.user, is_publish=True)
         self.client = Client()
 
     def testblog(self):
-        response = self.client.get('/blog/')
-        self.failUnlessEqual(response.status_code, 200)
-        self.assertEquals(response.template[0].name,
-                          '2.0/generic/entry_archive.html')
-        self.assertEquals(response.template[1].name,
-                          '2.0/base.html')
-        self.assertEquals(response.template[2].name,
-                          '2.0/generic/entry_archive_partial.html')
-        self.assertEquals(response.template[3].name,
-                          '2.0/entry.html')
+        response = self.responseFromClientAndURL(self.client, '/blog/')
+        self.templatesTest(['2.0/generic/entry_archive.html',
+                            '2.0/base.html',
+                            '2.0/generic/entry_archive_partial.html',
+                            '2.0/entry.html'],
+                           response)
+
 
     def testRecentJson(self):
-        response = self.client.get('/blog/api/recents/1/entry.json')
-        self.assertEquals(response.status_code, 302)
+        response = self.responseFromClientAndURL(self.client, '/blog/api/recents/1/entry.json', 302)
         response = self.client.get('/blog/api/recents/1/entry.json', {},
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-        self.assertEquals(response.status_code, 200)
-        self.assertEquals(response['Content-Type'], 'application/json')
+        self.statusCodeTest(response)
+        self.assertEqual(response['Content-Type'], 'application/json')
+
+
+    def testPjax(self):
+        response = self.client.get('/blog/', {},
+                                   HTTP_X_PJAX='true')
+        self.statusCodeTest(response)
+        self.assertEqual(response.templates[0].name,
+                         '2.0/generic/entry_archive_partial.html')
+
+
+    def testOldBlog(self):
+        response = self.responseFromClientAndURL(self.client, '/blog/1.0/')
+        self.assertEqual(response.templates[0].name,
+                         'blog/entry_archive.html')
+
+
+    def testAdmin(self):
+        response = self.client.get('/admin/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(self.client.login(username='testuser', password='testpass'))
+
 
     def tearDown(self):
         self.entry.delete()
@@ -76,4 +110,6 @@ class ResponseTestCase(TestCase):
 
 #     def testGetter(self):
 #         self.assertEquals(self.ea.month, '09')
+
+
 
