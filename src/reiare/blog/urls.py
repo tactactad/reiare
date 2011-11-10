@@ -15,7 +15,6 @@ feeds = {
 }
 
 urlpatterns = patterns('blog.views',
-    (r'^tag/(?P<tag>.*)/image/$', 'tag_image_list'),
     (r'^1.0/tag/(?P<tag>.*)/$', 'tag_list'),
     (r'^1.0/(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>.*)/$', 'detail'),
     (r'^asin2asamashi/(?P<associate_tag>.*)/(?P<asins>.*)/$', 'asin2asamashi'),
@@ -28,7 +27,6 @@ urlpatterns = patterns('blog.views',
     (r'^touch/tag/(?P<tag>.*)/more_entries/(?P<page_num>\d+)/$', 'get_iui_more_entries_by_tag'),
     (r'^touch/tag/(?P<tag>.*)/$', 'get_iui_entries_by_tag'),
     (r'^touch/tag/(?P<tag>.*)/(?P<page_num>\d+)/$', 'get_iui_entries_by_tag'),
-    (r'^touch/post_comment/(?P<object_id>\d+)/$', 'post_iui_entry_comment'),
 )
 
 urlpatterns += patterns('',
@@ -37,8 +35,6 @@ urlpatterns += patterns('',
         date_field='created',
         paginate_by=5)),
     (r'^1.0/(?P<year>\d{4})/(?P<month>\d{2})/$', EntryMonthArchiveView.as_view()),
-    # url(r'^(?P<year>\d{4})/(?P<month>\d{2})/$', cache_page(MonthArchiveView2.as_view(), 86400),
-    #     name='archive_month'),
 )
 
 urlpatterns += patterns('',
