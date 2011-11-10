@@ -30,6 +30,9 @@ class BaseResponseTestCase(TestCase):
     def statusCodeTest(self, response, status_code=200):
         self.assertEqual(response.status_code, status_code)
 
+    def statusCodeTestFromClientAndURL(self, client, url, status_code=200):
+        self.responseFromClientAndURL(client, url, status_code)
+
     def templatesTest(self, names, response):
         for i in range(len(response.templates)):
             self.assertEqual(response.templates[i].name, names[i])
@@ -77,7 +80,13 @@ class ResponseTestCase(BaseResponseTestCase):
                            response);
 
     def testFeeds(self):
-        pass
+        self.statusCodeTestFromClientAndURL(self.client, '/blog/feeds/latest/', 301)
+        self.simplifyResponseTest(self.client, '/blog/feeds/tag/apple/',
+                                  ['feeds/tag_title.html',
+                                   'feeds/tag_description.html',])
+        self.simplifyResponseTest(self.client, '/blog/feeds_ad/latest/',
+                                  ['feeds/latest_title.html',
+                                   'feeds/latest_description.html',])
 
     def testOldBlog(self):
         self.simplifyResponseTest(self.client, '/blog/1.0/',
