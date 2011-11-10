@@ -146,7 +146,7 @@ class EntryTag(models.Model):
     >>> object.get_absolute_url()
     '/blog/tag/test/'
     >>> object.get_feeds_url()
-    '/blog/feeds_ad/tag/test/'
+    u'/blog/feeds_ad/tag/test/'
     >>> object.get_touch_url()
     '/blog/touch/tag/test/'
 
@@ -172,10 +172,8 @@ class EntryTag(models.Model):
         return ('blog.apis.tag_entries_index_pjax', (), {
             'tag': defaultfilters.urlencode(self.name)})
 
-    @permalink
     def get_feeds_url(self):
-        return ('blog_feeds', (), {
-            'url': 'tag/%s' % defaultfilters.urlencode(self.name)})
+        return '/blog/feeds_ad/tag/%s/' % (defaultfilters.urlencode(self.name))
 
     @permalink
     def get_touch_url(self):

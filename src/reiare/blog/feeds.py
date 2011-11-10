@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 import datetime
 
-from django.contrib.syndication.feeds import Feed
+from django.contrib.syndication.views import Feed
 from django.conf import settings
+from django.shortcuts import get_object_or_404
 from django.template import defaultfilters
 
 from blog.models import Entry, EntryTag
@@ -33,11 +34,12 @@ class LatestEntriesByTag(LatestEntries):
     title_template = 'feeds/tag_title.html'
     description_template = 'feeds/tag_description.html'
 
-    def get_object(self, bits):
-        if len(bits) != 1:
-            raise EntryTag.ObjectDoesNotExist
-        tag = EntryTag.objects.get(name=bits[0])
-        return tag
+    def get_object(self, response, tag):
+        return get_object_or_404(EntryTag, name=tag)
+        # if len(tag) != 1:
+        #     raise EntryTag.ObjectDoesNotExist
+        # tag = EntryTag.objects.get(name=tag)
+        # return tag
 
     def items(self, obj):
         return Entry.published_objects.filter(tags=obj).filter(created__lte=datetime.datetime.now())[:settings.RSS_NUM]
