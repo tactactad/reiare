@@ -162,7 +162,7 @@ class EntryTag(models.Model):
 
     def __unicode__(self):
         """
-        >>> EntryTag.objects.get(id=1).__unicode__()
+        >>> EntryTag.objects.get(name='test').__unicode__()
         u'test'
         """
         return self.name

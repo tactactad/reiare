@@ -31,8 +31,12 @@ class BaseResponseTestCase(TestCase):
         self.assertEqual(response.status_code, status_code)
 
     def templatesTest(self, names, response):
-        for i in range(len(names)):
+        for i in range(len(response.templates)):
             self.assertEqual(response.templates[i].name, names[i])
+
+    def simplifyResponseTest(self, client, url, templates= [], status_code=200):
+        response = self.responseFromClientAndURL(client, url, status_code)
+        self.templatesTest(templates, response)
 
 
 class ResponseTestCase(BaseResponseTestCase):
@@ -44,47 +48,97 @@ class ResponseTestCase(BaseResponseTestCase):
         self.entry, flag = Entry.objects.get_or_create(title=u'タイトル', body=u'本文', slug='slug',
                                                   created=datetime.datetime(2010, 11, 5, 17, 7, 16),
                                                   created_by=self.user, is_publish=True)
+        self.tag, flag = EntryTag.objects.get_or_create(name=u'apple')
         self.client = Client()
 
     def testblog(self):
-        response = self.responseFromClientAndURL(self.client, '/blog/')
-        self.templatesTest(['2.0/generic/entry_archive.html',
-                            '2.0/base.html',
-                            '2.0/generic/entry_archive_partial.html',
-                            '2.0/entry.html'],
-                           response)
-
+        self.simplifyResponseTest(self.client, '/blog/',
+                                  ['2.0/generic/entry_archive.html',
+                                   '2.0/base.html',
+                                   '2.0/generic/entry_archive_partial.html',
+                                   '2.0/entry.html',
+                                   '2.0/jquery_templates.html',
+                                   '2.0/entry_article_template.html',
+                                   '2.0/common_js.html'])
 
     def testRecentJson(self):
-        response = self.responseFromClientAndURL(self.client, '/blog/api/recents/1/entry.json', 302)
+        self.responseFromClientAndURL(self.client, '/blog/api/recents/1/entry.json', 302)
         response = self.client.get('/blog/api/recents/1/entry.json', {},
                                    HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.statusCodeTest(response)
         self.assertEqual(response['Content-Type'], 'application/json')
 
-
     def testPjax(self):
         response = self.client.get('/blog/', {},
-                                   HTTP_X_PJAX='true')
+                                   HTTP_X_PJAX=True)
         self.statusCodeTest(response)
-        self.assertEqual(response.templates[0].name,
-                         '2.0/generic/entry_archive_partial.html')
+        self.templatesTest(['2.0/generic/entry_archive_partial.html',
+                            '2.0/entry.html'],
+                           response);
 
+    def testFeeds(self):
+        pass
 
     def testOldBlog(self):
-        response = self.responseFromClientAndURL(self.client, '/blog/1.0/')
-        self.assertEqual(response.templates[0].name,
-                         'blog/entry_archive.html')
+        self.simplifyResponseTest(self.client, '/blog/1.0/',
+                                  ['blog/entry_archive.html',
+                                   'base.html',
+                                   'entry.html',
+                                   'recent_entries_box.html'])
+        self.simplifyResponseTest(self.client, '/blog/1.0/2010/10/',
+                                  ['blog/entry_archive_month.html',
+                                   'base.html',
+                                   'month_navigation.html',
+                                   'month_navigation.html',
+                                   'recent_entries_box.html'])
+        self.simplifyResponseTest(self.client, '/blog/1.0/2010/11/05/slug/',
+                                  ['blog/entry_detail.html',
+                                   'base.html',
+                                   'entry.html',
+                                   'recent_entries_box.html'])
+        self.simplifyResponseTest(self.client, '/blog/1.0/tag/apple/',
+                                  ['blog/entry_list.html',
+                                   'list_template.html',
+                                   'base.html',
+                                   'recent_entries_box.html'])
+        self.simplifyResponseTest(self.client, '/blog/body/1/',
+                                  ['entry_body.html',
+                                   'entry_comment.html'])
+        self.simplifyResponseTest(self.client, '/blog/recent_entries/1/',
+                                  ['recent_entries_box.html'])
+        self.simplifyResponseTest(self.client, '/blog/more_entries/1/',
+                                  ['more_entries.html',
+                                   'entry.html'])
 
+    def testTouch(self):
+        self.simplifyResponseTest(self.client, '/blog/touch/',
+                                  ['iui_base.html',
+                                   'iui_entry_box.html',
+                                   'iui_entry_comment_box.html'])
+        self.simplifyResponseTest(self.client, '/blog/touch/more_entries/1/',
+                                  ['iui_more_entries.html'])
+        self.simplifyResponseTest(self.client, '/blog/touch/2010/11/05/slug/',
+                                  ['iui_entry.html',
+                                   'iui_entry_box.html',
+                                   'iui_entry_comment_box.html'])
+        self.simplifyResponseTest(self.client, '/blog/touch/tag/test/',
+                                  ['iui_entries_by_tag.html'])
+        self.simplifyResponseTest(self.client, '/blog/touch/tag/1/',
+                                  ['iui_entries_by_tag.html'])
+        self.simplifyResponseTest(self.client, '/blog/touch/tag/test/more_entries/1/',
+                                  ['iui_more_entries.html'])
+
+    def testAsin2Asamashi(self):
+        self.responseFromClientAndURL(self.client, 'http://reiare.net/blog/asin2asamashi/spiceoflife04-22/B005119CMA/')
 
     def testAdmin(self):
         response = self.client.get('/admin/')
         self.assertEqual(response.status_code, 200)
         self.assertTrue(self.client.login(username='testuser', password='testpass'))
 
-
     def tearDown(self):
         self.entry.delete()
+        self.tag.delete()
 
 # class EntryArchiveTestCase(TestCase):
 #     fixtures = ['fortest.yaml',]#'entryArchive.json',]
