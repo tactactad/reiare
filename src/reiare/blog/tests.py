@@ -41,6 +41,12 @@ class BaseResponseTestCase(TestCase):
         response = self.responseFromClientAndURL(client, url, status_code)
         self.templatesTest(templates, response)
 
+    def jsonResponseTest(self, client, url, data={}, status_code=200):
+        response = client.get(url, data,
+                              HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.statusCodeTest(response, status_code)
+        self.assertEqual(response['Content-TYpe'], 'application/json')
+
 
 class ResponseTestCase(BaseResponseTestCase):
 
@@ -66,10 +72,21 @@ class ResponseTestCase(BaseResponseTestCase):
 
     def testRecentJson(self):
         self.responseFromClientAndURL(self.client, '/blog/api/recents/1/entry.json', 302)
-        response = self.client.get('/blog/api/recents/1/entry.json', {},
-                                   HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-        self.statusCodeTest(response)
-        self.assertEqual(response['Content-Type'], 'application/json')
+        self.jsonResponseTest(self.client, '/blog/api/recents/1/entry.json')
+
+    def testApi(self):
+        for url in ['/blog/api/2010/11/05/slug/entry.json',
+                    '/blog/api/2010/11/1/entry.json',
+                    '/blog/api/2010/11/entry.json',
+                    '/blog/api/entry/1.json',
+                    '/blog/api/recents/1/entry.json',
+                    '/blog/api/recents/title.json',
+                    '/blog/api/random/title.json',
+                    '/blog/api/archives/title.json',
+                    '/blog/api/tag/apple/1/entry.json',
+                    '/blog/api/tag/apple/entry.json',
+                    '/blog/api/tag/apple/entry.json']:
+            self.jsonResponseTest(self.client, url)
 
     def testPjax(self):
         response = self.client.get('/blog/', {},
