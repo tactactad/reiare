@@ -28,14 +28,14 @@ class BaseResponseTestCase(TestCase):
         return response
 
     def statusCodeTest(self, response, status_code=200):
-        self.assertEqual(response.status_code, status_code)
+        self.assertEqual(response.status_code, status_code, msg='errored url is %s' % (response.request['PATH_INFO']))
 
     def statusCodeTestFromClientAndURL(self, client, url, data={}, status_code=200):
         self.responseFromClientAndURL(client, url, data, status_code)
 
     def templatesTest(self, names, response):
         for i in range(len(response.templates)):
-            self.assertEqual(response.templates[i].name, names[i])
+            self.assertEqual(response.templates[i].name, names[i], msg='errored url is %s' % (response.request['PATH_INFO']))
 
     def simplifyResponseTest(self, client, url, data={}, templates=(), status_code=200):
         response = self.responseFromClientAndURL(client, url, data, status_code)
@@ -66,14 +66,61 @@ class ResponseTestCase(BaseResponseTestCase):
         self.client = Client()
 
     def testblog(self):
-        self.simplifyResponseTest(self.client, '/blog/',
-                                  templates=('2.0/generic/entry_archive.html',
-                                             '2.0/base.html',
-                                             '2.0/generic/entry_archive_partial.html',
-                                             '2.0/entry.html',
-                                             '2.0/jquery_templates.html',
-                                             '2.0/entry_article_template.html',
-                                             '2.0/common_js.html'))
+        args = ({'url': '/blog/',
+                 'templates': ('2.0/generic/entry_archive.html',
+                               '2.0/base.html',
+                               '2.0/generic/entry_archive_partial.html',
+                               '2.0/entry.html',
+                               '2.0/jquery_templates.html',
+                               '2.0/entry_article_template.html',
+                               '2.0/common_js.html')},
+                {'url': '/blog/2010/11/1/',
+                 'templates': ('2.0/generic/entry_archive_month.html',
+                               '2.0/base.html',
+                               '2.0/generic/entry_archive_month_partial.html',
+                               '2.0/generic/entry_archive_month_nav.html',
+                               '2.0/generic/entry_archive_partial.html',
+                               '2.0/entry.html',
+                               '2.0/generic/entry_archive_month_nav.html',
+                               '2.0/jquery_templates.html',
+                               '2.0/entry_article_template.html',
+                               '2.0/common_js.html')},
+                {'url': '/blog/2010/11/',
+                 'templates': ('2.0/generic/entry_archive_month.html',
+                               '2.0/base.html',
+                               '2.0/generic/entry_archive_month_partial.html',
+                               '2.0/generic/entry_archive_month_nav.html',
+                               '2.0/generic/entry_archive_partial.html',
+                               '2.0/entry.html',
+                               '2.0/generic/entry_archive_month_nav.html',
+                               '2.0/jquery_templates.html',
+                               '2.0/entry_article_template.html',
+                               '2.0/common_js.html')},
+                {'url': '/blog/2010/11/05/slug/',
+                 'templates': ('2.0/generic/entry_archive.html',
+                               '2.0/base.html',
+                               '2.0/generic/entry_archive_partial.html',
+                               '2.0/entry.html',
+                               '2.0/jquery_templates.html',
+                               '2.0/entry_article_template.html',
+                               '2.0/common_js.html')},
+                {'url': '/blog/recents/1/',
+                 'templates': ('2.0/generic/entry_archive.html',
+                               '2.0/base.html',
+                               '2.0/generic/entry_archive_partial.html',
+                               '2.0/entry.html',
+                               '2.0/jquery_templates.html',
+                               '2.0/entry_article_template.html',
+                               '2.0/common_js.html')},
+                {'url': '/blog/archives/',
+                 'templates': ('2.0/archives.html',
+                               '2.0/base.html',
+                               '2.0/archive_partial.html',
+                               '2.0/jquery_templates.html',
+                               '2.0/entry_article_template.html',
+                               '2.0/common_js.html')})
+        for arg in args:
+            self.simplifyResponseTest(self.client, arg['url'], templates= arg['templates'])
 
     def testRecentJson(self):
         self.responseFromClientAndURL(self.client, '/blog/api/recents/1/entry.json', status_code=302)
@@ -142,6 +189,50 @@ class ResponseTestCase(BaseResponseTestCase):
         self.simplifyResponseTest(self.client, '/blog/feeds_ad/latest/', {},
                                   templates=('feeds/latest_title.html',
                                              'feeds/latest_description.html'))
+
+    def testMobile(self):
+        args = [{'url': '/blog/mobile/2010/11/05/slug/',
+                 'templates': ('2.0/mobile/mobile_detail.html',
+                               '2.0/mobile/mobile_base.html')},
+                {'url': '/blog/mobile/2010/11/1/',
+                 'templates': ('2.0/mobile/mobile_archive.html',
+                               '2.0/mobile/mobile_base.html',
+                               '2.0/mobile/mobile_entry_li.html',
+                               '2.0/mobile/mobile_paginator.html')},
+                {'url': '/blog/mobile/2010/11/',
+                 'templates': ('2.0/mobile/mobile_archive.html',
+                               '2.0/mobile/mobile_base.html',
+                               '2.0/mobile/mobile_entry_li.html',
+                               '2.0/mobile/mobile_paginator.html')},
+                {'url': '/blog/mobile/archives/2010/',
+                 'templates': ('2.0/mobile/mobile_archives_year.html',
+                               '2.0/mobile/mobile_base.html')},
+                {'url': '/blog/mobile/archives/',
+                 'templates': ('2.0/mobile/mobile_archives.html',
+                               '2.0/mobile/mobile_base.html')},
+                {'url': '/blog/mobile/tag/apple/1/',
+                 'templates': ('2.0/mobile/mobile_tag.html',
+                               '2.0/mobile/mobile_base.html',
+                               '2.0/mobile/mobile_paginator.html')},
+                {'url': '/blog/mobile/tag/apple/',
+                 'templates': ('2.0/mobile/mobile_tag.html',
+                               '2.0/mobile/mobile_base.html',
+                               '2.0/mobile/mobile_paginator.html')},
+                {'url': '/blog/mobile/tag/',
+                 'templates': ('2.0/mobile/mobile_tags.html',
+                               '2.0/mobile/mobile_base.html')},
+                {'url': '/blog/mobile/recents/1/',
+                 'templates': ('2.0/mobile/mobile_index.html',
+                               '2.0/mobile/mobile_base.html',
+                               '2.0/mobile/mobile_entry_li.html',
+                               '2.0/mobile/mobile_paginator.html',)},
+                {'url': '/blog/mobile/',
+                 'templates': ('2.0/mobile/mobile_index.html',
+                               '2.0/mobile/mobile_base.html',
+                               '2.0/mobile/mobile_entry_li.html',
+                               '2.0/mobile/mobile_paginator.html')},]
+        for arg in args:
+            self.simplifyResponseTest(self.client, arg['url'], templates=arg['templates'])
 
     def testOldBlog(self):
         args = ({'url': '/blog/1.0/',
