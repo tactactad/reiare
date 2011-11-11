@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 #from django.contrib.auth.models import User
+from django.template import defaultfilters
 from django.test import TestCase
 from django.test.client import Client
 
 from reiare.blog.models import *
-
+from blog.templatetags import reiare_extras
 
 class ReiareExtrasTestCase(TestCase):
 
@@ -13,11 +14,30 @@ class ReiareExtrasTestCase(TestCase):
         self.regex_string = '<pre.*?</pre>'
 
     def test_remove_linebreaks_using_regex(self):
-        from django.template import defaultfilters
-        from blog.templatetags import reiare_extras
         self.assertEquals(reiare_extras.remove_linebreaks_using_regex(defaultfilters.linebreaks(self.body),
                                                                       self.regex_string),
                           '<p>' + self.body + '</p>')
+
+    def testOmit(self):
+        value = '123456789abcdef'
+        self.assertEqual(reiare_extras.omit(value, 2), u'1234567\u2026ef')
+        self.assertEqual(reiare_extras.omit(value, 15), value)
+        self.assertEqual(reiare_extras.omit(value), value)
+        self.assertEqual(reiare_extras.omit(value, 11), u'12345678\u2026ef')
+
+    def testWrappedJQueryTemplatetag(self):
+        value = '123456789'
+        self.assertEqual(reiare_extras.wrapped_jQuery_templatetag(value), u'{{123456789}}')
+
+    def testRewriteImgSrc(self):
+        value = 'spam<img src="/site_media/ham">egg'
+        self.assertEqual(reiare_extras.rewrite_img_src(value),
+                         u'spam<img src="http://reiare.net/site_media/ham">egg')
+
+    def testRewriteAHref(self):
+        value = 'spma<a href="/blog/ham">egg</a>'
+        self.assertEqual(reiare_extras.rewrite_a_href(value),
+                         u'spma<a href="http://reiare.net/blog/ham">egg</a>')
 
 
 class BaseResponseTestCase(TestCase):
