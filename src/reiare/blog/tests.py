@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
+
+import json
+
 #from django.contrib.auth.models import User
+from django.http import Http404
 from django.template import defaultfilters
 from django.test import TestCase
 from django.test.client import Client
@@ -68,7 +72,72 @@ class ApiTestCase(TestCase):
     fixtures = ['entry.json', 'entryTag.json', 'entryArchive.json']
 
     def setUp(self):
-        pass
+        self.entries = Entry.objects.all()
+        self.tags = EntryTag.objects.all()
+        self.archives = EntryArchive.objects.all()
+
+    def testTitleJson(self):
+        data = json.loads(apis.title_json_from_entries(self.entries))
+        self.assertEqual(data[0]['title'], 'fixture1')
+        self.assertEqual(data[0]['url'], '/blog/2011/11/06/fixture1/')
+
+    def testJsonSourceFromEntries(self):
+        data = apis.json_source_from_entries(self.entries)
+        self.assertEqual(data[0]['body'], '<p>fixture1 body</p>')
+        self.assertEqual(data[0]['display_created'], '2011/11/6 (Sun) p.m.02:50')
+        self.assertEqual(data[0]['rel_entries'][0]['id'], 2)
+        self.assertEqual(data[0]['tags'][0]['name'], 'apple')
+
+    def testJsonSourceFromTags(self):
+        data = apis.json_source_from_tags(self.tags)
+        self.assertEqual(data[0]['id'], 1)
+        self.assertEqual(data[0]['url'], '/blog/tag/apple/')
+
+    def testJsonSourceFromArchives(self):
+        data = apis.json_source_from_archives(self.archives)
+        self.assertEqual(data[0]['url'], '/blog/2010/01/')
+
+    def testJsonFromEntries(self):
+        data = json.loads(apis.json_from_entries(self.entries))
+        self.assertEqual(data[0]['body'], '<p>fixture1 body</p>')
+        self.assertEqual(data[0]['display_created'], '2011/11/6 (Sun) p.m.02:50')
+        self.assertEqual(data[0]['rel_entries'][0]['id'], 2)
+        self.assertEqual(data[0]['tags'][0]['name'], 'apple')
+
+    def testJsonFromTags(self):
+        data = json.loads(apis.json_from_tags(self.tags))
+        self.assertEqual(data[0]['id'], 1)
+        self.assertEqual(data[0]['url'], '/blog/tag/apple/')
+
+    def testRecentEntriesFromNumAndPage(self):
+        data = apis.recent_entries_from_num_and_page(10, 2)
+        self.assertEqual(data[0].title, 'fixture11')
+
+    def testRandomEntriesFromNum(self):
+        data = apis.random_entries_from_num(5)
+        self.assertEqual(len(data), 5)
+        self.assertTrue(isinstance(data.pop(), Entry))
+
+    def testJsonResponse(self):
+        response = apis.json_response('[]')
+        self.assertEqual(response.__getitem__('CONTENT-TYPE'), 'application/json')
+
+    def testPaginatorFromObjectsAndNumAndPage(self):
+        data = apis.paginator_from_objects_and_num_and_page(self.entries, 5, 2)
+        self.assertTrue(data[0]['has_next'])
+        self.assertTrue(data[0]['has_previous'])
+        self.assertEqual(data[0]['next_page_number'], 3)
+        self.assertEqual(data[1][0].title, 'fixture6')
+        self.assertEqual(data[1][4].title, 'fixture10')
+
+    def testEntriesFromSlug(self):
+        data = apis.entries_from_slug(2011, 11, 6, 'fixture1')
+        self.assertEqual(data[0].title, 'fixture1')
+#        self.assertRaises(Http404, apis.entries_from_slug(2011, 11, 6, 'dummy'))
+
+    def testEntriesFromYearAndMonth(self):
+        data = apis.entries_from_year_and_month(2011, 11)
+        self.assertEqual(data[0].title, 'fixture1')
 
     def tearDown(self):
         pass

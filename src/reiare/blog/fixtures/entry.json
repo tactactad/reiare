@@ -8,7 +8,10 @@
             "slug": "fixture1",
             "is_publish": true,
             "created": "2011-11-06 14:50:12",
-            "created_by": 1}
+            "created_by": 1,
+            "rel_entries": [2],
+            "tags": [1]
+        }
     },
     {
         "model": "blog.entry",
@@ -17,6 +20,131 @@
             "title": "fixture2",
             "body": "fixture2 body",
             "slug": "fixture2",
+            "is_publish": true,
+            "created": "2011-11-06 14:50:12",
+            "created_by": 1}
+    },
+    {
+        "model": "blog.entry",
+        "pk": 3,
+        "fields": {
+            "title": "fixture3",
+            "body": "fixture3 body",
+            "slug": "fixture3",
+            "is_publish": true,
+            "created": "2011-11-06 14:50:12",
+            "created_by": 1,
+            "rel_entries": [2],
+            "tags": [1]
+        }
+    },
+    {
+        "model": "blog.entry",
+        "pk": 4,
+        "fields": {
+            "title": "fixture4",
+            "body": "fixture4 body",
+            "slug": "fixture4",
+            "is_publish": true,
+            "created": "2011-11-06 14:50:12",
+            "created_by": 1}
+    },
+    {
+        "model": "blog.entry",
+        "pk": 5,
+        "fields": {
+            "title": "fixture5",
+            "body": "fixture5 body",
+            "slug": "fixture5",
+            "is_publish": true,
+            "created": "2011-11-06 14:50:12",
+            "created_by": 1,
+            "rel_entries": [2],
+            "tags": [1]
+        }
+    },
+    {
+        "model": "blog.entry",
+        "pk": 6,
+        "fields": {
+            "title": "fixture6",
+            "body": "fixture6 body",
+            "slug": "fixture6",
+            "is_publish": true,
+            "created": "2011-11-06 14:50:12",
+            "created_by": 1}
+    },
+    {
+        "model": "blog.entry",
+        "pk": 7,
+        "fields": {
+            "title": "fixture7",
+            "body": "fixture7 body",
+            "slug": "fixture7",
+            "is_publish": true,
+            "created": "2011-11-06 14:50:12",
+            "created_by": 1,
+            "rel_entries": [2],
+            "tags": [1]
+        }
+    },
+    {
+        "model": "blog.entry",
+        "pk": 8,
+        "fields": {
+            "title": "fixture8",
+            "body": "fixture8 body",
+            "slug": "fixture8",
+            "is_publish": true,
+            "created": "2011-11-06 14:50:12",
+            "created_by": 1}
+    },
+    {
+        "model": "blog.entry",
+        "pk": 9,
+        "fields": {
+            "title": "fixture9",
+            "body": "fixture9 body",
+            "slug": "fixture9",
+            "is_publish": true,
+            "created": "2011-11-06 14:50:12",
+            "created_by": 1,
+            "rel_entries": [2],
+            "tags": [1]
+        }
+    },
+    {
+        "model": "blog.entry",
+        "pk": 10,
+        "fields": {
+            "title": "fixture10",
+            "body": "fixture10 body",
+            "slug": "fixture10",
+            "is_publish": true,
+            "created": "2011-11-06 14:50:12",
+            "created_by": 1}
+    },
+    {
+        "model": "blog.entry",
+        "pk": 11,
+        "fields": {
+            "title": "fixture11",
+            "body": "fixture11 body",
+            "slug": "fixture11",
+            "is_publish": true,
+            "created": "2011-11-06 14:50:12",
+            "created_by": 1,
+            "rel_entries": [2],
+            "tags": [1]
+        }
+    },
+    {
+        "model": "blog.entry",
+        "pk": 12,
+        "fields": {
+            "title": "fixture12",
+            "body": "fixture12 body",
+            "slug": "fixture12",
             "is_publish": true,
             "created": "2011-11-06 14:50:12",
             "created_by": 1}
