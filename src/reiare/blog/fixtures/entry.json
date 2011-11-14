@@ -1,0 +1,25 @@
+[
+    {
+        "model": "blog.entry",
+        "pk": 1,
+        "fields": {
+            "title": "fixture1",
+            "body": "fixture1 body",
+            "slug": "fixture1",
+            "is_publish": true,
+            "created": "2011-11-06 14:50:12",
+            "created_by": 1}
+    },
+    {
+        "model": "blog.entry",
+        "pk": 2,
+        "fields": {
+            "title": "fixture2",
+            "body": "fixture2 body",
+            "slug": "fixture2",
+            "is_publish": true,
+            "created": "2011-11-06 14:50:12",
+            "created_by": 1}
+    }
+]
+
