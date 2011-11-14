@@ -4,8 +4,10 @@ from django.template import defaultfilters
 from django.test import TestCase
 from django.test.client import Client
 
-from reiare.blog.models import *
+from blog import apis
+from blog.models import *
 from blog.templatetags import reiare_extras
+from blog.templatetags import blog_tag_extras
 
 class ReiareExtrasTestCase(TestCase):
 
@@ -38,6 +40,38 @@ class ReiareExtrasTestCase(TestCase):
         value = 'spma<a href="/blog/ham">egg</a>'
         self.assertEqual(reiare_extras.rewrite_a_href(value),
                          u'spma<a href="http://reiare.net/blog/ham">egg</a>')
+
+
+class BlogTagExtrasTestCase(TestCase):
+    fixtures = ['entry.json', 'entryTag.json']
+
+    def setUp(self):
+        pass
+
+    def testShowRecentEntries(self):
+        dict = blog_tag_extras.show_recent_entries()
+        self.assertTrue(isinstance(dict['entries'][0], Entry))
+
+    def testShowRandomEntries(self):
+        dict = blog_tag_extras.show_random_entries()
+        self.assertTrue(isinstance(dict['entries'].pop(), Entry))
+
+    def testShowTags(self):
+        dict = blog_tag_extras.show_tags()
+        self.assertTrue(isinstance(dict['tags'][0], EntryTag))
+
+    def tearDown(self):
+        pass
+
+
+class ApiTestCase(TestCase):
+    fixtures = ['entry.json', 'entryTag.json', 'entryArchive.json']
+
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        pass
 
 
 class BaseResponseTestCase(TestCase):
