@@ -70,7 +70,6 @@ def json_source_from_archives(archives):
                'month': archive.month,
                'url': archive.get_absolute_url()}
         data.append(dic)
-    logging.debug(data)
     return data
 
 
