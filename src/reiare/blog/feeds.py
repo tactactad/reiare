@@ -28,6 +28,12 @@ class LatestEntries(Feed):
         # return obj.ajax_url()
         return obj.get_absolute_url()
 
+    def item_title(self, item):
+        return item.title
+
+    def item_description(self, item):
+        return item.linebreaks_body_without_pre()
+
 
 class LatestEntriesByTag(LatestEntries):
     description = unicode(settings.BLOG_DESCRIPTION, 'utf-8') + u"の一部"
