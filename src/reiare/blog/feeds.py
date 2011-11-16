@@ -32,7 +32,7 @@ class LatestEntries(Feed):
         return item.title
 
     def item_description(self, item):
-        return item.linebreaks_body_without_pre()
+        return item.linebreaks_body_for_feed()
 
 
 class LatestEntriesByTag(LatestEntries):

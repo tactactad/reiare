@@ -388,6 +388,13 @@ class Entry(models.Model):
         pattern = re.compile(u'^　', re.M)
         return re.sub(pattern, '', self.body)
 
+    def linebreaks_body_for_feed(self):
+        """
+        >>> Entry.published_objects.get(slug='img').linebreaks_body_for_feed()
+        u'<p><img src="http://reiare.net/site_media/images/a_medium.jpg" width="500" height="375" /> image</p>'
+        """
+        return  reiare_extras.rewrite_img_src(self.linebreaks_body_without_pre())
+
 
 
 
