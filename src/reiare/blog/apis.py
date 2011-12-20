@@ -244,7 +244,7 @@ def detail_pjax(request, year, month, day, slug):
 
 def tag_entries_index(request, tag, page=1):
     tag, entries = tag_and_entries(tag)
-    paginator, entries = paginator_from_objects_and_num_and_page(entries, 10, page)
+    paginator, entries = paginator_from_objects_and_num_and_page(entries, 20, page)
     return render_to_response('2.0/generic/entry_archive_tag.html',
                               {'object_list': entries,
                                'tag': tag,
@@ -256,7 +256,7 @@ def tag_entries_index(request, tag, page=1):
 @pjax_access
 def tag_entries_index_pjax(request, tag, page=1):
     tag, entries = tag_and_entries(tag)
-    paginator, entries = paginator_from_objects_and_num_and_page(entries, 10, page)
+    paginator, entries = paginator_from_objects_and_num_and_page(entries, 20, page)
     return render_to_response('2.0/generic/entry_archive_tag_partial.html',
                               {'object_list': entries,
                                'tag': tag,
