@@ -16,6 +16,8 @@ a {
     .bottomGrayBordered;
     color: @letterColor;
     background-image: url(/site_media/css/2.0/images/link-bg.gif);
+    background-position: center;
+    background-repeat: repeat-x;
     padding: 0.2em;
 }
 
@@ -137,6 +139,28 @@ a.withBorder {
      /*     border-right: 1px solid; */
      /*     padding: 0 0.25em; */
      /* } */
+
+   #entryList {
+       margin-right: 0.5em;
+       margin-left: 0.5em;
+       margin-bottom: 1em;
+
+       li {
+           line-height: @baseLineHeight;
+
+           a {
+               display: block;
+           }
+
+           span {
+               font-size: @smallerSize;
+               display: block;
+               text-align: right;
+               margin-top: -2em;
+           }
+       }
+
+   }
 
 #loadingImageBox {
     position: fixed;
