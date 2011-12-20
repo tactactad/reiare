@@ -1,0 +1,5 @@
+<ul id="entryList">
+{% for object in object_list %}
+  <li><a href="{{ object.get_absolute_url }}" title="{{ object.title }}"{% cycle '' ' class="withBorder"' %}  data-pjax="#content">{{ object.title }} <span> - {{ object.created|date:"Y/n/j (D) ah:i" }}</span></a></li>
+{% endfor %}
+</ul>

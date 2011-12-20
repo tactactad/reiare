@@ -2,9 +2,7 @@
 
 {% if object_list %}
 {% include "2.0/generic/entry_archive_tag_nav.html" %}
-{% for object in object_list %}
-  {% include "2.0/entry.html" %}
-{% endfor %}
+{% include "2.0/entry_list.html" %}
 {% include "2.0/generic/entry_archive_tag_nav.html" %}
 {% else %}
   <p>該当する記事は有りませんです。</p>
