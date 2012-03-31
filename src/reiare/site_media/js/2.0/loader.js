@@ -373,7 +373,7 @@ $(function() {
         if ($(this).find('h3').length === 1) {
             document.title = new StringBuffer(loader.siteTitle).
                     append('- ').append(($(this).find('h3')).data('title')).toString();
-        } else if ($(this).find('#entriesHeader')) {
+        } else if ($(this).find('#entriesHeader').length > 0) {
             document.title = new StringBuffer(loader.siteTitle).
                     append('- ').append($(this).find('#entriesHeader').data('title')).toString();
         } else {
