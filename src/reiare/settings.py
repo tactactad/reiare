@@ -130,10 +130,10 @@ CACHE_BACKEND = 'db://django_reiare_cache'
 from reiare_settings import *
 
 if DEBUG:
-    import logging
-    logging.basicConfig(
-        level = logging.DEBUG,
-        format = '%(asctime)s %(levelname)s %(message)s',)
+    # import logging
+    # logging.basicConfig(
+    #     level = logging.DEBUG,
+    #     format = '%(asctime)s %(levelname)s %(message)s',)
         # filename = '/tmp/reiare.log',
         # filemode = 'w')
 
