@@ -430,7 +430,6 @@ def mobile_index(request, page=1):
                               {'object_list': objects,
                                'tag_list': tags,
                                'paginator': paginator,
-                               'unenable_home_button': True,
                                'is_home': True},
                               context_instance=RequestContext(request))
 
@@ -438,7 +437,7 @@ def mobile_index(request, page=1):
 def mobile_detail(request, year, month, day, slug):
     entries = entries_from_slug(year, month, day, slug)
     return render_to_response('2.0/mobile/mobile_detail.html',
-                              {'object': entries[0]},
+                              {'object': entries[0],},
                               context_instance=RequestContext(request))
 
 
