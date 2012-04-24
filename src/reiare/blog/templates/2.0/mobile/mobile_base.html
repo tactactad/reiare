@@ -22,8 +22,9 @@
   </script>
 </head>
 <body>
-  <div data-role="page" data-back-btn-text="ばっく" data-theme="b" data-header-theme="b" data-content-theme="c" data-footer-theme="b" data-add-back-btn="true">
+  <div data-role="page" data-back-btn-text="ばっく" data-theme="b" data-header-theme="b" data-content-theme="c" data-footer-theme="b">
   <div data-role="header"><h1>{{ BLOG_TITLE }}{% block header_title %}{% endblock %}</h1>
+    {% if not unenable_home_button %}<a href="/blog/mobile/" rel="external" data-icon="home" data-iconpos="notext" data-direction="reverse" class="ui-btn-left jqm-home">ほーむ</a>{% endif %}
   </div>
   <div data-role="content">
     {% block content %}{% endblock %}
