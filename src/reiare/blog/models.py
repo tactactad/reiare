@@ -339,7 +339,7 @@ class Entry(models.Model):
     def display_created(self):
         """
         >>> Entry.published_objects.get(slug='slug').display_created()
-        u'2010/11/5 (Fri) p.m.05:07'
+        u'2010/11/5 (\u91d1) p.m.05:07'
         """
         return defaultfilters.date(self.created, "Y/n/j (D) ah:i")
 

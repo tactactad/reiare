@@ -5,21 +5,17 @@ import re
 
 from django.views.generic.list_detail import object_list
 from django.views.generic.date_based import object_detail
-from django.contrib.syndication.views import feed
 from django.shortcuts import render_to_response
 from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.template import RequestContext
 from django.conf import settings
 from django.db.models.query import Q
-#from django.views.decorators.cache import cache_page
 from django.core.cache import cache
-
+from django.core.mail import send_mail
 from django.utils.encoding import smart_str, smart_unicode
 
 from blog.models import Entry, Comment, EntryTag, EntryImage
 from blog.urls import feeds
-#from mail import send_mail
-from django.core.mail import send_mail
 from blog.forms import CommentForm, SearchForm
 from blog import lastfmaccess
 
