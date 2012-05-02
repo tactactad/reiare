@@ -1,0 +1,20 @@
+[
+    {
+        "pk": 1,
+        "model": "auth.user",
+        "fields": {
+            "username": "tac",
+            "first_name": "",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": true,
+            "is_staff": true,
+            "last_login": "2012-05-01T20:27:31",
+            "groups": [],
+            "user_permissions": [],
+            "password": "sha1$b5fc3$2f3eac36eec196419acbbcba85352b5a2ee6286c",
+            "email": "tac@web-ya.jp",
+            "date_joined": "2006-11-10T12:46:07"
+        }
+    }
+]
