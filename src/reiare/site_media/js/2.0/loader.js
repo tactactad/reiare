@@ -319,14 +319,12 @@ var ReiAreLoader = function() {
     };
 
     this.randomRotateImage = function(box) {
-        if (!this.isIE) {
-            $.each(box.find('img'), function() {
-                var deg = Math.random() * 3 - 1.5;
-                var s = new StringBuffer('rotate(').append(deg).append('deg)').toString();
-                $(this).css("transform", s).
-                    css("-webkit-transform", s).css("-moz-transform", s);
-            });
-        }
+        $.each(box.find('img'), function() {
+            var deg = Math.random() * 3 - 1.5;
+            var s = new StringBuffer('rotate(').append(deg).append('deg)').toString();
+            $(this).css("transform", s).
+                css("-webkit-transform", s).css("-moz-transform", s).css("-ms-transform", s);
+        });
     };
 
     this.showIncludeEntries = function(box) {
