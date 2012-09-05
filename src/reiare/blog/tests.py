@@ -47,7 +47,7 @@ class ReiareExtrasTestCase(TestCase):
 
 
 class BlogTagExtrasTestCase(TestCase):
-    fixtures = ['entryTag.json', 'entry.json']
+    fixtures = ['entryTag.json', 'entry.json', 'user.json']
 
     def setUp(self):
         pass
@@ -69,7 +69,7 @@ class BlogTagExtrasTestCase(TestCase):
 
 
 class ApiTestCase(TestCase):
-    fixtures = ['entry.json', 'entryTag.json', 'entryArchive.json']
+    fixtures = ['entry.json', 'entryTag.json', 'entryArchive.json', 'user.json']
 
     def setUp(self):
         self.entries = Entry.objects.all()
