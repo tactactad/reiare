@@ -10,7 +10,7 @@ from django.http import Http404, HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.utils import simplejson
-from django.utils.simplejson import encoder
+#from django.utils.simplejson import encoder
 from django.views.decorators.cache import cache_page
 from django.views.generic.dates import MonthArchiveView
 
