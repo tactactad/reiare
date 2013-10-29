@@ -3,8 +3,10 @@ import datetime, time, urllib, re
 from xml.etree import ElementTree
 import re
 
-from django.views.generic.list_detail import object_list
-from django.views.generic.date_based import object_detail
+# from django.views.generic.list_detail import object_list
+# from django.views.generic.date_based import object_detail
+# from django.views.generic.list import ListView
+# from django.views.generic.dates import DateDetailView
 from django.shortcuts import render_to_response
 from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.template import RequestContext
