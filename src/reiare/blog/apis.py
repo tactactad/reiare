@@ -10,7 +10,7 @@ from django.http import Http404, HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.utils import simplejson
-from django.utils.simplejson import encoder
+#from django.utils.simplejson import encoder
 from django.views.decorators.cache import cache_page
 from django.views.generic.dates import MonthArchiveView
 
@@ -136,8 +136,8 @@ def paginator_from_objects_and_num_and_page(objects, num, page):
              'has_other_pages': data.has_other_pages(),
              'has_next': data.has_next(),
              'has_previous': data.has_previous(),
-             'next_page_number': data.next_page_number(),
-             'previous_page_number': data.previous_page_number(),
+             'next_page_number': data.next_page_number() if data.has_next() else 1,
+             'previous_page_number': data.previous_page_number() if data.has_previous() > 1 else 1,
              'per_page': num},
             data.object_list)
 
