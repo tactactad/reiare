@@ -15,18 +15,8 @@ feeds = {
 }
 
 urlpatterns = patterns('blog.views',
-    (r'^1.0/tag/(?P<tag>.*)/$', 'tag_list'),
-    (r'^1.0/(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>.*)/$', 'detail'),
-    (r'^asin2asamashi/(?P<associate_tag>.*)/(?P<asins>.*)/$', 'asin2asamashi'),
-    (r'^body/(?P<object_id>\d+)/$', 'get_body'),
     (r'^recent_entries/(?P<page_num>\d+)/$', 'get_recent_entries'),
     (r'^more_entries/(?P<page_num>\d+)/$', 'get_more_entries'),
-    (r'^touch/$', 'get_iui_page'),
-    (r'^touch/more_entries/(?P<page_num>\d+)/$', 'get_iui_more_entries'),
-    (r'^touch/(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/(?P<slug>.*)/$', 'get_iui_entry'),
-    (r'^touch/tag/(?P<tag>.*)/more_entries/(?P<page_num>\d+)/$', 'get_iui_more_entries_by_tag'),
-    (r'^touch/tag/(?P<tag>.*)/$', 'get_iui_entries_by_tag'),
-    (r'^touch/tag/(?P<tag>.*)/(?P<page_num>\d+)/$', 'get_iui_entries_by_tag'),
 )
 
 urlpatterns += patterns('',
