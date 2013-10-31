@@ -147,8 +147,6 @@ class EntryTag(models.Model):
     '/blog/tag/test/'
     >>> object.get_feeds_url()
     u'/blog/feeds_ad/tag/test/'
-    >>> object.get_touch_url()
-    '/blog/touch/tag/test/'
 
     >>> object.mobile_url()
     '/blog/mobile/tag/test/'
@@ -229,10 +227,8 @@ class Entry(models.Model):
     >>> object = Entry.published_objects.get(slug='slug')
     >>> object.get_absolute_url()
     '/blog/2010/11/05/slug/'
-    >>> object.get_touch_url()
-    '/blog/touch/2010/11/05/slug/'
     >>> object.json_url()
-    '/blog/api/entry/2.json'
+    '/blog/api/entry/1.json'
     >>> object.ajax_url()
     u'/blog/#!/blog/2010/11/05/slug/'
     """
@@ -325,7 +321,7 @@ class Entry(models.Model):
     def self_id(self):
         """
         >>> Entry.published_objects.get(slug='slug').self_id()
-        2
+        1
         """
         return self.id
 
